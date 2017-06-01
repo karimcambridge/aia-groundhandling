@@ -53,7 +53,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-              <li id="navBrand"><a href="viewcargo.php"> <b>view cargo  </b><i class="glyphicon glyphicon-search "></i></a></li>
+              <li id="navBrand"><a href="viewcargo.php"> <b>View cargo  </b><i class="glyphicon glyphicon-search "></i></a></li>
             <li><a href="#"></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Enter cargo <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>

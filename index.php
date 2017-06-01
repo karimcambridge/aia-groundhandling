@@ -4,7 +4,7 @@ require_once 'php_action/db_connect.php';
 session_start();
 
 if(isset($_SESSION['userId'])) {
-header('location: http://127.00.1/groundopps/dashboard.php');
+	header('location: http://127.00.1/groundopps/dashboard.php');
 	//header('location: http://localhost:9080/groundopps/dashboard.php');
 }
 
@@ -47,7 +47,7 @@ if($_POST) {
 				$errors[] = "Incorrect username/password combination";
 			} // /else
 		} else {
-			$errors[] = "Username doesnot exists";
+			$errors[] = "Username does not exists";
 		} // /else
 	} // /else not empty username // password
 

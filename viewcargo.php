@@ -13,48 +13,39 @@
   <div class="panel-body">
     <div class="div-action pull pull-right"style="padding-bottom:20px;">
 	 </div><!-- /div-action -->
-  
+	 	<?php
+	 		$mainSql = "SELECT `Airbill`, `STATUS`, `Carrier`, `Datein`, `dateout` FROM `aircargo`";
+			$mainResult = $connect->query($mainSql);
+  		?>
 		<table class="table" id="CALCARGO">
 			<thead>
 				<tr>
 					<th>Air Bill #</th>
 					<th>Carrier</th>
-					<th>satus</th>
-					<th>date recived</th>
-					<th>days in cargo </th>
-					<th>Date collected </th>
+					<th>Status</th>
+					<th>Date received</th>
+					<th>Days in cargo</th>
+					<th>Date collected</th>
 					<th>COST</th>
-				
 				</tr>
-			
-			
+				<?php 
+					while($row = $mainResult->fetch_assoc())
+					{
+						echo "<tr>";
+
+						echo "<td>" . $row['Airbill'] . "</td>";
+						echo "<td>" . $row['STATUS'] . "</td>";
+						echo "<td>" . $row['Carrier'] . "</td>";
+						echo "<td>" . $row['Datein'] . "</td>";
+						echo "<td>" . $row['dateout'] . "</td>";
+
+						echo "</tr>";
+					}
+				?>
 			</thead>
-		
-		
-		
-		 
-		
-		
-		
+			
 		</table>
-  
   </div>
 </div>
 
-	</div> <!--/col-mid-12 -->
-</div> <!--/ row -->
-				
-					
-	<div class="form-group">
-    
-  
-
-     </div>
-     
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-	
-	
 <?php require_once 'includes/footer.php';?>
-	

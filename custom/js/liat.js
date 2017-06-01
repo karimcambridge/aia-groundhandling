@@ -6,6 +6,4 @@
 		
 		//manage cargo table 
 		manageliatcargotable =$("manageliatcargotable").DataTable();
-		
-		
 	});
