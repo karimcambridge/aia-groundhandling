@@ -19,7 +19,10 @@
 			</div>
 			<div class="panel-body">
 			    <div class="form-group">
-				  <div class="checkbox">
+						<div class="checkbox">
+							<label></label>
+						</div>
+					<div class="checkbox">
 					  <label><input type="checkbox" value="">Payload Mover</label>
 				  </div>
 				  <div class="checkbox">
