@@ -4,7 +4,7 @@
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-					<STRONG> DHL Fees </STRONG>
+					<strong> DHL Fees </strong>
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">

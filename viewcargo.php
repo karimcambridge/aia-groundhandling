@@ -11,7 +11,7 @@
 	<div class="panel panel-default">
   <div class="panel-heading">Cargo </div>
   <div class="panel-body">
-    <div class="div-action pull pull-right"style="padding-bottom:20px;">
+    <div class="div-action pull pull-right" style="padding-bottom:20px;">
 	 </div><!-- /div-action -->
 	 	<?php
 	 		$mainSql = "SELECT `Airbill`, `STATUS`, `Carrier`, `Datein`, `dateout` FROM `aircargo`";
@@ -29,8 +29,7 @@
 					<th>COST</th>
 				</tr>
 				<?php 
-					while($row = $mainResult->fetch_assoc())
-					{
+					while($row = $mainResult->fetch_assoc()) {
 						echo "<tr>";
 
 						echo "<td>" . $row['Airbill'] . "</td>";
@@ -41,6 +40,7 @@
 
 						echo "</tr>";
 					}
+					$mainResult->free();
 				?>
 			</thead>
 			

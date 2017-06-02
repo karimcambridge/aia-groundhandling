@@ -4,7 +4,7 @@
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-					<STRONG>
+					<strong>DHL Service</strong>
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
@@ -77,6 +77,5 @@
 
 </div>
 <script src="custom/js/report.js"></script>
-
 
 <?php require_once 'includes/footer.php'; ?>

@@ -6,52 +6,51 @@ session_start();
 if(isset($_SESSION['userId'])) {
 	header('location: http://127.00.1/groundopps/dashboard.php');
 	//header('location: http://localhost:9080/groundopps/dashboard.php');
-}
+	die();
+} else {
+	$errors = array();
 
-$errors = array();
+	if(!empty($_POST)) {
 
-if($_POST) {
+		$username = $_POST['username'];
+		$password = $_POST['password'];
 
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+		if(empty($username) || empty($password)) {
+			if($username == "") {
+				$errors[] = "Username is required";
+			}
 
-	if(empty($username) || empty($password)) {
-		if($username == "") {
-			$errors[] = "Username is required";
-		}
-
-		if($password == "") {
-			$errors[] = "Password is required";
-		}
-	} else {
-		$sql = "SELECT * FROM users WHERE username = '$username'";
-		$result = $connect->query($sql);
-
-		if($result->num_rows == 1) {
-			$password = $password;
-			//$password = md5($password); md5 encription not working in php my admin when fixed to be useed
-			// exists
-			$mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-			$mainResult = $connect->query($mainSql);
-
-			if($mainResult->num_rows == 1) {
-				$value = $mainResult->fetch_assoc();
-				$user_id = $value['user_id'];
-
-				// set session
-				$_SESSION['userId'] = $user_id;
-
-				//header('location: http://127.0.0.1/groundopps/dashboard.php');
-			} else{
-
-				$errors[] = "Incorrect username/password combination";
-			} // /else
+			if($password == "") {
+				$errors[] = "Password is required";
+			}
 		} else {
-			$errors[] = "Username does not exists";
-		} // /else
-	} // /else not empty username // password
+			$sql = "SELECT * FROM users WHERE username = '$username'";
+			$result = $connect->query($sql);
 
-} // /if $_POST
+			if($result->num_rows == 1) {
+				$password = $password;
+				//$password = md5($password); md5 encription not working in php my admin when fixed to be useed
+				// exists
+				$mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+				$mainResult = $connect->query($mainSql);
+
+				if($mainResult->num_rows == 1) {
+					$value = $mainResult->fetch_assoc();
+					$user_id = $value['user_id'];
+
+					// set session
+					$_SESSION['userId'] = $user_id;
+
+					//header('location: http://127.0.0.1/groundopps/dashboard.php');
+				} else{
+					$errors[] = "Incorrect username/password combination";
+				} // /else
+			} else {
+				$errors[] = "Username does not exists";
+			} // /else
+		} // /else not empty username // password
+	} // /if $_POST
+}
 ?>
 
 <!DOCTYPE html>
@@ -116,7 +115,7 @@ if($_POST) {
 									<div class="col-sm-offset-2 col-sm-10">
 									 <div class="checkbox">
 									<label>
-									<input type="checkbox"> Remmber me
+									<input type="checkbox" id="remember"> Remember me
 									</label>
 									</div>
 									  <button type="submit" class="btn btn-default"> <i class="glyphicon glyphicon-log-in"></i> Sign in</button>

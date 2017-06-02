@@ -20,7 +20,7 @@ $(document).ready(function() {
 		var brandName = $("#brandName").val();
 		var brandStatus = $("#brandStatus").val();
 
-		if(brandName == "") {
+		if(brandName === "") {
 			$("#brandName").after('<p class="text-danger">Brand Name field is required</p>');
 			$('#brandName').closest('.form-group').addClass('has-error');
 		} else {
@@ -29,3 +29,5 @@ $(document).ready(function() {
 			// success out for form 
 			$("#brandName").closest('.form-group').addClass('has-success');	  	
 		}
+	}
+}
