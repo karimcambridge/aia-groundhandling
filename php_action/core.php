@@ -2,7 +2,7 @@
 
 session_start();
 
-/*if(!$_SESSION['userId']){
+/*if(!isset($_SESSION['userId'])) {
 	header('location:http://localhost/groundopps/index.php');
 	die();
 }*/
