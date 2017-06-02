@@ -20,7 +20,7 @@
 				  <div class="form-group">
 				    <label for="startDate" class="col-sm-6 control-label">Air Bill</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="liatcargo" name="liatcargo" placeholder="Liatx123424523" />
+				      <input type="text" class="form-control" id="liatcargo" name="liatcargo" placeholder="Liatx123424523" autofocus />
 				    </div>
 				  </div>
 				 
