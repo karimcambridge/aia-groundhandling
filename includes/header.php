@@ -52,10 +52,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-              <li id="navBrand"><a href="viewcargo.php"> <strong>View cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
+              <li id="navBrand"><a href="viewcargo.php"> <strong>View Cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
             <li><a href="#"></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Enter cargo <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Enter Cargo <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="liat.php">Liat</a></li>
 				<li role="separator" class="divider"></li>
@@ -67,11 +67,11 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="cal.php">CAL</a></li>
               </ul>
-				<li id="navDashboard"><a href="checkoutcargo.php"> <strong>Check out cargo</strong> <i class="glyphicon glyphicon-plane "></i></a></li>
+				<li id="navDashboard"><a href="checkoutcargo.php"> <strong>Check Out Cargo</strong> <i class="glyphicon glyphicon-plane "></i></a></li>
 				
             </li>
 			 <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> CARGO Fees <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Cargo Fees <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="cargofees.php?cargoCompany=LIAT">Liat</a></li>
 				<li role="separator" class="divider"></li>
@@ -86,21 +86,7 @@
 				<li><a href="cargofees.php?cargoCompany=JETPACK">JetPack</a></li>
 
               </ul></li>
-			<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services Fees <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="servicefees.php?shippingCompany=LIAT">Liat</a></li>
-				<li role="separator" class="divider"></li>
-			   <li><a href="servicefees.php?shippingCompany=DHL">DHL</a></li>
-                <li role="separator" class="divider"></li>
-				<li><a href="servicefees.php?shippingCompany=FEDEX">Fedex</a></li>
-			   <li role="separator" class="divider"></li>
-                <li><a href="servicefees.php?shippingCompany=AMERIJET">Amerijet</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="servicefees.php?shippingCompany=CAL">CAL</a></li>
-				<li role="separator" class="divider"></li>
-                <li><a href="servicefees.php?shippingCompany=JETPACK">JetPack</a></li>
-              </ul></li>
+			        <li><a href="servicefees.php">Services Fees <i class="glyphicon glyphicon-usd"></i></a></li>
 			
           </ul>
           <ul class="nav navbar-nav navbar-right">
