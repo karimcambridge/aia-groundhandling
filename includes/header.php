@@ -8,10 +8,11 @@
 
     <!-- bootstrap-->
     <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
+
     <!-- bootstrap theme -->
     <link rel="stylesheet" href="assests/bootstrap/css/bootstrap-theme.min.css">
 
-    <!-- font aswome -->
+    <!-- font awesome -->
     <link rel="stylesheet" href="assests/font-awesome/css/font-awesome.min.css">
 
     <!--custom css -->
@@ -32,7 +33,6 @@
 
     <!--bootstrap js-->
     <script src="assests/bootstrap/js/bootstrap.min.js"></script>
-
 
   </head>
   <body>
