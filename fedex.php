@@ -6,7 +6,7 @@
 <div calss="row">  
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Home</a></li>
-  <li class="active"><strong>Fexex cargo</li>
+  <li class="active"><strong>Fexex cargo</strong></li>
 </ol>
 
 </div>

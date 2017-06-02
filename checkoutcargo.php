@@ -1,14 +1,10 @@
 <?php require_once 'includes/header.php'; ?>
-	
 
-
-
-</div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<i class="glyphicon glyphicon-check"></i>	Cargo Checkout
+				<i class="glyphicon glyphicon-check"></i> Cargo Checkout
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
@@ -27,14 +23,10 @@
 				    </div>
 				  </div>
 				</form>
-
 			</div>
 			<!-- /panel-body -->
 		</div>
 	</div>
-<div class="panel-body">
-<div class="col-md-12">
-	
-	
-	<script type="text/javascript"src="custom/js/liat.js"
+
+<script type="text/javascript" src="custom/js/liat.js"></script>
 <?php require_once 'includes/footer.php';?>

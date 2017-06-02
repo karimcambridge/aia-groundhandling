@@ -1,28 +1,26 @@
 <?php
 
 require_once 'core.php';
-$Amerijet='Amrijet';
+
+$amerijet = 'Amerijet';
 $valid['success'] =array('seccess' => false, 'messages' =>array());
 
-if($_POST){
+if($_POST) {
+	$amerijetcargo = $_POST['liatcargo'];
 
-	$Amerijet= $_POST['liatcargo'];
+	$sql = "INSERT INTO aircargo (`Airbill`, `Carrier`) VALUES ('$liatcargo','$liat')";
 
-$sql = "INSERT INTO aircargo (Airbill,Carrier ) VALUES ('$liatcargo','$liat')";
+	if($connect->query($sql) == true){
+		$valid['success'] = true;
+		$valid['messages'] = "Successfully Added";
+	} else {
+		$valid['success'] = false;
+		$valid['messages'] ="ERROR WHILE ADDING CARGO";
+	}
+	$connect->close();
 
-if($connect->query($sql) == TRUE){
-			$valid['success'] = true;
-		    $valid['messges'] = "Successfully Added";
-		}else{
-			$valid['success'] = false;
-			$valid['messages'] ="ERROR  WHILE ADDING CARGO";
-		}
-$connect->close();
-
-echo json_encode($valid);
+	echo json_encode($valid);
 
 }//  / if $post
-
-
 
 ?>

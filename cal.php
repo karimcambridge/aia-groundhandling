@@ -3,7 +3,7 @@
 <div calss="row">  
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Home</a></li>
-  <li class="active"><strong>Caribbean Airlines cargo</li>
+  <li class="active"><strong>Caribbean Airlines cargo</strong></li>
 </ol>
 
 </div>

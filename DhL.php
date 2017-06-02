@@ -3,7 +3,7 @@
 <div calss="row">  
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Home</a></li>
-  <li class="active"><strong>DHL cargo</li>
+  <li class="active"><strong>DHL cargo</strong></li>
 </ol>
 
 </div>
@@ -35,8 +35,7 @@
 			<!-- /panel-body -->
 		</div>
 	</div>
-	
-	
-	<script type="text/javascript"src="custom/js/liat.js"
+
+<script type="text/javascript" src="custom/js/liat.js"></script>
 <?php require_once 'includes/footer.php';?>
 	

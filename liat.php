@@ -3,7 +3,7 @@
 <div calss="row">  
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Home</a></li>
-  <li class="active"><strong>Liat cargo</li>
+  <li class="active"><strong>Liat cargo</strong></li>
 </ol>
 
 </div>
