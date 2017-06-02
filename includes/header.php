@@ -52,7 +52,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-              <li id="navBrand"><a href="viewcargo.php"> <b>View cargo  </b><i class="glyphicon glyphicon-search "></i></a></li>
+              <li id="navBrand"><a href="viewcargo.php"> <strong>View cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
             <li><a href="#"></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Enter cargo <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
@@ -67,44 +67,44 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="cal.php">CAL</a></li>
               </ul>
-				<li id="navDashboard"><a href="checkoutcargo.php"> <b>Check out cargo</b><i class="glyphicon glyphicon-plane "></i></a></li>
+				<li id="navDashboard"><a href="checkoutcargo.php"> <strong>Check out cargo</strong> <i class="glyphicon glyphicon-plane "></i></a></li>
 				
             </li>
 			 <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> CARGO Fees <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="liatfee.php">Liat</a></li>
+                <li><a href="cargofees.php?cargoCompany=LIAT">Liat</a></li>
 				<li role="separator" class="divider"></li>
-			   <li><a href="DhLfees.php">DHL</a></li>
+			   <li><a href="cargofees.php?cargoCompany=DHL">DHL</a></li>
                 <li role="separator" class="divider"></li>
-				<li><a href="fedexfees.php">Fedex</a></li>
+				<li><a href="cargofees.php?cargoCompany=FEDEX">Fedex</a></li>
 			   <li role="separator" class="divider"></li>
-                <li><a href="ameri_jetfees.php">Ameri Jet</a></li>
+                <li><a href="cargofees.php?cargoCompany=AMERIJET">Amerijet</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="calfees.php">CAL</a></li>
+                <li><a href="cargofees.php?cargoCompany=CAL">CAL</a></li>
 				<li role="separator" class="divider"></li>
-				<li><a href="jetpackfees.php">JETPACK</a></li>
+				<li><a href="cargofees.php?cargoCompany=JETPACK">JetPack</a></li>
 
               </ul></li>
 			<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services Fees <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="liatservice.php">Liat</a></li>
+                <li><a href="servicefees.php?shippingCompany=LIAT">Liat</a></li>
 				<li role="separator" class="divider"></li>
-			   <li><a href="DhLservice.php">DHL</a></li>
+			   <li><a href="servicefees.php?shippingCompany=DHL">DHL</a></li>
                 <li role="separator" class="divider"></li>
-				<li><a href="fedexservice.php">Fedex</a></li>
+				<li><a href="servicefees.php?shippingCompany=FEDEX">Fedex</a></li>
 			   <li role="separator" class="divider"></li>
-                <li><a href="ameri_jetservice.php">Ameri Jet</a></li>
+                <li><a href="servicefees.php?shippingCompany=AMERIJET">Amerijet</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="calservice.php">CAL</a></li>
+                <li><a href="servicefees.php?shippingCompany=CAL">CAL</a></li>
 				<li role="separator" class="divider"></li>
-                <li><a href="jetpakservice.php">JETPACK</a></li>
+                <li><a href="servicefees.php?shippingCompany=JETPACK">JetPack</a></li>
               </ul></li>
 			
           </ul>
           <ul class="nav navbar-nav navbar-right">
-			<li id="navDashboard"><a href="report.php"> <b>Reports</b><i class="glyphicon glyphicon-folder-open "></i></a></li>
+			<li id="navDashboard"><a href="report.php"> <strong>Reports</strong><i class="glyphicon glyphicon-folder-open "></i></a></li>
 			<li id="navDashboard"><a href="index.php"><i class="glyphicon glyphicon-home "></i></a></li>
 		  <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i><span class="caret"></span></a>
