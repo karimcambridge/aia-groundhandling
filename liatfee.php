@@ -11,15 +11,15 @@
 				<table>
 				<form class="form-inline" action="" method="post" id="">
 				  <div class="form-group">
-				    <label for="startDate" class="col-sm- control-label">Import weight </label>
+				    <label for="startDate" class="col-sm- control-label ">Import weight </label>
 				    <div class="col-sm-12">
-				      <input type="text" class="form-control" id="startDate" name="startDate" placeholder="45Kg" autofocus />
+				      <input type="text" class="form-control" id="Importweight" name="Importweight" placeholder="45Kg" autofocus />
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label for="endDate" class="col-sm-1 control-label">Export Weight</label>
 				    <div class="col-sm-12">
-				      <input type="text" class="form-control" id="endDate" name="endDate" placeholder="75KG" />
+				      <input type="text" class="form-control" id="exportweight" name="exportweight" placeholder="75KG" />
 				    </div>
 				  </div>
 				  <div class="form-group">
