@@ -2,14 +2,9 @@
 
 session_start();
 
-require_once 'db_connect.php';
-
-//echo $_SESSION['userID'];
-
-/*if(!$_SESSION['userID']){
-	
+/*if(!$_SESSION['userId']){
 	header('location:http://localhost/groundopps/index.php');
-	
+}*/
 
-*/
+require_once 'db_connect.php';
 ?>
