@@ -59,7 +59,7 @@
               <ul class="dropdown-menu">
                 <li><a href="liat.php">Liat</a></li>
 				<li role="separator" class="divider"></li>
-			   <li><a href="DhL.php">DhL</a></li>
+			   <li><a href="DhL.php">DHL</a></li>
                 <li role="separator" class="divider"></li>
 				<li><a href="fedex.php">Fedex</a></li>
 			   <li role="separator" class="divider"></li>
@@ -75,7 +75,7 @@
               <ul class="dropdown-menu">
                 <li><a href="liatfee.php">Liat</a></li>
 				<li role="separator" class="divider"></li>
-			   <li><a href="DhLfees.php">DhL</a></li>
+			   <li><a href="DhLfees.php">DHL</a></li>
                 <li role="separator" class="divider"></li>
 				<li><a href="fedexfees.php">Fedex</a></li>
 			   <li role="separator" class="divider"></li>
@@ -91,7 +91,7 @@
               <ul class="dropdown-menu">
                 <li><a href="liatservice.php">Liat</a></li>
 				<li role="separator" class="divider"></li>
-			   <li><a href="DhLservice.php">DhL</a></li>
+			   <li><a href="DhLservice.php">DHL</a></li>
                 <li role="separator" class="divider"></li>
 				<li><a href="fedexservice.php">Fedex</a></li>
 			   <li role="separator" class="divider"></li>

@@ -6,7 +6,7 @@
 <div calss="row">  
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Home</a></li>
-  <li class="active"><strong>Liat cargo</li>
+  <li class="active"><strong>Fexex cargo</li>
 </ol>
 
 </div>
@@ -14,12 +14,12 @@
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<i class="glyphicon glyphicon-check"></i>	Cargo
+				<i class="glyphicon glyphicon-check"></i> Cargo
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
 				
-				<form class="form-inline"id="submitliatform" action="php_action\creat_liat_cargo.php" method="post" >
+				<form class="form-inline" id="submitliatform" action="php_action\creat_liat_cargo.php" method="post" >
 				  <div class="form-group">
 				    <label for="startDate" class="col-sm-6 control-label">Air Bill</label>
 				    <div class="col-sm-10">
