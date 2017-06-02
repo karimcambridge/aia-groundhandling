@@ -12,7 +12,7 @@
 				<form class="form-inline" action="" method="post" id="">
 				  <div class="form-group">
 				    <label class="col-sm-1 control-label">Aircraft Weight</label>
-				    <div class="col-xs-12 col-sm-6 col-md-3">
+				    <div class="col-xs-12 col-sm-6 ">
 				      <input type="text" class="form-control" id="" name="" placeholder="1000 KG" autofocus />
 				    </div>
 				  </div>
@@ -24,6 +24,7 @@
 						</div>
 					<div class="checkbox">
 					  <label><input type="checkbox" value="">Payload Mover</label>
+ 						<label></label> <label></label> <label><input type="checkbox" value="">Payload Mover</label>
 				  </div>
 				  <div class="checkbox">
 					  <label><input type="checkbox" value="">Highlift Loader</label>
