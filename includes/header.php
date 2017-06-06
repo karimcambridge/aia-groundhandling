@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>GroundOPS System</title>
+    <title>AIA Ground Ops</title>
 
     <!-- bootstrap-->
     <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
@@ -40,14 +40,14 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">GroundOPS</a>
+          <a class="navbar-brand" href="index.php">Ground Operations</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li><a href="index.php"><span class="glyphicon glyphicon-home "></span></a></li>
-            <li><a href="cargoinventory.php"><strong>View Cargo </strong><span class="glyphicon glyphicon-search "></span></a></li>
+            <li><a href="cargoinventory.php">Cargo Inventory <span class="glyphicon glyphicon-search "></span></a></li>
             <li><a href="cargoentry.php">Airbill Entry <span class="glyphicon glyphicon-briefcase"></span></a></li>
 				    <li><a href="checkoutcargo.php">Check Out Cargo <span class="glyphicon glyphicon-plane"></span></a></li>
             <li><a href="cargofees.php">Cargo Fees <span class="glyphicon glyphicon-eur"></span></a></li>

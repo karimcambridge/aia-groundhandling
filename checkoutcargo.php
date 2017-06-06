@@ -23,7 +23,7 @@
 			    </div>
 			    <div class="form-group">
 			      <div class="col-sm-offset-2 col-sm-10">
-			        <button type="submit" class="btn btn-info"><span class="createCALCARGObtn" data-loading-text="loading..."><span/>Search</button>
+			        <button type="submit" class="btn btn-info"><span class="createCALCARGObtn" data-loading-text="loading..."></span>Search</button>
 			      </div>
 			    </div>
 			  </form>
@@ -31,6 +31,6 @@
 			<!-- /panel-body -->
 		</div>
 	</div>
+</div>
 
-<script type="text/javascript" src="custom/js/liat.js"></script>
 <?php require_once 'includes/footer.php';?>

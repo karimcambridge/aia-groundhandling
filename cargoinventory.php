@@ -1,8 +1,16 @@
 <?php require_once 'includes/header.php'; ?>
 
 <?php
-	$mainSql = "SELECT `Airbill`, `STATUS`, `Carrier`, `Datein`, `dateout` FROM `aircargo`";
-	$mainResult = $connect->query($mainSql);
+  require_once 'includes/paginator.php';
+
+  $limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 10;
+  $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
+  $links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 15;
+  $query      = "SELECT `Airbill`, `STATUS`, `Carrier`, `Datein`, `dateout` FROM `aircargo`";
+ 
+  $Paginator  = new Paginator( $connectionHandle, $query );
+ 
+  $results    = $Paginator->getData( $limit, $page );
 ?>
 
 <div class="row">
@@ -29,21 +37,26 @@
       	  	</thead>
       	  	<tbody>
       	  		<?php
-      	  			while($row = $mainResult->fetch_assoc()) {
-      	  				echo "<tr>";
-    
-      	  				echo "<td>" . $row['Airbill'] . "</td>";
-      	  				echo "<td>" . $row['STATUS'] . "</td>";
-      	  				echo "<td>" . $row['Carrier'] . "</td>";
-      	  				echo "<td>" . $row['Datein'] . "</td>";
-      	  				echo "<td>" . $row['dateout'] . "</td>";
-    
-      	  				echo "</tr>";
-      	  			}
-      	  			$mainResult->free();
+                if(isset($results) == true) {
+      	  		 	 for( $i = 0; $i < count( $results->data ); $i++ ) {
+      	  		 	 	echo "<tr>";
+
+      	  		 	 	echo "<td>" . $results->data[$i]['Airbill'] . "</td>";
+      	  		 	 	echo "<td>" . $results->data[$i]['STATUS'] . "</td>";
+      	  		 	 	echo "<td>" . $results->data[$i]['Carrier'] . "</td>";
+      	  		 	 	echo "<td>" . $results->data[$i]['Datein'] . "</td>";
+      	  		 	 	echo "<td>" . $results->data[$i]['dateout'] . "</td>";
+
+      	  		 	 	echo "</tr>";
+      	  		 	 }
+                }
       	  		?>
       	  	</tbody>
+
       	  </table>
+          <div class="text-center">
+            <?php echo $Paginator->createLinks( $links, 'pagination pagination-sm' ); ?>
+          </div>
       	</div>
       </div>
     </div>
