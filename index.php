@@ -25,14 +25,14 @@ if(isset($_SESSION['userId'])) {
 			}
 		} else {
 			$sql = "SELECT * FROM users WHERE username = '$username'";
-			$result = $connect->query($sql);
+			$result = $connectionHandle->query($sql);
 
 			if($result->num_rows == 1) {
 				$password = $password;
 				//$password = md5($password); md5 encription not working in php my admin when fixed to be useed
 				// exists
 				$mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-				$mainResult = $connect->query($mainSql);
+				$mainResult = $connectionHandle->query($mainSql);
 
 				if($mainResult->num_rows == 1) {
 					$value = $mainResult->fetch_assoc();

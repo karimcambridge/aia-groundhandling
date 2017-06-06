@@ -32,7 +32,7 @@
 				  <div class="form-group">
 				    <label class="col-sm-6 control-label">Air Bill</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="cargoairbill" placeholder="Liatx123424523" autofocus />
+				      <input type="text" class="form-control" id="cargoairbill" placeholder="Liatx123424523" required autofocus />
 				    </div>
 				  </div>
 				  <div class="form-group">

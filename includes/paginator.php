@@ -12,9 +12,8 @@
       $this->_conn = $conn;
       $this->_query = $query;
    
-      $rs= $this->_conn->query( $this->_query );
+      $rs = $this->_conn->query( $this->_query );
       $this->_total = $rs->num_rows;
-       
     }
     public function getData( $limit = 10, $page = 1 ) {
        
