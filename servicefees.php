@@ -30,8 +30,8 @@
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Aircraft Type</label>
 			    <select id="aircraftType" required>
+			        <option value="widebody">Wide Body</option>
 			        <option value="narrowbody">Narrow Body</option>
-			        <option value="widebody" default>Wide Body</option>
 			    </select>
 			  <div class="clearfix"></div>
 			  <div class="table-responsive col-md-3">
@@ -181,7 +181,7 @@
 			  <div class="text-center">
 			    <button type="button" class="btn btn-info top-buffer" onclick="onCalculateServiceFees()" /><i class="glyphicon glyphicon-ok-sign"></i> Calculate Fees</button>
 			  </div>
-			  <div class="servicefeeout text-center">LOL</div>
+			  <div class="servicefeeout text-center">TEST</div>
 			</div>
 			<!-- /panel-body -->
 		</div>

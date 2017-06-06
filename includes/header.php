@@ -59,7 +59,7 @@
               <ul class="dropdown-menu">
                 <li><a href="liat.php">Liat</a></li>
 				<li role="separator" class="divider"></li>
-			   <li><a href="DhL.php">DHL</a></li>
+			   <li><a href="DHL.php">DHL</a></li>
                 <li role="separator" class="divider"></li>
 				<li><a href="fedex.php">Fedex</a></li>
 			   <li role="separator" class="divider"></li>
