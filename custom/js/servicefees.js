@@ -132,7 +132,7 @@ function onCalculateServiceFees() {
 	if(aircraftTotalFee > 0) {
 		var servicefeeout = document.getElementById('servicefeeout');
 		if(servicefeeout != null) {
-			servicefeeout.innerHTML = "Total Service Fee: <font color='red'>" + aircraftTotalFee.toFixed(2) + "</font>";
+			servicefeeout.innerHTML = "Total Service Fee: <font color='red'>$" + aircraftTotalFee.toFixed(2) + "</font>";
 		}
 	}
 }

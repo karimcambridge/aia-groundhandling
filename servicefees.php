@@ -18,7 +18,14 @@
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Owner / Carrier</label>
 			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-			      <input type="text" class="form-control" id="aircraftCarrier" required />
+			      <select class="form-control" id="aircraftType" required>
+			        <option value="liat">LIAT</option>
+			        <option value="cal">CAL</option>
+			        <option value="dhl">DHL</option>
+			        <option value="fedex">Fedex</option>
+			        <option value="amerijet">AmeriJet</option>
+			        <option value="jetpack">JetPack</option>
+			      </select>
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Unscheduled?</label>
 			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 checkbox">
