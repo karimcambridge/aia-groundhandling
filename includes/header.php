@@ -54,7 +54,6 @@
           <ul class="nav navbar-nav">
           <li id="navDashboard"><a href="index.php"><i class="glyphicon glyphicon-home "></i></a></li>
             <li id="navBrand"><a href="viewcargo.php"> <strong>View Cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
-            <li><a href="#"></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Enter Cargo <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
               <ul class="dropdown-menu">
