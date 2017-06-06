@@ -1,10 +1,21 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
-## version 4.4.0 (_under development_)
+## version 4.4.1
 
-**Date:** 11-May-2017
+**Date:** 25-May-2017
 
+- (enh #980): Add new method `getFrames` to get all thumbnail frames as jQuery objects.
+- (enh #979): Add new method `getExif` to retrieve exif data for a selected jpeg image.
+- (enh #978, #974): Implement exif restoration for resized images via [`piexif` plugin](https://github.com/hMatoba/piexifjs).
+- (enh #968): Update Turkish Translations.
+- (enh #967): Correct file caption display for ajax upload mode when `showPreview` is `false`.
+
+## version 4.4.0
+
+**Date:** 13-May-2017
+
+- (enh #966): Add Estonian Translations.
 - (enh #965): New `required` and `msgFileRequired` properties.
 - (bug #958): Create `setTokens` string helper for easier replacement of tokens.
 - (bug #956): Correct initial preview file thumb deletions.
