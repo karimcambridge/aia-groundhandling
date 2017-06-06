@@ -8,7 +8,7 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 					<strong> Aircraft Carrier Service Fees </strong>
 			</div>
@@ -192,7 +192,7 @@
 			  </div>
 			  <div class="clearfix"></div>
 			  <div class="text-center">
-			    <button type="button" class="btn btn-info top-buffer" onclick="onCalculateServiceFees()" /><i class="glyphicon glyphicon-ok-sign"></i> Calculate Fees</button>
+			    <button type="button" class="btn btn-info top-buffer" onclick="onCalculateServiceFees()" /><span class="glyphicon glyphicon-ok-sign"></span> Calculate Fees</button>
 			  </div>
 			  <div class="servicefeeout text-center" id="servicefeeout"></div>
 			</div>

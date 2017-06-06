@@ -9,7 +9,7 @@
 		  <li class="active">Brand</li>
 		</ol>
 
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Manage Brand</div>
 			</div> <!-- /panel-heading -->

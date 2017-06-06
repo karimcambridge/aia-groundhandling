@@ -8,15 +8,15 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
-					<strong>Cargo Fees</strong>
+				<strong>Cargo Fees</strong>
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
 			  <table>
 				<form class="form-inline" method="post" id="cargoFees">
-			      <div class="form-group">
+				  <div class="form-group">
 				    <label class="col-xs-1 col-sm-1 control-label">Owner / Carrier </label>
 				    <div class="col-xs-1 col-sm-12">
 				      <select class="form-control" id="aircraftType" required>
@@ -27,12 +27,6 @@
 				        <option value="amerijet">AmeriJet</option>
 				        <option value="jetpack">JetPack</option>
 				      </select>
-				    </div>
-				  </div>
-			      <div class="form-group">
-				    <label class="col-xs-1 col-sm-1 control-label">Import weight </label>
-				    <div class="col-xs-1 col-sm-12">
-				      <input type="text" class="form-control" id="Importweight" name="Importweight" placeholder="45Kg" autofocus />
 				    </div>
 				  </div>
 				  <div class="form-group">
@@ -89,7 +83,7 @@
 				  <div class="clearfix"></div>
 				  <div class="form-group">
 				    <div class="text-center">
-				      <button type="submit" class="btn btn-info top-buffer" id="generateReportBtn"><i class="glyphicon glyphicon-ok-sign"></i> Calculate Fees</button>
+				      <button type="submit" class="btn btn-info top-buffer" id="generateReportBtn"><span class="glyphicon glyphicon-ok-sign"></span> Calculate Fees</button>
 				    </div>
 				  </div>
 				</form>

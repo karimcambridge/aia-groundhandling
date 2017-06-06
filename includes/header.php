@@ -40,33 +40,27 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="index.php">GroundOPS</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="index.php"><i class="glyphicon glyphicon-home "></i></a></li>
-            <li><a href="viewcargo.php"><strong>View Cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
-            <li><a href="cargoentry.php">Airbill Entry <i class="glyphicon glyphicon-briefcase"></i></a></li>
-				    <li><a href="checkoutcargo.php">Check Out Cargo <i class="glyphicon glyphicon-plane"></i></a></li>
-            <li><a href="cargofees.php">Cargo Fees <i class="glyphicon glyphicon-briefcase"></i></a></li>
-			      <li><a href="servicefees.php">Services Fees <i class="glyphicon glyphicon-usd"></i></a></li>
+            <li><a href="index.php"><span class="glyphicon glyphicon-home "></span></a></li>
+            <li><a href="viewcargo.php"><strong>View Cargo </strong><span class="glyphicon glyphicon-search "></span></a></li>
+            <li><a href="cargoentry.php">Airbill Entry <span class="glyphicon glyphicon-briefcase"></span></a></li>
+				    <li><a href="checkoutcargo.php">Check Out Cargo <span class="glyphicon glyphicon-plane"></span></a></li>
+            <li><a href="cargofees.php">Cargo Fees <span class="glyphicon glyphicon-eur"></span></a></li>
+			      <li><a href="servicefees.php">Services Fees <span class="glyphicon glyphicon-usd"></span></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-			     <li id="navDashboard"><a href="report.php"> <strong>Reports</strong> <i class="glyphicon glyphicon-folder-open "></i></a></li>
+			     <li id="navDashboard"><a href="report.php"><strong>Reports</strong> <span class="glyphicon glyphicon-folder-open"></span></a></li>
 		        <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i><span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li id="topNavlogout"><a href="logout.php">Logout   <i class="glyphicon glyphicon-log-out"></i></a></li>
+                <li id="topNavlogout"><a href="logout.php"><span class="glyphicon glyphicon-log-out"> Logout</span></a></li>
                 <li role="separator" class="divider"></li>
-                <li id="topNavsettings"><a href="settings.php">Settings   <i class="glyphicon glyphicon-wrench"></i></a></li>
+                <li id="topNavsettings"><a href="settings.php"><span class="glyphicon glyphicon-cog"> Settings</span></a></li>
               </ul>
             </li>
           </ul>

@@ -1,6 +1,6 @@
 <?php require_once 'includes/header.php'; ?>
 	
-<div calss="row">  
+<div calss="row">
 	<div calss="col-md-12">
 		<ol class="breadcrumb">
 			<li><a href="dashboard.php">Home</a></li>
@@ -8,7 +8,7 @@
 		</ol>
 
 	
-	<div class="panel panel-default">
+	<div class="panel panel-primary">
   <div class="panel-heading">Cargo </div>
   <div class="panel-body">
     <div class="div-action pull pull-right" style="padding-bottom:20px;">
@@ -28,7 +28,7 @@
 					<th>Date collected</th>
 					<th>COST</th>
 				</tr>
-				<?php 
+				<?php
 					while($row = $mainResult->fetch_assoc()) {
 						echo "<tr>";
 
