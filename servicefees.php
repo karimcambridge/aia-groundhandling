@@ -44,91 +44,91 @@
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Wheelchair<br><br></label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="quantityWheelchair" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityWheelchair" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="timeWheelchair" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeWheelchair" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Airbridge</label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="quantityAirbridge" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityAirbridge" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="timeAirbridge" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeAirbridge" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Highlift Loader</label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="quantityHL" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityHL" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="timeHL" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeHL" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">GPU<br><br></label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="GPUQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityGPU" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="GPUTime" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeGPU" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">ACU</label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="ACUQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityACU" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="ACUTime" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeACU" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Bge Belt</label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="BgeBeltQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityBgeBelt" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="BgeBeltTime" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeBgeBelt" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Bge cart/dolly</label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="BgeCartQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityBgeCart" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="BgeCartTime" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeBgeCart" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Tractor</label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="tractorQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityTractor" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="tractorTime" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeTractor" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Pax Stairs</label></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="paxStairsQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="quantityPaxStairs" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="paxStairsTime" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timePaxStairs" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 					<tr>
 						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">AC Mntx equipment</label></td>
-						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="ACMntxEquipmentQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+						<td><div class="col-xs-12 col-sm-s6 col-md-3 col-lg-3">
+					 		<input type="number" id="quantityACMntxEquipment" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="ACMntxEquipmentTime" min="0" max="24" value="0" onchange="onCalculateServiceFees()">
+					 		<input type="number" id="timeACMntxEquipment" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 						</div></td>
 					</tr>
 				</table>
@@ -142,45 +142,46 @@
 			      <tr>
 			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Turns<br></label></td>
 			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-			    	 	<input type="number" id="turnQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	 	<input type="number" id="quantityTurns" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 			    	</div></td>
 			      </tr>
 			      <tr>
 			      	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Payload Mover</label></td>
 			      	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-			      	 	<input type="number" id="payloadQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			      	 	<input type="number" id="quantityPayload" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 			      	</div></td>
 			      </tr>
 			      <tr>
 			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Towbar<br><br></label></td>
 			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-			    	 	<input type="number" id="towbarQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	 	<input type="number" id="quantityTowbar" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 			    	</div></td>
 			      </tr>
 			      <tr>
 			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">ASU</label></td>
 			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-			    	 	<input type="number" id="ASUQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	 	<input type="number" id="quantityASU" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 			    	</div></td>
 			      </tr>
 			      <tr>
 			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Sewage Charge</label></td>
 			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-			    	 	<input type="number" id="sewageQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	 	<input type="number" id="quantitySewage" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 			    	</div></td>
 			      </tr>
 			      <tr>
 			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Portable Water</label></td>
 			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-			    	 	<input type="number" id="portableWaterQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	 	<input type="number" id="quantityPortableWater" min="0" max="20" value="0" onchange="onCalculateServiceFees()" />
 			    	</div></td>
 			      </tr>
 			    </table>
 			  </div>
 			  <div class="clearfix"></div>
 			  <div class="text-center">
-			    <button type="button" class="btn btn-info top-buffer" onclick="onCalculateServiceFees()"><i class="glyphicon glyphicon-ok-sign"></i> Calculate Fees</button>
+			    <button type="button" class="btn btn-info top-buffer" onclick="onCalculateServiceFees()" /><i class="glyphicon glyphicon-ok-sign"></i> Calculate Fees</button>
 			  </div>
+			  <div class="servicefeeout text-center">TESTING</div>
 			</div>
 			<!-- /panel-body -->
 		</div>
@@ -189,7 +190,6 @@
 </div>
 <!-- /row -->
 
-<script src="custom/js/report.js"></script>
 <script src="custom/js/servicefees.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>

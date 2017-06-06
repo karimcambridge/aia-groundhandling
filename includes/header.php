@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>groundOPS system</title>
+    <title>GroundOPS System</title>
 
     <!-- bootstrap-->
     <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
@@ -52,7 +52,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-              <li id="navBrand"><a href="viewcargo.php"> <strong>View Cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
+          <li id="navDashboard"><a href="index.php"><i class="glyphicon glyphicon-home "></i></a></li>
+            <li id="navBrand"><a href="viewcargo.php"> <strong>View Cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
             <li><a href="#"></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Enter Cargo <i class="glyphicon glyphicon-briefcase"></i><span class="caret"></span></a>
@@ -90,14 +91,13 @@
 			
           </ul>
           <ul class="nav navbar-nav navbar-right">
-			<li id="navDashboard"><a href="report.php"> <strong>Reports</strong><i class="glyphicon glyphicon-folder-open "></i></a></li>
-			<li id="navDashboard"><a href="index.php"><i class="glyphicon glyphicon-home "></i></a></li>
+			<li id="navDashboard"><a href="report.php"> <strong>Reports</strong> <i class="glyphicon glyphicon-folder-open "></i></a></li>
 		  <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li id="topNavlogout"><a href="logout.php">Logout   <i class="glyphicon glyphicon-log-out"></i></a></li>
 				<li role="separator" class="divider"></li>
-				<li id="topNavsettings"><a href="settings.php">settings   <i class="glyphicon glyphicon-wrench"></i></a></li>
+				<li id="topNavsettings"><a href="settings.php">Settings   <i class="glyphicon glyphicon-wrench"></i></a></li>
               </ul>
             </li>
           </ul>
