@@ -12,4 +12,6 @@ nav.navbar:hover{
 .servicefeeout {
 	color: black;
 	margin-top: 20px;
+	font-weight: bold;
+	font-size: 20px;
 }

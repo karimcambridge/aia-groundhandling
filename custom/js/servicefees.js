@@ -1,10 +1,11 @@
 function onCalculateServiceFees() {
 	var
 		aircraftTotalFee = 0,
-		scheduled,
-		scheduleRate = 1.0,
+		unscheduled,
+		overtimeRate = 1.0,
+		aircraftType,
+		aircraftTypeStr,
 		aircraftWeight,
-		aircraftTurns,
 		wheelchairQuantity,
 		wheelchairTime,
 		airbridgeQuantity,
@@ -34,7 +35,6 @@ function onCalculateServiceFees() {
 	;
 
 	aircraftWeight			=	document.getElementById("aircraftWeight").value;
-	aircraftTurns			=	document.getElementById("aircraftTurns").value;
 	wheelchairQuantity		=	document.getElementById("quantityWheelchair").value;
 	wheelchairTime			=	document.getElementById("timeWheelchair").value;
 	airbridgeQuantity		=	document.getElementById("quantityAirbridge").value;
@@ -61,72 +61,78 @@ function onCalculateServiceFees() {
 	quantityASU				=	document.getElementById("quantityASU").value;
 	quantitySewage			=	document.getElementById("quantitySewage").value;
 	quantityPortableWater	=	document.getElementById("quantityPortableWater").value;
-	scheduled				=	document.getElementById('unscheduled').checked;
+	unscheduled				=	document.getElementById('unscheduled').checked;
+	aircraftType			=	document.getElementById("aircraftType");
+	aircraftTypeStr			=	aircraftType.options[aircraftType.selectedIndex].text;
 
-	if(scheduled == false) {
-		scheduleRate = 1.025;
-	}
-	if(aircraftWeight !== "" && aircraftTurns !== "" && aircraftTurns >= 1) {
-		if(aircraftWeight < 5000) {
-			aircraftTotalFee += 313 * aircraftTurns;
-		}
-		else if(aircraftWeight >= 5000 && aircraftWeight < 10000) {
-			aircraftTotalFee += 600 * aircraftTurns;
-		}
-		else if(aircraftWeight >= 10000) {
-			aircraftTotalFee += 1300 * aircraftTurns;
-		}
-	}
 	if(wheelchairQuantity > 0 && wheelchairTime > 0) {
-		aircraftTotalFee += (wheelchairTime * 5) * scheduleRate;
+		aircraftTotalFee += (wheelchairTime * 5) * overtimeRate;
 	}
 	if(airbridgeQuantity > 0 && airbridgeTime > 0) {
-		aircraftTotalFee += (airbridgeTime * 5) * scheduleRate;
+		aircraftTotalFee += (airbridgeTime * 5) * overtimeRate;
 	}
 	if(HLQuantity > 0 && HLTime > 0) {
-		aircraftTotalFee += (HLTime * 350) * scheduleRate;
+		aircraftTotalFee += (HLTime * 350) * overtimeRate;
 	}
 	if(quantityGPU > 0 && timeGPU > 0) {
-		aircraftTotalFee += (timeGPU * 5) * scheduleRate;
+		aircraftTotalFee += (timeGPU * 145) * overtimeRate;
 	}
 	if(quantityACU > 0 && timeACU > 0) {
-		aircraftTotalFee += (timeACU * 5) * scheduleRate;
+		aircraftTotalFee += (timeACU * 174) * overtimeRate;
 	}
 	if(quantityBgeBelt > 0 && timeBgeBelt > 0) {
-		aircraftTotalFee += (timeBgeBelt * 5) * scheduleRate;
+		aircraftTotalFee += (timeBgeBelt * 126) * overtimeRate;
 	}
 	if(quantityBgeCart > 0 && timeBgeCart > 0) {
-		aircraftTotalFee += (timeBgeCart * 5) * scheduleRate;
+		aircraftTotalFee += (timeBgeCart * 39) * overtimeRate;
 	}
 	if(quantityTractor > 0 && timeTractor > 0) {
-		aircraftTotalFee += (timeTractor * 5) * scheduleRate;
+		aircraftTotalFee += (timeTractor * 140) * overtimeRate;
 	}
 	if(quantityPaxStairs > 0 && timePaxStairs > 0) {
-		aircraftTotalFee += (timePaxStairs * 5) * scheduleRate;
+		aircraftTotalFee += (timePaxStairs * 318) * overtimeRate;
 	}
 	if(quantityACMntxEquipment > 0 && timeACMntxEquipment > 0) {
-		aircraftTotalFee += (timeACMntxEquipment * 5) * scheduleRate;
+		aircraftTotalFee += (timeACMntxEquipment * 176) * overtimeRate;
 	}
 	if(quantityTurns > 0) {
-		aircraftTotalFee += (quantityTurns * 5) * scheduleRate;
+		if(unscheduled == true) {
+			aircraftTotalFee += (quantityTurns * ((aircraftTypeStr === "Narrow Body") ? 1850 : 2000)) * overtimeRate;
+		} else {
+			if(aircraftWeight === 0 || aircraftWeight === "" || aircraftWeight == undefined) {
+				alert("Please enter the aircrafts' weight.")
+			} else {
+				if(aircraftWeight < 5000) {
+					aircraftTotalFee += (313 * quantityTurns) * overtimeRate;
+				}
+				else if(aircraftWeight >= 5000 && aircraftWeight < 10000) {
+					aircraftTotalFee += (600 * quantityTurns) * overtimeRate;
+				}
+				else if(aircraftWeight >= 10000) {
+					aircraftTotalFee += (1300 * quantityTurns) * overtimeRate;
+				}
+			}
+		}
 	}
 	if(quantityPayload > 0) {
-		aircraftTotalFee += (quantityPayload * 5) * scheduleRate;
+		aircraftTotalFee += (quantityPayload * 328) * overtimeRate;
 	}
 	if(quantityTowbar > 0) {
-		aircraftTotalFee += (quantityTowbar * 5) * scheduleRate;
+		aircraftTotalFee += (quantityTowbar * 55) * overtimeRate;
 	}
 	if(quantityASU > 0) {
-		aircraftTotalFee += (quantityASU * 5) * scheduleRate;
+		aircraftTotalFee += (quantityASU * 360) * overtimeRate;
 	}
 	if(quantitySewage > 0) {
-		aircraftTotalFee += (quantitySewage * 5) * scheduleRate;
+		aircraftTotalFee += (quantitySewage * 180) * overtimeRate;
 	}
 	if(quantityPortableWater > 0) {
-		aircraftTotalFee += (quantityPortableWater * 5) * scheduleRate;
+		aircraftTotalFee += (quantityPortableWater * 178) * overtimeRate;
 	}
 	if(aircraftTotalFee > 0) {
 		var servicefeeout = document.getElementById('servicefeeout');
-		servicefeeout.innerHTML = "lol " + aircraftTotalFee;
+		if(servicefeeout != null) {
+			servicefeeout.innerHTML = "Total Service Fee: <font color='red'>" + aircraftTotalFee.toFixed(2) + "</font>";
+		}
 	}
 }

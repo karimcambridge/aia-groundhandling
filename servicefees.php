@@ -8,7 +8,7 @@
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
-			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-2 control-label">Registration #<br><br></label>
+			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Registration #<br><br></label>
 			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 			      <input type="text" class="form-control" id="aircraftTurns" placeholder="Y000" autofocus required />
 			    </div>
@@ -21,15 +21,15 @@
 			      <input type="text" class="form-control" id="aircraftCarrier" required />
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Unscheduled?</label>
-			    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 checkbox">
-			  	  <input type="checkbox" id="unscheduled" onchange="onCalculateServiceFees()"/>
+			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 checkbox">
+			  	  <input type="checkbox" id="unscheduled" onchange="onCalculateServiceFees()" />
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Aircraft Weight (KG)</label>
 			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-			      <input type="number" class="form-control" id="aircraftWeight" min="0" placeholder="1000" required />
+			      <input type="number" class="form-control" id="aircraftWeight" min="0" placeholder="1000" onchange="onCalculateServiceFees()" required />
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Aircraft Type</label>
-			    <select id="aircraftType" required>
+			    <select id="aircraftType" onchange="onCalculateServiceFees()" required>
 			        <option value="widebody">Wide Body</option>
 			        <option value="narrowbody">Narrow Body</option>
 			    </select>
@@ -181,7 +181,7 @@
 			  <div class="text-center">
 			    <button type="button" class="btn btn-info top-buffer" onclick="onCalculateServiceFees()" /><i class="glyphicon glyphicon-ok-sign"></i> Calculate Fees</button>
 			  </div>
-			  <div class="servicefeeout text-center">TEST</div>
+			  <div class="servicefeeout text-center" id="servicefeeout"></div>
 			</div>
 			<!-- /panel-body -->
 		</div>

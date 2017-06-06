@@ -18,11 +18,11 @@
     <!--custom css -->
     <link rel="stylesheet" href="custom/css/custom.css">
 
-    <!-- dataTables -->
-    <script src="assests/plugins/datatables/datatables.min.css"></script>
+    <!-- dataTables 
+    <script src="assests/plugins/datatables/datatables.min.css"></script> -->
 
-    <!-- file input-->
-    <script src="assests/plugins/fileinput/css/fileinput.min.css"></script>
+    <!-- file input
+    <script src="assests/plugins/fileinput/css/fileinput.min.css"></script> -->
 
     <!-- jquery -->
     <script src="assests/jquery/jquery.min.js"></script>
