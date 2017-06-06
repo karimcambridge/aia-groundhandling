@@ -15,6 +15,7 @@
       $rs = $this->_conn->query( $this->_query );
       $this->_total = $rs->num_rows;
     }
+
     public function getData( $limit = 10, $page = 1 ) {
        
       $this->_limit   = $limit;
@@ -30,7 +31,7 @@
       while ( $row = $rs->fetch_assoc() ) {
           $results[]  = $row;
       }
-   
+
       $result         = new stdClass();
       $result->page   = $this->_page;
       $result->limit  = $this->_limit;

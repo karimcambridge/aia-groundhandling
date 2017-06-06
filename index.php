@@ -11,7 +11,6 @@ if(isset($_SESSION['userId'])) {
 	$errors = array();
 
 	if(!empty($_POST)) {
-
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
@@ -19,7 +18,6 @@ if(isset($_SESSION['userId'])) {
 			if($username == "") {
 				$errors[] = "Username is required";
 			}
-
 			if($password == "") {
 				$errors[] = "Password is required";
 			}
@@ -29,34 +27,34 @@ if(isset($_SESSION['userId'])) {
 
 			if($result->num_rows == 1) {
 				$password = $password;
-				//$password = md5($password); md5 encription not working in php my admin when fixed to be useed
-				// exists
+
 				$mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 				$mainResult = $connectionHandle->query($mainSql);
 
 				if($mainResult->num_rows == 1) {
-					$value = $mainResult->fetch_assoc();
-					$user_id = $value['user_id'];
-
 					// set session
-					$_SESSION['userId'] = $user_id;
+					if(!isset($_SESSION['userId'])) {
+						$value = $mainResult->fetch_assoc();
+						$user_id = $value['user_id'];
+						$_SESSION['userId'] = $user_id;
+					}
 
-					//header('location: http://127.0.0.1/groundopps/dashboard.php');
+					header('location: http://127.0.0.1/groundopps/dashboard.php');
 				} else{
 					$errors[] = "Incorrect username/password combination";
 				} // /else
 			} else {
 				$errors[] = "Username does not exists";
-			} // /else
-		} // /else not empty username // password
-	} // /if $_POST
+			} // else
+		} // else not empty username // password
+	} // if $_POST
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ground OPS System</title>
+	<title>AIA Ground OPS System</title>
 
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
