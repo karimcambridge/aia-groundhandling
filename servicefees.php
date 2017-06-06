@@ -8,31 +8,31 @@
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
-			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Registration #<br><br></label>
+			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-2 control-label">Registration #<br><br></label>
 			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-			      <input type="text" class="form-control" id="aircraftTurns" placeholder="Y000" autofocus />
+			      <input type="text" class="form-control" id="aircraftTurns" placeholder="Y000" autofocus required />
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Flight #</label>
 			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-			      <input type="text" class="form-control" id="aircraftFlight#" placeholder="LI000" />
+			      <input type="text" class="form-control" id="aircraftFlight#" placeholder="LI000" required />
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Owner / Carrier</label>
 			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-			      <input type="text" class="form-control" id="aircraftCarrier" />
+			      <input type="text" class="form-control" id="aircraftCarrier" required />
+			    </div>
+			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Unscheduled?</label>
+			    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 checkbox">
+			  	  <input type="checkbox" id="unscheduled" onchange="onCalculateServiceFees()"/>
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Aircraft Weight (KG)</label>
 			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-			      <input type="number" class="form-control" id="aircraftWeight" min="0" placeholder="1000" />
+			      <input type="number" class="form-control" id="aircraftWeight" min="0" placeholder="1000" required />
 			    </div>
 			  <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Aircraft Type</label>
-			    <select id="aircraftType">
+			    <select id="aircraftType" required>
 			        <option value="narrowbody">Narrow Body</option>
 			        <option value="widebody">Wide Body</option>
 			    </select>
-			  <label class="col-xs-2 col-sm-2 col-md-1 col-lg-1 control-label">Unscheduled?</label>
-			    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 checkbox">
-			  	  <input type="checkbox" id="unscheduled" onchange="onCalculateServiceFees()"/>
-			    </div>
 			  <div class="clearfix"></div>
 			  <div class="table-responsive col-md-3">
 				<table>
@@ -132,55 +132,54 @@
 						</div></td>
 					</tr>
 				</table>
-				</div>
-				<div class="table-responsive col-md-3">
-				  <table>
-				  	<tr>
-				  		<th>Service</th>
-				  		<th>Pushes / Starts / Services</th>
-				  	</tr>
-					<tr>
-						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Turns<br></label></td>
-						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="turnQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
-						</div></td>
-					</tr>
-				  	<tr>
-				  		<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Payload Mover</label></td>
-				  		<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-				  	 		<input type="number" id="payloadQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
-				  		</div></td>
-				  	</tr>
-					<tr>
-						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Towbar<br><br></label></td>
-						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="towbarQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
-						</div></td>
-					</tr>
-					<tr>
-						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">ASU</label></td>
-						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="ASUQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
-						</div></td>
-					</tr>
-					<tr>
-						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Sewage Charge</label></td>
-						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="sewageQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
-						</div></td>
-					</tr>
-					<tr>
-						<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Portable Water</label></td>
-						<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					 		<input type="number" id="portableWaterQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
-						</div></td>
-					</tr>
-				  </table>
-				</div>
-				<div class="clearfix"></div>
-				<div class="text-center">
-			      <button type="button" class="btn btn-info top-buffer" onclick="onCalculateServiceFees()"><i class="glyphicon glyphicon-ok-sign"></i> Calculate Fees</button>
-			    </div>
+			  </div>
+			  <div class="table-responsive col-md-3">
+			    <table>
+			      <tr>
+			      	<th>Service</th>
+			      	<th>Pushes / Starts / Services</th>
+			      </tr>
+			      <tr>
+			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Turns<br></label></td>
+			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			    	 	<input type="number" id="turnQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	</div></td>
+			      </tr>
+			      <tr>
+			      	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Payload Mover</label></td>
+			      	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			      	 	<input type="number" id="payloadQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			      	</div></td>
+			      </tr>
+			      <tr>
+			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Towbar<br><br></label></td>
+			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			    	 	<input type="number" id="towbarQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	</div></td>
+			      </tr>
+			      <tr>
+			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">ASU</label></td>
+			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			    	 	<input type="number" id="ASUQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	</div></td>
+			      </tr>
+			      <tr>
+			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Sewage Charge</label></td>
+			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			    	 	<input type="number" id="sewageQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	</div></td>
+			      </tr>
+			      <tr>
+			    	<td><label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Portable Water</label></td>
+			    	<td><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			    	 	<input type="number" id="portableWaterQuantity" min="0" max="20" value="0" onchange="onCalculateServiceFees()">
+			    	</div></td>
+			      </tr>
+			    </table>
+			  </div>
+			  <div class="clearfix"></div>
+			  <div class="text-center">
+			    <button type="button" class="btn btn-info top-buffer" onclick="onCalculateServiceFees()"><i class="glyphicon glyphicon-ok-sign"></i> Calculate Fees</button>
 			  </div>
 			</div>
 			<!-- /panel-body -->
