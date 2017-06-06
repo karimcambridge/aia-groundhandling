@@ -1,5 +1,11 @@
 <?php require_once 'includes/header.php'; ?>
 
+<div calss="row">
+  <ol class="breadcrumb">
+    <li><a href="dashboard.php">Home</a></li>
+    <li class="active"><strong>Service Fees</strong></li>
+  </ol>
+</div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default">

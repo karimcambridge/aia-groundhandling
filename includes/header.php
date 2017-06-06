@@ -53,9 +53,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li><a href="index.php"><i class="glyphicon glyphicon-home "></i></a></li>
-            <li><a href="viewcargo.php"> <strong>View Cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
+            <li><a href="viewcargo.php"><strong>View Cargo </strong><i class="glyphicon glyphicon-search "></i></a></li>
             <li><a href="cargoentry.php">Airbill Entry <i class="glyphicon glyphicon-briefcase"></i></a></li>
-				    <li><a href="checkoutcargo.php"> <strong>Check Out Cargo</strong> <i class="glyphicon glyphicon-plane "></i></a></li>
+				    <li><a href="checkoutcargo.php">Check Out Cargo <i class="glyphicon glyphicon-plane"></i></a></li>
             <li><a href="cargofees.php">Cargo Fees <i class="glyphicon glyphicon-briefcase"></i></a></li>
 			      <li><a href="servicefees.php">Services Fees <i class="glyphicon glyphicon-usd"></i></a></li>
           </ul>

@@ -1,11 +1,10 @@
 <?php require_once 'includes/header.php'; ?>
 	
 <div calss="row">
-<ol class="breadcrumb">
-  <li><a href="dashboard.php">Home</a></li>
-  <li class="active"><strong>Liat cargo</strong></li>
-</ol>
-
+  <ol class="breadcrumb">
+    <li><a href="dashboard.php">Home</a></li>
+    <li class="active"><strong>Airbill Entry</strong></li>
+  </ol>
 </div>
 <div class="row">
 	<div class="col-md-12">
@@ -17,7 +16,7 @@
 			<div class="panel-body">
 				<form class="form-inline" id="submitliatform" action="php_action\creat_liat_cargo.php" method="post" >
 				<div class="form-group">
-				    <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier </label>
+				    <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</label>
 				    <div class="clearfix"></div>
 				    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 				      <select class="form-control" id="aircraftType" required>
