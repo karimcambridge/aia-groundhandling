@@ -1,9 +1,9 @@
 <?php require_once 'includes/header.php'; ?>
 	
-<div calss="panel panel-heading">  
+<div calss="panel panel-heading">
 	<?php require_once 'includes/header.php'; ?>
 	
-<div calss="row">  
+<div calss="row">
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Home</a></li>
   <li class="active"><strong>Fexex cargo</strong></li>

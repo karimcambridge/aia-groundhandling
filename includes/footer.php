@@ -1,4 +1,4 @@
-    <!-- file input 
+    <!-- file input
     
     <script src="assests/plugins/fileinput/js/plugins/canvas-to-blob.min.js/fileinput.min.js"></script>
     <script src="assests/plugins/fileinput/js/plugins/sortable.min.js"></script>

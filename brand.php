@@ -5,7 +5,7 @@
 	<div class="col-md-12">
 
 		<ol class="breadcrumb">
-		  <li><a href="dashboard.php">Home</a></li>		  
+		  <li><a href="dashboard.php">Home</a></li>
 		  <li class="active">Brand</li>
 		</ol>
 
@@ -19,11 +19,11 @@
 
 				<div class="div-action pull pull-right" style="padding-bottom:20px;">
 					<button class="btn btn-default button1" data-toggle="modal" data-target="#addBrandModel"> <i class="glyphicon glyphicon-plus-sign"></i> Add Brand </button>
-				</div> <!-- /div-action -->				
+				</div> <!-- /div-action -->
 				
 				<table class="table" id="manageBrandTable">
 					<thead>
-						<tr>							
+						<tr>
 							<th>Brand Name</th>
 							<th>Status</th>
 							<th style="width:15%;">Options</th>
@@ -33,7 +33,7 @@
 				<!-- /table -->
 
 			</div> <!-- /panel-body -->
-		</div> <!-- /panel -->		
+		</div> <!-- /panel -->
 	</div> <!-- /col-md-12 -->
 </div> <!-- /row -->
 
@@ -53,7 +53,7 @@
 				    <div class="col-sm-8">
 				      <input type="text" class="form-control" id="brandName" placeholder="Brand Name" name="brandName" autocomplete="off">
 				    </div>
-	        </div> <!-- /form-group-->	         	        
+	        </div> <!-- /form-group-->
 	        <div class="form-group">
 	        	<label for="brandStatus" class="col-sm-3 control-label">Status: </label>
 	        	<label class="col-sm-1 control-label">: </label>
@@ -64,7 +64,7 @@
 				      	<option value="2">Not Available</option>
 				      </select>
 				    </div>
-	        </div> <!-- /form-group-->	         	        
+	        </div> <!-- /form-group-->
 
 	      </div> <!-- /modal-body -->
 	      
@@ -109,7 +109,7 @@
 					    <div class="col-sm-8">
 					      <input type="text" class="form-control" id="editBrandName" placeholder="Brand Name" name="editBrandName" autocomplete="off">
 					    </div>
-		        </div> <!-- /form-group-->	         	        
+		        </div> <!-- /form-group-->
 		        <div class="form-group">
 		        	<label for="editBrandStatus" class="col-sm-3 control-label">Status: </label>
 		        	<label class="col-sm-1 control-label">: </label>
@@ -120,8 +120,8 @@
 					      	<option value="2">Not Available</option>
 					      </select>
 					    </div>
-		        </div> <!-- /form-group-->	
-		      </div>         	        
+		        </div> <!-- /form-group-->
+		      </div>
 		      <!-- /edit brand result -->
 
 	      </div> <!-- /modal-body -->

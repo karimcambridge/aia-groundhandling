@@ -20,7 +20,6 @@ if($_POST) {
 	$connect->close();
 
 	echo json_encode($valid);
-
-}//  / if $post
+}
 
 ?>

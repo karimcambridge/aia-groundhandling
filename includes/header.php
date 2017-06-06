@@ -18,7 +18,7 @@
     <!--custom css -->
     <link rel="stylesheet" href="custom/css/custom.css">
 
-    <!-- dataTables 
+    <!-- dataTables
     <script src="assests/plugins/datatables/datatables.min.css"></script> -->
 
     <!-- file input

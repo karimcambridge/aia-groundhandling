@@ -7,7 +7,7 @@ $(document).ready(function() {
 	// manage brand table
 	manageBrandTable = $("#manageBrandTable").DataTable({
 		'ajax': 'php_action/fetchBrand.php',
-		'order': []		
+		'order': []
 	});
 
 	// submit brand form function
@@ -15,7 +15,7 @@ $(document).ready(function() {
 		// remove the error text
 		$(".text-danger").remove();
 		// remove the form error
-		$('.form-group').removeClass('has-error').removeClass('has-success');			
+		$('.form-group').removeClass('has-error').removeClass('has-success');
 
 		var brandName = $("#brandName").val();
 		var brandStatus = $("#brandStatus").val();
@@ -27,7 +27,7 @@ $(document).ready(function() {
 			// remov error text field
 			$("#brandName").find('.text-danger').remove();
 			// success out for form 
-			$("#brandName").closest('.form-group').addClass('has-success');	  	
+			$("#brandName").closest('.form-group').addClass('has-success');
 		}
 	}
 }
