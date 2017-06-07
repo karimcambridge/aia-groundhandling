@@ -3,7 +3,7 @@
 $localhost = "127.0.0.1";
 $username = "root";
 $password = "";
-$dbname = "cargo";
+$dbname = "airport";
 
 // db connection
 $connectionHandle = new mysqli($localhost, $username, $password, $dbname);

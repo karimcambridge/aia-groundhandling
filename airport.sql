@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aircarft`
+-- Table structure for table `aircraft`
 --
 
-CREATE TABLE `aircarft` (
+CREATE TABLE `aircraft` (
   `ID` int(5) NOT NULL,
   `Registration` varchar(10) NOT NULL,
   `country` varchar(20) NOT NULL,
@@ -36,12 +36,12 @@ CREATE TABLE `aircarft` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aircarft_type`
+-- Table structure for table `aircraft_type`
 --
 
-CREATE TABLE `aircarft_type` (
+CREATE TABLE `aircraft_type` (
   `ID` int(11) NOT NULL,
-  `aircarft_type` varchar(12) NOT NULL
+  `aircraft_type` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -142,17 +142,17 @@ CREATE TABLE `manifest` (
 --
 
 --
--- Indexes for table `aircarft`
+-- Indexes for table `aircraft`
 --
-ALTER TABLE `aircarft`
+ALTER TABLE `aircraft`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `Registration` (`Registration`),
   ADD UNIQUE KEY `type` (`type`);
 
 --
--- Indexes for table `aircarft_type`
+-- Indexes for table `aircraft_type`
 --
-ALTER TABLE `aircarft_type`
+ALTER TABLE `aircraft_type`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -199,14 +199,14 @@ ALTER TABLE `manifest`
 --
 
 --
--- AUTO_INCREMENT for table `aircarft`
+-- AUTO_INCREMENT for table `aircraft`
 --
-ALTER TABLE `aircarft`
+ALTER TABLE `aircraft`
   MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `aircarft_type`
+-- AUTO_INCREMENT for table `aircraft_type`
 --
-ALTER TABLE `aircarft_type`
+ALTER TABLE `aircraft_type`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `cago_item_type`

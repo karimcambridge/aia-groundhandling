@@ -6,7 +6,7 @@
   $limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 10;
   $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
   $links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 15;
-  $query      = "SELECT `Airbill`, `STATUS`, `Carrier`, `Datein`, `dateout` FROM `aircargo`";
+  $query      = "SELECT `airwaybill`, `state`, `date_in`, `date_out`, `item_weight` FROM `cargo_inventory`";
  
   $Paginator  = new Paginator( $connectionHandle, $query );
 
@@ -26,13 +26,10 @@
       	  <table class="table" id="cargoinventory">
       	  	<thead>
       	  		<tr>
-      	  			<th class="active">Air Bill #</th>
-      	  			<th class="active">Carrier</th>
-      	  			<th class="active">Status</th>
-      	  			<th class="active">Date received</th>
-      	  			<th class="active">Days in cargo</th>
-      	  			<th class="active">Date collected</th>
-      	  			<th class="active">Cost</th>
+      	  			<th class="active">Air Way Bill #</th>
+      	  			<th class="active">State</th>
+      	  			<th class="active">Date Received</th>
+      	  			<th class="active">Item Weight</th>
       	  		</tr>
       	  	</thead>
       	  	<tbody>
@@ -41,11 +38,10 @@
       	  		 	 for( $i = 0; $i < count( $results->data ); $i++ ) {
       	  		 	 	echo "<tr>";
 
-      	  		 	 	echo "<td>" . $results->data[$i]['Airbill'] . "</td>";
-      	  		 	 	echo "<td>" . $results->data[$i]['STATUS'] . "</td>";
-      	  		 	 	echo "<td>" . $results->data[$i]['Carrier'] . "</td>";
-      	  		 	 	echo "<td>" . $results->data[$i]['Datein'] . "</td>";
-      	  		 	 	echo "<td>" . $results->data[$i]['dateout'] . "</td>";
+      	  		 	 	echo "<td>" . $results->data[$i]['airwaybill'] . "</td>";
+      	  		 	 	echo "<td>" . $results->data[$i]['state'] . "</td>";
+      	  		 	 	echo "<td>" . $results->data[$i]['date_in'] . "</td>";
+      	  		 	 	echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
 
       	  		 	 	echo "</tr>";
       	  		 	 }

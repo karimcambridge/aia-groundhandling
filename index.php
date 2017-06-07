@@ -22,27 +22,26 @@ if(isset($_SESSION['userId'])) {
 				$errors[] = "Password is required";
 			}
 		} else {
-			$sql = "SELECT * FROM users WHERE username = '$username'";
+			$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
 			$result = $connectionHandle->query($sql);
 
 			if($result->num_rows == 1) {
 				$password = $password;
 
-				$mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-				$mainResult = $connectionHandle->query($mainSql);
+				$loginSql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
+				$loginResult = $connectionHandle->query($loginSql);
 
-				if($mainResult->num_rows == 1) {
+				if($loginResult->num_rows == 1) {
 					// set session
 					if(!isset($_SESSION['userId'])) {
-						$value = $mainResult->fetch_assoc();
-						$user_id = $value['user_id'];
+						$value = $loginResult->fetch_assoc();
+						$user_id = $value['accountid'];
 						$_SESSION['userId'] = $user_id;
 					}
-
 					header('location: http://127.0.0.1/groundopps/dashboard.php');
 				} else{
 					$errors[] = "Incorrect username/password combination";
-				} // /else
+				} // else
 			} else {
 				$errors[] = "Username does not exists";
 			} // else

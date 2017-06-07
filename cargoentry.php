@@ -31,7 +31,7 @@ if(isset($_SESSION['cargoEntryCarrier'])) {
 				    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 				      <select class="form-control" name="cargoEntryCarrier" id="cargoEntryCarrier" required>
 				        <option value="liat" <?= ($carrier == "liat") ? "selected" : "" ?>>LIAT</option>
-				        <option value="cal" <?= ($carrier == "cal") ? "selected" : "" ?>>CAL</option>
+				        <option value="Caribbean Airlines" <?= ($carrier == "Caribbean Airlines") ? "selected" : "" ?>>Caribbean Airlines</option>
 				        <option value="dhl" <?= ($carrier == "dhl") ? "selected" : "" ?>>DHL</option>
 				        <option value="fedex" <?= ($carrier == "fedex") ? "selected" : "" ?>>Fedex</option>
 				        <option value="amerijet" <?= ($carrier == "amerijet") ? "selected" : "" ?>>AmeriJet</option>

@@ -14,7 +14,7 @@
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
-			  <form class="form-inline" action="php_action\creat_liat_cargo.php" method="post" id="submitliatform">
+			  <form class="form-inline" action="" method="post" id="cargocheckout">
 			    <div class="form-group">
 			      <label class="col-sm-6 control-label">Air Bill</label>
 			      <div class="col-sm-10">

@@ -1,7 +1,7 @@
 <?php
 
   class Paginator {
-    public $_conn;
+    private $_conn;
     private $_limit;
     private $_page;
     private $_query;
