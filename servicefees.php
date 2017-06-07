@@ -10,7 +10,7 @@
 	<div class="col-md-12">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-					<strong> Aircraft Carrier Service Fees </strong>
+				<strong> Aircraft Carrier Service Fees </strong>
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">

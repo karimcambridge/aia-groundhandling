@@ -14,11 +14,10 @@
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
-			  <table>
-				<form class="form-inline" method="post" id="cargoFees">
+				<form class="form-horizontal" method="post" id="cargoFees">
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-1 control-label">Owner / Carrier </label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Owner / Carrier </label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <select class="form-control" name="carrierSelection" id="carrierSelection" required>
 						<?php
 							foreach($carriers as $carrier) {
@@ -29,53 +28,53 @@
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-1 control-label">Import weight </label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Import weight </label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="Importweight" name="Importweight" placeholder="45Kg" autofocus />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-1 control-label">Export Weight</label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Export Weight</label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="exportweight" name="exportweight" placeholder="75KG" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-1 control-label">Total Weight</label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Total Weight</label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="" name="" placeholder="120KG" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-1 control-label">Security Fee</label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Security Fee</label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="" name="" placeholder="0.29 per KG" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-2 control-label">Storage</label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Storage</label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="" name="storagekilo" placeholder="0.015 per kilo reg." />
 				    </div>
-				    <div class="col-xs-1 col-sm-12">
+				    <div class="col-md-offset-1 col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="" name="storageref" placeholder="15% of s/chge (ref)" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-2 control-label">DG Fees</label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">DG Fees</label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="" name="" placeholder="175 per UNI #" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-2 control-label">Lcl/Rgnl</label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Lcl/Rgnl</label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="" name="" placeholder="10.25 per mvmt" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-xs-1 col-sm-2 control-label">Int'l/Cmcl</label>
-				    <div class="col-xs-1 col-sm-12">
+				    <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Int'l/Cmcl</label>
+				    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 				      <input type="text" class="form-control" id="" name="" placeholder="174 per day or part" />
 				    </div>
 				  </div>
@@ -86,7 +85,6 @@
 				    </div>
 				  </div>
 				</form>
-			  </table>
 			</div>
 			<!-- /panel-body -->
 		</div>
