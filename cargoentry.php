@@ -2,8 +2,8 @@
 	
 <?php
 
-if(isset($_SESSION['cargoEntryCarrier'])) {
-	$previousCarrier = $_SESSION['cargoEntryCarrier'];
+if(isset($_SESSION['carrierSelection'])) {
+	$previousCarrier = $_SESSION['carrierSelection'];
 } else {
 	$previousCarrier = "";
 }
@@ -29,16 +29,16 @@ if(isset($_SESSION['cargoEntryCarrier'])) {
 				  <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</label>
 				  <div class="clearfix"></div>
 				    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-				      <select class="form-control" name="cargoEntryCarrier" id="cargoEntryCarrier" required>
-				      	<?php
-				      		foreach($carriers as $carrier) {
-				      			echo "<option value=\"" . $carrier->getCarrierName() . "\"";
-				      			if($carrier->getCarrierName() == $previousCarrier) {
-				      				echo "selected";
-				      			}
-				      			echo ">" . $carrier->getCarrierName() . "</option>";
-				      		}
-				      	?>
+				      <select class="form-control" name="carrierSelection" id="carrierSelection" required>
+						<?php
+							foreach($carriers as $carrier) {
+								echo "<option value=\"" . $carrier->getCarrierName() . "\"";
+								if($carrier->getCarrierName() == $previousCarrier) {
+									echo "selected";
+								}
+								echo ">" . $carrier->getCarrierName() . "</option>";
+							}
+						?>
 				      </select>
 				    </div>
 				  </div>
@@ -63,8 +63,8 @@ if(isset($_SESSION['cargoEntryCarrier'])) {
 
 <?php
 
-if(isset($_SESSION['cargoEntryCarrier'])) {
-	unset($_SESSION['cargoEntryCarrier']);
+if(isset($_SESSION['carrierSelection'])) {
+	unset($_SESSION['carrierSelection']);
 }
 
 ?>

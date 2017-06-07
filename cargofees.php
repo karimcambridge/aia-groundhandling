@@ -19,13 +19,12 @@
 				  <div class="form-group">
 				    <label class="col-xs-1 col-sm-1 control-label">Owner / Carrier </label>
 				    <div class="col-xs-1 col-sm-12">
-				      <select class="form-control" id="aircraftType" required>
-				        <option value="liat">LIAT</option>
-				        <option value="cal">CAL</option>
-				        <option value="dhl">DHL</option>
-				        <option value="fedex">Fedex</option>
-				        <option value="amerijet">AmeriJet</option>
-				        <option value="jetpack">JetPack</option>
+				      <select class="form-control" name="carrierSelection" id="carrierSelection" required>
+						<?php
+							foreach($carriers as $carrier) {
+								echo "<option value=\"" . $carrier->getCarrierName() . "\">" . $carrier->getCarrierName() . "</option>";
+							}
+						?>
 				      </select>
 				    </div>
 				  </div>

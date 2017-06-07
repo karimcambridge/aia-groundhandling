@@ -4,7 +4,7 @@ require_once '../core.php';
 
 if($_POST) {
 	$airbill = $_POST['cargoAirbill'];
-	$previousCarrier = $_POST['cargoEntryCarrier'];
+	$previousCarrier = $_POST['carrierSelection'];
 	$carrierId = -1;
 
 	foreach($carriers as $carrier) {
@@ -20,7 +20,7 @@ if($_POST) {
 			echo 'MySQL Airwaybill Error: ' . $result->error;
 			timeRedirect(10);
 		} else {
-			$_SESSION['cargoEntryCarrier'] = $previousCarrier;
+			$_SESSION['carrierSelection'] = $previousCarrier;
 			instantRedirect();
 		}
 	} else {
