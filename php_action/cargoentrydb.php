@@ -1,6 +1,6 @@
 <?php
 
-require_once 'core.php';
+require_once '../core.php';
 
 if($_POST) {
 	$airbill = $_POST['cargoAirbill'];
@@ -19,16 +19,13 @@ if($_POST) {
 
 			if($result->errno) {
 				echo 'MySQL Airwaybill Error: ' . $result->error;
-				$result->free();
 				timeRedirect(10);
 			} else {
 				$_SESSION['cargoEntryCarrier'] = $carrier;
-				$result->free();
 				instantRedirect();
 			}
 		} else {
 			echo 'Carrier ' . $carrier . ' Not found! Please tell the I.T guys!';
-			$result->free();
 			timeRedirect(10);
 		}
 	} else {

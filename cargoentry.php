@@ -26,13 +26,17 @@ if(isset($_SESSION['cargoEntryCarrier'])) {
 			<div class="panel-body">
 				<form class="form-inline" id="cargoentryform" action="php_action\cargoentrydb.php" method="post" >
 				<div class="form-group">
-				    <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</label>
-				    <div class="clearfix"></div>
+				  <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</label>
+				  <div class="clearfix"></div>
 				    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 				      <select class="form-control" name="cargoEntryCarrier" id="cargoEntryCarrier" required>
 				      	<?php
 				      		foreach($carriers as $carrier) {
-				      			echo "<option value=\"" . $carrier->getCarrierName() . "\">" . $carrier->getCarrierName() . "</option>";
+				      			echo "<option value=\"" . $carrier->getCarrierName() . "\"";
+				      			if($carrier->getCarrierName() == $previousCarrier) {
+				      				echo "selected";
+				      			}
+				      			echo ">" . $carrier->getCarrierName() . "</option>";
 				      		}
 				      	?>
 				      </select>
@@ -56,24 +60,6 @@ if(isset($_SESSION['cargoEntryCarrier'])) {
 		</div>
 	</div>
 </div>
-
-<!--<script type="text/javascript">
-var previousCarrier = <?php echo json_encode($previousCarrier, JSON_HEX_TAG);?>;
-console.log(previousCarrier);
-
-if(previousCarrier) {
-	var mySelect = document.getElementById('cargoEntryCarrier');
-
-	for(var i, j = 0; i = mySelect.options[j]; j++) {
-		console.log(i.value);
-	    if(i.value == previousCarrier) {
-	        mySelect.selectedIndex = j;
-	        break;
-	    }
-	}
-}</script>
-
-<script src="custom/js/cargoentryselect.js"></script> -->
 
 <?php
 

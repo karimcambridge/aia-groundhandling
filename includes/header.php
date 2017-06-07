@@ -1,4 +1,4 @@
-<?php require_once 'php_action/core.php';?>
+<?php require_once 'core.php';?>
 
 <!DOCTYPE html>
 <html>
