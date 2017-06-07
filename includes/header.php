@@ -49,7 +49,7 @@
             <li><a href="index.php"><span class="glyphicon glyphicon-home "></span></a></li>
             <li><a href="cargoinventory.php">Cargo Inventory <span class="glyphicon glyphicon-search "></span></a></li>
             <li><a href="cargoentry.php">Airbill Entry <span class="glyphicon glyphicon-briefcase"></span></a></li>
-				    <li><a href="checkoutcargo.php">Check Out Cargo <span class="glyphicon glyphicon-plane"></span></a></li>
+				    <li><a href="cargocheckout.php">Check Out Cargo <span class="glyphicon glyphicon-plane"></span></a></li>
             <li><a href="cargofees.php">Cargo Fees <span class="glyphicon glyphicon-eur"></span></a></li>
 			      <li><a href="servicefees.php">Services Fees <span class="glyphicon glyphicon-usd"></span></a></li>
           </ul>

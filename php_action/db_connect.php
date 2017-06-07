@@ -9,7 +9,7 @@ $dbname = "airport";
 $connectionHandle = new mysqli($localhost, $username, $password, $dbname);
 // check connection
 if($connectionHandle->connect_errno) {
-  die("Connection Failed: " . $connectionHandle->connect_error);
+	die("Connection Failed: " . $connectionHandle->connect_error);
 }
 
 ?>

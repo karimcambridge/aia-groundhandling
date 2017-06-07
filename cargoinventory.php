@@ -6,7 +6,7 @@
   $limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 10;
   $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
   $links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 15;
-  $query      = "SELECT `airwaybill`, `state`, `date_in`, `date_out`, `item_weight` FROM `cargo_inventory`";
+  $query      = "SELECT `airwaybill`, `state`, `date_in`, `item_weight` FROM `cargo_inventory`";
  
   $Paginator  = new Paginator( $connectionHandle, $query );
 

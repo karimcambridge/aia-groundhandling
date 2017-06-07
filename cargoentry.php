@@ -3,9 +3,9 @@
 <?php
 
 if(isset($_SESSION['cargoEntryCarrier'])) {
-	$carrier = $_SESSION['cargoEntryCarrier'];
+	$previousCarrier = $_SESSION['cargoEntryCarrier'];
 } else {
-	$carrier = "";
+	$previousCarrier = "";
 }
 
 ?>
@@ -30,12 +30,11 @@ if(isset($_SESSION['cargoEntryCarrier'])) {
 				    <div class="clearfix"></div>
 				    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 				      <select class="form-control" name="cargoEntryCarrier" id="cargoEntryCarrier" required>
-				        <option value="liat" <?= ($carrier == "liat") ? "selected" : "" ?>>LIAT</option>
-				        <option value="Caribbean Airlines" <?= ($carrier == "Caribbean Airlines") ? "selected" : "" ?>>Caribbean Airlines</option>
-				        <option value="dhl" <?= ($carrier == "dhl") ? "selected" : "" ?>>DHL</option>
-				        <option value="fedex" <?= ($carrier == "fedex") ? "selected" : "" ?>>Fedex</option>
-				        <option value="amerijet" <?= ($carrier == "amerijet") ? "selected" : "" ?>>AmeriJet</option>
-				        <option value="jetpack" <?= ($carrier == "jetpack") ? "selected" : "" ?>>JetPack</option>
+				      	<?php
+				      		foreach($carriers as $carrier) {
+				      			echo "<option value=\"" . $carrier->getCarrierName() . "\">" . $carrier->getCarrierName() . "</option>";
+				      		}
+				      	?>
 				      </select>
 				    </div>
 				  </div>
@@ -59,15 +58,15 @@ if(isset($_SESSION['cargoEntryCarrier'])) {
 </div>
 
 <!--<script type="text/javascript">
-var carrier = <?php echo json_encode($carrier, JSON_HEX_TAG);?>;
-console.log(carrier);
+var previousCarrier = <?php echo json_encode($previousCarrier, JSON_HEX_TAG);?>;
+console.log(previousCarrier);
 
-if(carrier) {
+if(previousCarrier) {
 	var mySelect = document.getElementById('cargoEntryCarrier');
 
 	for(var i, j = 0; i = mySelect.options[j]; j++) {
 		console.log(i.value);
-	    if(i.value == carrier) {
+	    if(i.value == previousCarrier) {
 	        mySelect.selectedIndex = j;
 	        break;
 	    }
