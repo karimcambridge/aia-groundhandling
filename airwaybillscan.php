@@ -24,7 +24,7 @@ if(isset($_SESSION['carrierSelection'])) {
 			</div>
 			<!-- /panel-heading -->
 			<div class="panel-body">
-				<form class="form-inline" id="cargoentryform" action="php_action\cargoentrydb.php" method="post" >
+				<form class="form-inline" id="airwaybillEntryForm" action="php_action\airwaybillscanentry.php" method="post" >
 				<div class="form-group">
 				  <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</label>
 				  <div class="clearfix"></div>

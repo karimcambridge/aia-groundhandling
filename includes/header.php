@@ -18,12 +18,6 @@
     <!--custom css -->
     <link rel="stylesheet" href="custom/css/custom.css">
 
-    <!-- dataTables
-    <script src="assests/plugins/datatables/datatables.min.css"></script> -->
-
-    <!-- file input
-    <script src="assests/plugins/fileinput/css/fileinput.min.css"></script> -->
-
     <!-- jquery -->
     <script src="assests/jquery/jquery.min.js"></script>
 
@@ -46,9 +40,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="index.php"><span class="glyphicon glyphicon-home "></span></a></li>
-            <li><a href="cargoinventory.php">Cargo Inventory <span class="glyphicon glyphicon-search "></span></a></li>
-            <li><a href="cargoentry.php">Airbill Entry <span class="glyphicon glyphicon-briefcase"></span></a></li>
+            <li><a href="index.php"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li><a href="cargoinventory.php">Cargo Inventory <span class="glyphicon glyphicon-search"></span></a></li>
+            <li><a href="airwaybillscan.php">Airbill Entry <span class="glyphicon glyphicon-briefcase"></span></a></li>
+            <li><a href="cargoinsert.php">Insert Cargo <span class="glyphicon glyphicon-floppy-save"></span></a></li>
 				    <li><a href="cargocheckout.php">Check Out Cargo <span class="glyphicon glyphicon-plane"></span></a></li>
             <li><a href="cargofees.php">Cargo Fees <span class="glyphicon glyphicon-eur"></span></a></li>
 			      <li><a href="servicefees.php">Services Fees <span class="glyphicon glyphicon-usd"></span></a></li>
