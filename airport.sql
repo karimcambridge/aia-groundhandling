@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2017 at 02:50 PM
+-- Generation Time: Jun 07, 2017 at 04:09 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -23,25 +23,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aircraft`
+-- Table structure for table `aircarft`
 --
 
-CREATE TABLE `aircraft` (
+CREATE TABLE `aircarft` (
   `ID` int(5) NOT NULL,
   `Registration` varchar(10) NOT NULL,
   `country` varchar(20) NOT NULL,
-  `type` varchar(10) NOT NULL
+  `type` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aircraft_type`
+-- Table structure for table `aircarft_type`
 --
 
-CREATE TABLE `aircraft_type` (
+CREATE TABLE `aircarft_type` (
   `ID` int(11) NOT NULL,
-  `aircraft_type` varchar(12) NOT NULL
+  `aircarft_type` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -51,7 +51,7 @@ CREATE TABLE `aircraft_type` (
 --
 
 CREATE TABLE `air_bill` (
-  `ID` int(11) DEFAULT NULL,
+  `ID` int(11) NOT NULL,
   `Airb_bill` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -102,8 +102,30 @@ CREATE TABLE `cargo_item` (
 
 CREATE TABLE `carriers` (
   `ID` int(11) NOT NULL,
-  `Name` varchar(25) NOT NULL
+  `Name` varchar(25) NOT NULL,
+  `State` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `carriers`
+--
+
+INSERT INTO `carriers` (`ID`, `Name`, `State`) VALUES
+(1, 'Emergency', 1),
+(2, 'Amerijet', 1),
+(3, 'DHL', 1),
+(4, 'Fedex', 1),
+(5, 'Vincyaviation', 1),
+(6, 'Liat', 1),
+(7, 'CaribbeanAirlines', 1),
+(8, 'Jetpack', 1),
+(9, 'Sunwing', 1),
+(10, 'AirCanada', 1),
+(11, 'Easysky', 1),
+(12, 'AmericanAirlines', 1),
+(13, 'Other', 1),
+(14, 'private', 1),
+(15, 'Diplomatic', 1);
 
 -- --------------------------------------------------------
 
@@ -113,7 +135,7 @@ CREATE TABLE `carriers` (
 
 CREATE TABLE `flights` (
   `ID` int(5) NOT NULL,
-  `number` varchar(5) NOT NULL,
+  `flight_number` varchar(5) NOT NULL,
   `ETA` time NOT NULL,
   `ATA` time NOT NULL,
   `Time_O_G` time NOT NULL,
@@ -137,28 +159,57 @@ CREATE TABLE `manifest` (
   `copy_of_manifest` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `ID` int(11) NOT NULL,
+  `flight_number` varchar(5) NOT NULL,
+  `carrieres_name` varchar(25) NOT NULL,
+  `date` date NOT NULL,
+  `time_of ser` time NOT NULL,
+  `ser_item` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ser_item`
+--
+
+CREATE TABLE `ser_item` (
+  `ID` int(11) NOT NULL,
+  `Name` varchar(10) NOT NULL,
+  `cost` float NOT NULL,
+  `item_use` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `aircraft`
+-- Indexes for table `aircarft`
 --
-ALTER TABLE `aircraft`
+ALTER TABLE `aircarft`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `Registration` (`Registration`),
   ADD UNIQUE KEY `type` (`type`);
 
 --
--- Indexes for table `aircraft_type`
+-- Indexes for table `aircarft_type`
 --
-ALTER TABLE `aircraft_type`
+ALTER TABLE `aircarft_type`
   ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `air_bill`
 --
 ALTER TABLE `air_bill`
+  ADD PRIMARY KEY (`ID`),
   ADD KEY `Airb_bill` (`Airb_bill`);
 
 --
@@ -180,7 +231,8 @@ ALTER TABLE `cargo_item`
 -- Indexes for table `carriers`
 --
 ALTER TABLE `carriers`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `Name` (`Name`);
 
 --
 -- Indexes for table `flights`
@@ -195,18 +247,30 @@ ALTER TABLE `manifest`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `ser_item`
+--
+ALTER TABLE `ser_item`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `aircraft`
+-- AUTO_INCREMENT for table `aircarft`
 --
-ALTER TABLE `aircraft`
+ALTER TABLE `aircarft`
   MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `aircraft_type`
+-- AUTO_INCREMENT for table `aircarft_type`
 --
-ALTER TABLE `aircraft_type`
+ALTER TABLE `aircarft_type`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `cago_item_type`
@@ -222,7 +286,7 @@ ALTER TABLE `cargo_item`
 -- AUTO_INCREMENT for table `carriers`
 --
 ALTER TABLE `carriers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `flights`
 --
@@ -232,6 +296,16 @@ ALTER TABLE `flights`
 -- AUTO_INCREMENT for table `manifest`
 --
 ALTER TABLE `manifest`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `ser_item`
+--
+ALTER TABLE `ser_item`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
