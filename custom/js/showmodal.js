@@ -1,5 +1,5 @@
 <script>
 $(document).ready(function(){
-$('#cargoInsertModel').modal('show');
+$('#cargoInsertModal').modal('show');
 });
 </script>

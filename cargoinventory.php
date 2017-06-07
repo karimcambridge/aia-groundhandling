@@ -29,7 +29,7 @@
       	  			<th class="active">Air Way Bill #</th>
       	  			<th class="active">State</th>
       	  			<th class="active">Date Received</th>
-      	  			<th class="active">Item Weight</th>
+      	  			<th class="active">Item Weight (KG)</th>
       	  		</tr>
       	  	</thead>
       	  	<tbody>
