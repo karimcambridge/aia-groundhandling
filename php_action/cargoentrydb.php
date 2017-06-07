@@ -4,37 +4,28 @@ require_once '../core.php';
 
 if($_POST) {
 	$airbill = $_POST['cargoAirbill'];
-	$carrier = $_POST['cargoEntryCarrier'];
+	$previousCarrier = $_POST['cargoEntryCarrier'];
+	$carrierId = -1;
 
-	$sql = "SELECT `ID` FROM `carriers` WHERE `name` = '$carrier' LIMIT 0,1";
-	
-	if($result = $connectionHandle->query($sql)) {
-		if($result->num_rows == 1) {
-			$carrierIDObj = $result->fetch_object();
-			$carrierId = $carrierIDObj->ID;
-			$result->free();
-
-			$sql = "INSERT INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airbill', '$carrierId')";
-			$result = $connectionHandle->query($sql);
-
-			if($result->errno) {
-				echo 'MySQL Airwaybill Error: ' . $result->error;
-				timeRedirect(10);
-			} else {
-				$_SESSION['cargoEntryCarrier'] = $carrier;
-				instantRedirect();
-			}
-		} else {
-			echo 'Carrier ' . $carrier . ' Not found! Please tell the I.T guys!';
-			timeRedirect(10);
+	foreach($carriers as $carrier) {
+		if(strcmp($carrier->getCarrierName(), $previousCarrier) == 0) {
+			$carrierId = $carrier->getCarrierId();
 		}
-	} else {
+	}
+	
+	if($carrierId != -1) {
+		$sql = "INSERT INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airbill', '$carrierId')";
+		$result = $connectionHandle->query($sql);
 		if($result->errno) {
-			echo 'MySQL Carrier Error: ' . $result->error;
+			echo 'MySQL Airwaybill Error: ' . $result->error;
 			timeRedirect(10);
 		} else {
+			$_SESSION['cargoEntryCarrier'] = $previousCarrier;
 			instantRedirect();
 		}
+	} else {
+		echo 'There was an error finding the selected carrier ID. Please tell the I.T guys!';
+		timeRedirect(10);
 	}
 } else {
 	echo 'POST FAILED!';

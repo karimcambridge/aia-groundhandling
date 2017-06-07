@@ -9,6 +9,10 @@ class Carrier
 		$this->_carrierName = $name;
 	}
 
+	public function getCarrierId() {
+		return $this->_carrierId;
+	}
+
 	public function getCarrierName() {
 		return $this->_carrierName;
 	}
