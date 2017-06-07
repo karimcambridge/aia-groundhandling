@@ -27,7 +27,7 @@ require_once 'includes/carrier.php';
 
 if($connectionHandle->ping()) {
 	$carriers = array();
-	$sql = "SELECT * FROM `carriers`";
+	$sql = "SELECT * FROM `carriers` ORDER BY `carriers`.`ID` ASC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
