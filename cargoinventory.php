@@ -1,7 +1,7 @@
 <?php require_once 'includes/header.php'; ?>
 
 <?php
-  require_once 'includes/paginator.php';
+  include("includes/paginator.php");
 
   $limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 10;
   $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
@@ -9,7 +9,7 @@
   $query      = "SELECT `Airbill`, `STATUS`, `Carrier`, `Datein`, `dateout` FROM `aircargo`";
  
   $Paginator  = new Paginator( $connectionHandle, $query );
- 
+
   $results    = $Paginator->getData( $limit, $page );
 ?>
 

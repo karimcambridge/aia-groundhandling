@@ -6,6 +6,7 @@
     private $_page;
     private $_query;
     private $_total;
+    private $_results = array();
   
     public function __construct( $conn, $query ) {
        
@@ -29,14 +30,14 @@
       $rs             = $this->_conn->query( $query );
    
       while ( $row = $rs->fetch_assoc() ) {
-          $results[]  = $row;
+          $this->_results[]  = $row;
       }
 
       $result         = new stdClass();
       $result->page   = $this->_page;
       $result->limit  = $this->_limit;
       $result->total  = $this->_total;
-      $result->data   = $results;
+      $result->data   = $this->_results;
    
       return $result;
     }
@@ -52,8 +53,10 @@
    
       $html       = '<ul class="' . $list_class . '">';
    
-      $class      = ( $this->_page == 1 ) ? "disabled" : "";
-      $html       .= '<li class="' . $class . '"><a href="?limit=' . $this->_limit . '&page=' . ( $this->_page - 1 ) . '">&laquo;</a></li>';
+      if($this->_page > 1) {
+        $class      = ( $this->_page == 1 ) ? "disabled" : "";
+        $html       .= '<li class="' . $class . '"><a href="?limit=' . $this->_limit . '&page=' . ( $this->_page - 1 ) . '">&laquo; Previous</a></li>';
+      }
    
       if ( $start > 1 ) {
           $html   .= '<li><a href="?limit=' . $this->_limit . '&page=1">1</a></li>';
@@ -70,9 +73,10 @@
           $html   .= '<li><a href="?limit=' . $this->_limit . '&page=' . $last . '">' . $last . '</a></li>';
       }
    
-      $class      = ( $this->_page == $last ) ? "disabled" : "";
-      $html       .= '<li class="' . $class . '"><a href="?limit=' . $this->_limit . '&page=' . ( $this->_page + 1 ) . '">&raquo;</a></li>';
-   
+      if($this->_page < $last) {
+        $class      = ( $this->_page == $last ) ? "disabled" : "";
+        $html       .= '<li class="' . $class . '"><a href="?limit=' . $this->_limit . '&page=' . ( $this->_page + 1 ) . '">Next &raquo;</a></li>';
+      }
       $html       .= '</ul>';
    
       return $html;

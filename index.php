@@ -111,11 +111,6 @@ if(isset($_SESSION['userId'])) {
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
-									 <div class="checkbox">
-									<label>
-									<input type="checkbox" id="remember"> Remember me
-									</label>
-									</div>
 									  <button type="submit" class="btn btn-default"> <i class="glyphicon glyphicon-log-in"></i> Sign in</button>
 									</div>
 								</div>
