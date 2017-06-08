@@ -24,7 +24,7 @@
 				  	<div class="form-group">
 				    <label for="startDate" class="col-sm-8 control-label">Report Type</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="reportType" placeholder="Start Date" />
+				      <input type="text" class="form-control" id="reportType" />
 				    </div>
 				  </div>
 				  <div class="form-group">
