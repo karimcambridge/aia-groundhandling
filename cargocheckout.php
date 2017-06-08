@@ -26,7 +26,7 @@ if(isset($_POST['cargoCheckout'])) {
 			</div>
 			<!-- panel-heading -->
 			<div class="panel-body">
-			  <form class="form-inline" action="" method="post" id="cargoCheckout">
+			  <form class="form-horizontal" action="" method="post" id="cargoCheckout">
 			  	<div class="form-group col-md-12">
 			  		<div class="text-center">
 			  			<h3>Select an air way bill below in order to begin the checkout process</h3>
@@ -50,7 +50,7 @@ if(isset($_POST['cargoCheckout'])) {
 			    </div>
 			    <div class="form-group col-md-12">
 			      <div class="text-center">
-			        <button type="submit" class="btn btn-info">Search <span class="glyphicon glyphicon-search"></span></button>
+			        <button type="submit" class="btn btn-primary">Search <span class="glyphicon glyphicon-search"></span></button>
 			      </div>
 			    </div>
 			  </form>
