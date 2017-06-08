@@ -83,17 +83,17 @@ if(isset($_SESSION['userId'])) {
 						<h3 class="panel-title">Please Sign in here</h3>
 					</div>
 					<div class="panel-body">
-
-						<div class="messages">
-							<?php if($errors) {
-								foreach ($errors as $key => $value) {
-									echo '<div class="alert alert-warning" role="alert">
-									<span class="glyphicon glyphicon-exclamation-sign"></span>
-									'.$value.'</div>';
-									}
-								} ?>
-						</div>
-
+						<?php
+        				  if($errors) {
+        				    echo '<div class="messages">';
+        				    foreach ($errors as $key => $value) {
+        				      echo '<div class="alert alert-danger" role="alert">
+        				      <span class="glyphicon glyphicon-exclamation-sign"></span>
+        				      '.$value.'</div>';
+        				    }
+        				    echo '</div>';
+        				  }
+        				?>
 						<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="loginForm">
 							<fieldset>
 							  <div class="form-group">

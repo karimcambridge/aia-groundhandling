@@ -14,8 +14,10 @@ if($_POST) {
 	}
 	
 	if($carrierId != -1) {
+		$airbill = $connectionHandle->real_escape_string($airbill);
 		$sql = "INSERT INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airbill', '$carrierId')";
 		$result = $connectionHandle->query($sql);
+
 		if($result->errno) {
 			echo 'MySQL Airwaybill Error: ' . $result->error;
 			timeRedirect(10);
