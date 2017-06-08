@@ -1,5 +1,5 @@
 <?php
-class Carrier implements template
+class Carrier implements AIAGroundOpsTemplate
 {
 	private $carrierId;
 	private $carrierName;

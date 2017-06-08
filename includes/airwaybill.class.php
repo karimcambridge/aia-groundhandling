@@ -1,9 +1,10 @@
 <?php
-class AirWayBill implements template
+class AirWayBill implements AIAGroundOpsTemplate
 {
 	private $airWayBillId;
 	private $airWayBillName;
 	private $airWayBillCarrier;
+	private $airWayBillDateIn;
 
 	function __construct($id, $name, $carrier) {
 		$this->_airWayBillId = $id;
@@ -21,6 +22,10 @@ class AirWayBill implements template
 
 	public function getCarrier() {
 		return $this->airWayBillCarrier;
+	}
+
+	public function getDateIn() {
+		return $this->airWayBillDateIn;
 	}
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-class CargoType implements template
+class CargoType implements AIAGroundOpsTemplate
 {
 	private $cargoTypeId;
 	private $cargoTypeName;

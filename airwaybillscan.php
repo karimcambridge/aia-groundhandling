@@ -50,7 +50,7 @@ if(isset($_SESSION['carrierSelection'])) {
 				  </div>
 				  <div class="form-group">
 				    <div class="col-sm-offset-1">
-				      <button type="submit" class="btn btn-primary"><span class="createCALCARGObtn" data-loading-text="saving..."></span>Save changes</button>
+				      <button type="submit" class="btn btn-primary"></span>Save changes</button>
 				    </div>
 				  </div>
 				</form>
