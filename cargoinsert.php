@@ -27,6 +27,11 @@
                 </div>
                 <div class="modal-body">
                   <form>
+                <div class="form-group">
+                  <label for="item-datetime" class="form-control-label">Current date/time:</label>
+                  <input type="datetime-local" id="item-datetime" value="<?php echo date('Y-m-d').'T'.date('h:i');?>" required></input>
+                  <span class="validity"></span>
+                </div>
                     <div class="form-group">
                       <label for="item-type" class="form-control-label">Type:</label>
                       <select class="form-control" name="item-type" id="item-type" required>
@@ -42,8 +47,8 @@
                       <textarea class="form-control" id="item-description" required></textarea>
                     </div>
                     <div class="form-group">
-                      <label for="item-weight" class="form-control-label">Enter the items' weight:</label>
-                      <input type="number" id="item-weight" step="0.01" min="0" max="1000" required></textarea>
+                      <label for="item-datetime" class="form-control-label">Enter the items' weight:</label>
+                      <input type="number" id="item-weight" step="0.01" min="0" max="1000" required></input>
                     </div>
                     <div class="form-group">
                       <label for="item-weight-type" class="form-control-label">KG (2.2 * 1 pound) or Pounds:</label>
@@ -55,7 +60,7 @@
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">Add to inventory</button>
+                  <button type="submit" class="btn btn-primary">Add to inventory</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
               </div>
