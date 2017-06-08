@@ -8,8 +8,8 @@ if($_POST) {
 	$carrierId = -1;
 
 	foreach($carriers as $carrier) {
-		if(strcmp($carrier->getCarrierName(), $previousCarrier) == 0) {
-			$carrierId = $carrier->getCarrierId();
+		if(strcmp($carrier->getName(), $previousCarrier) == 0) {
+			$carrierId = $carrier->getId();
 		}
 	}
 	
