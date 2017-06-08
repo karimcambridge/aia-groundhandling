@@ -29,7 +29,7 @@ if(isset($_POST['cargoCheckout'])) {
 			  <form class="form-horizontal" action="" method="post" id="cargoCheckout">
 			  	<div class="form-group col-md-12">
 			  		<div class="text-center">
-			  			<h3>Select an air way bill below in order to begin the checkout process</h3>
+			  			<h3>Select an Air Way Bill below in order to begin the checkout process</h3>
 			  		</div>
 			  	</div>
           <div class="clearfix"></div>

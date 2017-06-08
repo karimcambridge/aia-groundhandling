@@ -15,11 +15,11 @@ if($_POST) {
 	
 	if($carrierId != -1) {
 		$airbill = $connectionHandle->real_escape_string($airbill);
-		$sql = "INSERT INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airbill', '$carrierId')";
+		$sql = "INSERT IGNORE INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airbill', '$carrierId')";
 		$result = $connectionHandle->query($sql);
 
-		if($result->errno) {
-			echo 'MySQL Airwaybill Error: ' . $result->error;
+		if($connectionHandle->errno) {
+			echo 'MySQL Airwaybill Error: ' . $connectionHandle->error;
 			timeRedirect(10);
 		} else {
 			$_SESSION['carrierSelection'] = $previousCarrier;

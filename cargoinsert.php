@@ -23,21 +23,27 @@ if(isset($_POST['cargoInsert'])) {
   if($item_weight == 0.0) {
     $errors[] = 'Please enter an item weight.';
   } else {
-    $sql = "SELECT COUNT(`airwaybill`) AS `airwaybillcount` FROM `cargo_inventory` WHERE `airwaybill` = '$airwaybill'";
-    if($result = $connectionHandle->query($sql)) {
+    $query = "SELECT `airwaybills`.`count` AS `airwaybillcount` FROM `airwaybills` WHERE `airwaybill` = '$airwaybill'";
+    if($result = $connectionHandle->query($query)) {
       if($result->num_rows == 1) {
-        $row = mysqli_fetch_assoc($result);
+        $row = $result->fetch_assoc();
         $count = $row['airwaybillcount'] + 1;
+
         if($itemTypeId != -1) {
           $item_description = $connectionHandle->real_escape_string($item_description);
           if($item_weight_type == 'lb') {
             $item_weight *= 0.45359237;
           }
-          $sql = "INSERT INTO `cargo_inventory` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `state`, `count`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', '$item_datetime', 1, '$count')";
-          
-          if($result = $connectionHandle->query($sql)) {
-            if($connectionHandle->insert_id == 0) {
-              $errors[] = 'Database Failed (' . $result->error . ')';
+          $query = "INSERT INTO `cargo_inventory` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `state`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', '$item_datetime', 1);";
+          $query .= "UPDATE `airwaybills` SET `count` = `count` + 1 WHERE `airwaybills`.`airwaybill` = '" . $airwaybill . "';";
+
+          if($result = $connectionHandle->multi_query($query)) {
+            if($connectionHandle->insert_id == 0) { // handle first result
+              $errors[] = '[1] Database Failed (' . $connectionHandle->error . ')';
+            }
+            $connectionHandle->next_result();
+            if($connectionHandle->errno) { // handle second result
+              $errors[] = '[2] Database Failed (' . $connectionHandle->error . ')';
             }
           }
           $_SESSION['air-way-bill-selection'] = $airwaybill;
