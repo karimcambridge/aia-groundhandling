@@ -6,7 +6,7 @@
   $limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 10;
   $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
   $links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 15;
-  $query      = "SELECT `airwaybill`, `state`, `date_in`, `item_weight` FROM `cargo_inventory`";
+  $query      = "SELECT `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `state` FROM `cargo_inventory`, `cargo_item_types` WHERE `cargo_inventory`.`cargo_type_id` = `cargo_item_types`.`ID`";
  
   $Paginator  = new Paginator( $connectionHandle, $query );
 
@@ -27,9 +27,11 @@
       	  	<thead>
       	  		<tr>
       	  			<th class="active">Air Way Bill #</th>
-      	  			<th class="active">State</th>
+                <th class="active">Type of Cargo</th>
+                <th class="active">Item Description</th>
+                <th class="active">Item Weight (KG)</th>
       	  			<th class="active">Date Received</th>
-      	  			<th class="active">Item Weight (KG)</th>
+                <th class="active">State</th>
       	  		</tr>
       	  	</thead>
       	  	<tbody>
@@ -39,10 +41,15 @@
       	  		 	 	echo "<tr>";
 
       	  		 	 	echo "<td>" . $results->data[$i]['airwaybill'] . "</td>";
-      	  		 	 	echo "<td>" . $results->data[$i]['state'] . "</td>";
-      	  		 	 	echo "<td>" . $results->data[$i]['date_in'] . "</td>";
-      	  		 	 	echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
-
+                  echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
+                  echo "<td>" . $results->data[$i]['item_description'] . "</td>";
+                  echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
+                  echo "<td>" . $results->data[$i]['date_in'] . "</td>";
+                  if($results->data[$i]['state'] == 1) {
+                      echo "<td>in</td>";
+                  } else {
+                      echo "<td>out</td>";
+                  }
       	  		 	 	echo "</tr>";
       	  		 	 }
                 }

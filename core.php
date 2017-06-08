@@ -47,7 +47,7 @@ if($connectionHandle->ping()) {
 			$carriers[] = new Carrier($row["ID"], $row["name"]);
 		}
 	}
-	$sql = "SELECT `ID`, `cargo_type` FROM `cargo_item_type` ORDER BY `cargo_item_type`.`ID` ASC";
+	$sql = "SELECT `ID`, `cargo_type` FROM `cargo_item_types` ORDER BY `cargo_item_types`.`ID` ASC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
