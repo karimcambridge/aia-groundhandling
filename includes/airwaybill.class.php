@@ -6,10 +6,11 @@ class AirWayBill implements AIAGroundOpsTemplate
 	private $airWayBillCarrier;
 	private $airWayBillDateIn;
 
-	function __construct($id, $name, $carrier) {
+	function __construct($id, $name, $carrier, $dateIn) {
 		$this->_airWayBillId = $id;
 		$this->_airWayBillName = $name;
 		$this->_airWayBillCarrier = $carrier;
+		$this->_airWayBillDateIn = $dateIn;
 	}
 
 	public function getId() {
@@ -21,11 +22,11 @@ class AirWayBill implements AIAGroundOpsTemplate
 	}
 
 	public function getCarrier() {
-		return $this->airWayBillCarrier;
+		return $this->_airWayBillCarrier;
 	}
 
 	public function getDateIn() {
-		return $this->airWayBillDateIn;
+		return $this->_airWayBillDateIn;
 	}
 }
 ?>

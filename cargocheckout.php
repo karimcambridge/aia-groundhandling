@@ -1,6 +1,18 @@
 <?php require_once 'includes/header.php'; ?>
 
-<div calss="row">
+<?php
+
+$errors = array();
+$messages = array();
+
+if(isset($_POST['cargoCheckout'])) {
+	$airwaybill = $_POST['air-way-bill-checkout'];
+	echo $airwaybill;
+}
+
+?>
+
+<div class="row">
   <ol class="breadcrumb">
     <li><a href="dashboard.php">Home</a></li>
     <li class="active"><strong>Checkout Cargo</strong></li>
@@ -12,17 +24,32 @@
 			<div class="panel-heading">
 			  <span class="glyphicon glyphicon-check"></span> Cargo Checkout
 			</div>
-			<!-- /panel-heading -->
+			<!-- panel-heading -->
 			<div class="panel-body">
-			  <form class="form-inline" action="php_action/cargocheckoutdb.php" method="post" id="cargoCheckout">
-			    <div class="form-group">
-			      <label class="col-md-6 control-label">Air Bill</label>
-			      <div class="col-md-10">
-			        <input type="text" class="form-control" placeholder="Liatx123424523" required autofocus />
+			  <form class="form-inline" action="" method="post" id="cargoCheckout">
+			  	<div class="form-group col-md-12">
+			  		<div class="text-center">
+			  			<h3>Select an air way bill below in order to begin the checkout process</h3>
+			  		</div>
+			  	</div>
+          <div class="clearfix"></div>
+			    <div class="form-group col-md-12">
+			      <div class="text-center">
+			      	<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required autofocus>
+                <?php
+                  foreach($airwaybills as $airwaybill) {
+                    echo "<option value=\"" . $airwaybill->getName() . "\"";
+                    //if($airwaybill->getName() == $previousAirWayBill) {
+                    //  echo "selected";
+                    //}
+                    echo ">" . $airwaybill->getName() . " (" . $airwaybill->getDateIn() . ")</option>";
+                  }
+                ?>
+                </select>
 			      </div>
 			    </div>
-			    <div class="form-group">
-			      <div class="col-md-offset-2">
+			    <div class="form-group col-md-12">
+			      <div class="text-center">
 			        <button type="submit" class="btn btn-info">Search <span class="glyphicon glyphicon-search"></span></button>
 			      </div>
 			    </div>

@@ -9,10 +9,11 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
+			<!-- panel-heading -->
 			<div class="panel-heading">
 				<strong>Cargo Fees</strong>
 			</div>
-			<!-- /panel-heading -->
+			<!-- panel-body -->
 			<div class="panel-body">
 				<form class="form-horizontal" method="post" id="cargoFees">
 				  <div class="form-group">
