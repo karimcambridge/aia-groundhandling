@@ -1,5 +1,5 @@
 <?php
-class CargoType
+class CargoType implements template
 {
 	private $cargoTypeId;
 	private $cargoTypeName;
@@ -9,11 +9,11 @@ class CargoType
 		$this->_cargoTypeName = $name;
 	}
 
-	public function getCargoTypeId() {
+	public function getId() {
 		return $this->_cargoTypeId;
 	}
 
-	public function getCargoTypeName() {
+	public function getName() {
 		return $this->_cargoTypeName;
 	}
 }

@@ -37,7 +37,7 @@
                       <select class="form-control" name="item-type" id="item-type" required>
                       <?php
                         foreach($cargotypes as $cargotype) {
-                          echo "<option>" . $cargotype->getCargoTypeName() . "</option>";
+                          echo "<option>" . $cargotype->getName() . "</option>";
                         }
                       ?>
                       </select>

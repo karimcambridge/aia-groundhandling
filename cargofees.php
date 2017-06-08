@@ -21,7 +21,7 @@
 				      <select class="form-control" name="carrierSelection" id="carrierSelection" required>
 						<?php
 							foreach($carriers as $carrier) {
-								echo "<option value=\"" . $carrier->getCarrierName() . "\">" . $carrier->getCarrierName() . "</option>";
+								echo "<option value=\"" . $carrier->getName() . "\">" . $carrier->getName() . "</option>";
 							}
 						?>
 				      </select>

@@ -23,12 +23,23 @@ function timeRedirect($value) {
 }
 
 require_once 'php_action/db_connect.php';
-require_once 'includes/carrier.php';
-require_once 'includes/cargotype.php';
+require_once 'includes/template.interface.php';
+require_once 'includes/airwaybill.class.php';
+require_once 'includes/carrier.class.php';
+require_once 'includes/cargotype.class.php';
 
 if($connectionHandle->ping()) {
+	$airwaybills = array();
 	$carriers = array();
 	$cargotypes = array();
+
+	$sql = "SELECT `ID`, `airwaybill`, `carrier_id` FROM `airwaybills` ORDER BY `airwaybills`.`date_in` DESC";
+	
+	if($result = $connectionHandle->query($sql)) {
+		while ( $row = $result->fetch_assoc() ) {
+			$airwaybills[] = new AirWayBill($row["ID"], $row["airwaybill"], $row["carrier_id"]);
+		}
+	}
 	$sql = "SELECT * FROM `carriers` ORDER BY `carriers`.`ID` ASC";
 	
 	if($result = $connectionHandle->query($sql)) {
@@ -36,7 +47,7 @@ if($connectionHandle->ping()) {
 			$carriers[] = new Carrier($row["ID"], $row["name"]);
 		}
 	}
-	$sql = "SELECT * FROM `cargo_item_type` ORDER BY `cargo_item_type`.`ID` ASC";
+	$sql = "SELECT `ID`, `cargo_type` FROM `cargo_item_type` ORDER BY `cargo_item_type`.`ID` ASC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {

@@ -1,5 +1,5 @@
 <?php
-class Carrier
+class Carrier implements template
 {
 	private $carrierId;
 	private $carrierName;
@@ -9,11 +9,11 @@ class Carrier
 		$this->_carrierName = $name;
 	}
 
-	public function getCarrierId() {
+	public function getId() {
 		return $this->_carrierId;
 	}
 
-	public function getCarrierName() {
+	public function getName() {
 		return $this->_carrierName;
 	}
 }

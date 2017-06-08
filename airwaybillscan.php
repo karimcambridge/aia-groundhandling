@@ -32,11 +32,11 @@ if(isset($_SESSION['carrierSelection'])) {
 				      <select class="form-control" name="carrierSelection" id="carrierSelection" required>
 						<?php
 							foreach($carriers as $carrier) {
-								echo "<option value=\"" . $carrier->getCarrierName() . "\"";
-								if($carrier->getCarrierName() == $previousCarrier) {
+								echo "<option value=\"" . $carrier->getName() . "\"";
+								if($carrier->getName() == $previousCarrier) {
 									echo "selected";
 								}
-								echo ">" . $carrier->getCarrierName() . "</option>";
+								echo ">" . $carrier->getName() . "</option>";
 							}
 						?>
 				      </select>
