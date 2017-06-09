@@ -158,7 +158,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
                     <div class="form-group">
                       <label for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</label>
                       <select class="form-control" name="item-weight-type" id="item-weight-type" required>
-                        <option value="kg">KG</option>
+                        <option value="kg" selected>KG</option>
                         <option value="lb">LBs (Pounds)</option>
                       </select>
                     </div>
