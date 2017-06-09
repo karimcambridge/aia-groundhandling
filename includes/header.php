@@ -7,26 +7,26 @@
     <title>AIA Ground Ops</title>
 
     <!-- bootstrap-->
-    <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 
     <!-- bootstrap theme -->
-    <link rel="stylesheet" href="assests/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css">
 
     <!-- font awesome -->
-    <link rel="stylesheet" href="assests/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 
     <!--custom css -->
     <link rel="stylesheet" href="custom/css/custom.css">
 
     <!-- jquery -->
-    <script src="assests/jquery/jquery.min.js"></script>
+    <script src="assets/jquery/jquery.min.js"></script>
 
     <!-- jquery -->
-    <link rel="stylesheet" href="assests/jquery-ui/jquery-ui.min.css">
-    <script src="assests/jquery-ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="assets/jquery-ui/jquery-ui.min.css">
+    <script src="assets/jquery-ui/jquery-ui.min.js"></script>
 
     <!--bootstrap js-->
-    <script src="assests/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
   </head>
   <body>
