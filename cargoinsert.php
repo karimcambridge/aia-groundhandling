@@ -134,7 +134,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
                     </div>
                     <div class="form-group">
                       <label for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
-                      <input type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d').'T'.date('h:i');?>" required></input>
+                      <input type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d' . 'T' . 'h:i:s', $airwaybill->getDateInTimestamp());?>" required></input>
                       <span class="validity"></span>
                     </div>
                     <div class="form-group">
@@ -178,7 +178,17 @@ if(isset($_SESSION['air-way-bill-selection'])) {
   </div>
 </div>
 
-<script src="custom/js/showmodal.js"></script>
+<script type="text/javascript">
+$(window).on('load',function(){
+  $('#cargoInsertModal').modal('show');
+});
+
+$('#air-way-bill-selection').change(function(){
+    if ($(this).val() == 'Liatx970423') {
+        console.log("test");
+    }
+});
+</script>
 
 <?php
 

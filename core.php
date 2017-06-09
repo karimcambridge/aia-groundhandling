@@ -33,11 +33,11 @@ if($connectionHandle->ping()) {
 	$carriers = array();
 	$cargotypes = array();
 
-	$sql = "SELECT `ID`, `airwaybill`, `carrier_id`, `date_in` FROM `airwaybills` ORDER BY `airwaybills`.`date_in` DESC";
+	$sql = "SELECT `ID`, `airwaybill`, `carrier_id`, `date_in`, UNIX_TIMESTAMP(`date_in`) AS `date_in_timestamp` FROM `airwaybills` ORDER BY `airwaybills`.`date_in` DESC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
-			$airwaybills[] = new AirWayBill($row['ID'], $row['airwaybill'], $row['carrier_id'], $row['date_in']);
+			$airwaybills[] = new AirWayBill($row['ID'], $row['airwaybill'], $row['carrier_id'], $row['date_in'], $row['date_in_timestamp']);
 		}
 	}
 	$sql = "SELECT * FROM `carriers` ORDER BY `carriers`.`ID` ASC";
