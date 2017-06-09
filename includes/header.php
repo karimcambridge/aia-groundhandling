@@ -3,30 +3,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AIA Ground Ops</title>
 
     <!-- bootstrap-->
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-
-    <!-- bootstrap theme -->
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css">
-
-    <!-- font awesome -->
-    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
 
     <!--custom css -->
     <link rel="stylesheet" href="custom/css/custom.css">
 
-    <!-- jquery -->
+    <!-- jquery v3.2.1 -->
     <script src="assets/jquery/jquery.min.js"></script>
 
-    <!-- jquery -->
-    <link rel="stylesheet" href="assets/jquery-ui/jquery-ui.min.css">
-    <script src="assets/jquery-ui/jquery-ui.min.js"></script>
+    <!-- tether 1.3.3 -->
+    <script src="assets/tether-1.3.3/js/tether.min.js"></script>
 
-    <!--bootstrap js-->
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <!--bootstrap v4-alhpa.6 js-->
+    <script src="assets/bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
 
   </head>
   <body>
