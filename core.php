@@ -22,7 +22,7 @@ function timeRedirect($value) {
 	die();
 }
 
-require_once 'php_action/db_connect.php';
+require_once 'php_action/sql_config.php';
 require_once 'includes/AIAGroundOpsTemplate.interface.php';
 require_once 'includes/airwaybill.class.php';
 require_once 'includes/carrier.class.php';

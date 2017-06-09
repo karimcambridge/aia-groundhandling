@@ -114,7 +114,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
               <form id="cargoInsert" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title" id="cargoInsertModalLabel">Enter the item information:</h1>
+                    <h1 class="modal-title text-center" id="cargoInsertModalLabel">Enter the item information:</h1>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   </div>
                   <div class="modal-body">

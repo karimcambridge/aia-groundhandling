@@ -1,17 +1,9 @@
 <?php require_once 'includes/header.php'; ?>
 
-<?php
-
-if(isset($_POST['cargoCheckout'])) {
-	$airwaybill = $_POST['air-way-bill-checkout'];
-}
-
-?>
-
 <div class="row">
 	<ol class="breadcrumb">
 		<li><a href="dashboard.php">Home</a></li>
-		<li class="active"><strong>Checkout Cargo</strong></li>
+		<li class="active"><strong>Cargo Checkout</strong></li>
 	</ol>
 </div>
 <div class="row">
@@ -22,7 +14,7 @@ if(isset($_POST['cargoCheckout'])) {
 			</div>
 			<!-- panel-heading -->
 			<div class="panel-body">
-				<form class="form-horizontal" id="cargoCheckout" action="" method="post">
+				<form class="form-horizontal" id="cargoCheckout" action="cargoedit.php" method="post">
 					<div class="form-group">
 						<div class="text-center">
 							<h3>Select an Air Way Bill below in order to begin the checkout process</h3>

@@ -1,11 +1,10 @@
 <?php
-require_once 'php_action/db_connect.php';
+require_once 'php_action/sql_config.php';
 
 session_start();
 
-if(isset($_SESSION['userId'])) {
+if(isset($_SESSION['accountId'])) {
 	header('location:http://127.00.1/groundopps/dashboard.php');
-	//header('location: http://localhost:9080/groundopps/dashboard.php');
 	die();
 } else {
 	$errors = array();
@@ -33,10 +32,10 @@ if(isset($_SESSION['userId'])) {
 
 				if($loginResult->num_rows == 1) {
 					// set session
-					if(!isset($_SESSION['userId'])) {
+					if(!isset($_SESSION['accountId'])) {
 						$value = $loginResult->fetch_assoc();
 						$user_id = $value['accountid'];
-						$_SESSION['userId'] = $user_id;
+						$_SESSION['accountId'] = $user_id;
 					}
 					header('location: http://127.0.0.1/groundopps/dashboard.php');
 				} else{
