@@ -85,13 +85,13 @@
 <div class="row">
   <div class="col-md-12">
 	 <ol class="breadcrumb">
-	   <li><a href="dashboard.php">Home</a></li>
+	   <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
       <?php
         if(!empty($airwaybill)) {
-          echo "<li><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Inventory</a></li>";
-          echo "<li class=\"active\"><strong>" . $airwaybill . "</strong></li>";
+          echo "<li class=\"breadcrumb-item\"><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Inventory</a></li>";
+          echo "<li class=\"breadcrumb-item active\"><strong>" . $airwaybill . "</strong></li>";
         } else {
-          echo "<li class=\"active\"><strong>Cargo Inventory</strong></li>";
+          echo "<li class=\"breadcrumb-item active\"><strong>Cargo Inventory</strong></li>";
         }
       ?>
 	 </ol>
@@ -99,8 +99,8 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
+    <div class="card">
+      <div class="card-header">
         <?php
         if(empty($airwaybill)) {
           echo "Cargo Inventory (Select an AirWayBill to view all items on that AirWayBill)";
@@ -109,7 +109,7 @@
         }
         ?>
       </div>
-      <div class="panel-body">
+      <div class="card-block">
         <div class="table-responsive">
       	  <table class="table" id="cargoinventory">
       	  	<thead>
@@ -163,7 +163,7 @@
                <div class="modal-body">
                  <div class="form-group">
                     <input type="hidden" name="item-id" value="<?php echo $editingId; ?>">
-                    <label for="air-way-bill-selection" class="form-control-label">AirWayBill #</label>
+                    <tag for="air-way-bill-selection" class="form-control-label">AirWayBill #</label>
                     <select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
                     <?php
                       foreach($airwaybills as $value) {
@@ -179,12 +179,12 @@
                     </select>
                    </div>
                    <div class="form-group">
-                     <label for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
+                     <tag for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
                      <input type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d').'T'.date('h:i');?>" required></input>
                      <span class="validity"></span>
                    </div>
                    <div class="form-group">
-                     <label for="item-type" class="form-control-label">Type:</label>
+                     <tag for="item-type" class="form-control-label">Type:</label>
                      <select class="form-control" name="item-type" id="item-type" required>
                      <?php
                        foreach($cargotypes as $value) {
@@ -198,15 +198,15 @@
                      </select>
                    </div>
                    <div class="form-group">
-                     <label for="item-description" class="form-control-label">Description:</label>
+                     <tag for="item-description" class="form-control-label">Description:</label>
                      <textarea class="form-control" name="item-description" id="item-description" required><?php echo $editingItemDescription; ?></textarea>
                    </div>
                    <div class="form-group">
-                     <label for="item-datetime" class="form-control-label">Enter the items' weight:</label>
+                     <tag for="item-datetime" class="form-control-label">Enter the items' weight:</label>
                      <input type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="1000" <?php echo 'value="' . $editingItemWeight . '"'; ?>   required></input>
                    </div>
                    <div class="form-group">
-                     <label for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</label>
+                     <tag for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</label>
                      <select class="form-control" name="item-weight-type" id="item-weight-type" required>
                        <option value="kg" selected>KG</option>
                        <option value="lb">LBs (Pounds)</option>

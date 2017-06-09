@@ -10,7 +10,10 @@
     <!-- bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
 
-    <!--custom css -->
+    <!-- FontAwesome css -->
+    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom css -->
     <link rel="stylesheet" href="custom/css/custom.css">
 
     <!-- jquery v3.2.1 -->
@@ -19,39 +22,30 @@
     <!-- tether 1.3.3 -->
     <script src="assets/tether-1.3.3/js/tether.min.js"></script>
 
-    <!--bootstrap v4-alhpa.6 js-->
+    <!-- Bootstrap v4-alhpa.6 js -->
     <script src="assets/bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
 
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-static-top"">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">Ground Operations</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="index.php"><span class="glyphicon glyphicon-home"></span></a></li>
-            <li><a href="cargoinventory.php">Cargo Inventory <span class="glyphicon glyphicon-search"></span></a></li>
-            <li><a href="airwaybillscan.php">AirWayBill Entry <span class="glyphicon glyphicon-briefcase"></span></a></li>
-            <li><a href="cargoinsert.php">Insert Cargo <span class="glyphicon glyphicon-floppy-save"></span></a></li>
-            <li><a href="cargofees.php">Cargo Fees <span class="glyphicon glyphicon-eur"></span></a></li>
-			      <li><a href="servicefees.php">Services Fees <span class="glyphicon glyphicon-usd"></span></a></li>
+  <nav class="navbar navbar-inverse bg-inverse sticky-top navbar-toggleable-md navbar-full">
+    <a class="navbar-brand" href="index.php">Ground Operations</a>
+    <div class="collapse navbar-collapse" id="groundopsNavBar">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="index.php"><span class="fa fa-home"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="cargoinventory.php">Cargo Inventory <span class="fa fa-search"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="airwaybillscan.php">AirWayBill Entry <span class="fa fa-briefcase"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="cargoinsert.php">Insert Cargo <span class="fa fa-floppy-o"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="cargofees.php">Cargo Fees <span class="fa fa-eur"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="servicefees.php">Services Fees <span class="fa fa-usd"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="reports.php"><strong>Reports</strong> <span class="fa fa-folder-open"></span></a></li>
+        <li class="nav-item dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span><span class=  "caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item" id="topNavlogout"><a href="logout.php"><span class="fa fa-sign-out"> Logout</span></a></li>
+            <li class="dropdown-divider" role="separator"></li>
+            <li class="dropdown-item" id="topNavsettings"><a href="settings.php"><span class="fa fa-cog"> Settings</span></a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-			     <li id="navDashboard"><a href="report.php"><strong>Reports</strong> <span class="glyphicon glyphicon-folder-open"></span></a></li>
-		        <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li id="topNavlogout"><a href="logout.php"><span class="glyphicon glyphicon-log-out"> Logout</span></a></li>
-                <li role="separator" class="divider"></li>
-                <li id="topNavsettings"><a href="settings.php"><span class="glyphicon glyphicon-cog"> Settings</span></a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>

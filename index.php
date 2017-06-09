@@ -77,11 +77,11 @@ if(isset($_SESSION['accountId'])) {
 	<div class="container">
 		<div class="row vertical">
 			<div class="col-md-5 col-md-offset-4">
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Please Sign in here</h3>
+				<div class="card card-info">
+					<div class="card-header">
+						<h3 class="card-title">Please Sign in here</h3>
 					</div>
-					<div class="panel-body">
+					<div class="card-block">
 						<?php
         				  if($errors) {
         				    echo '<div class="messages">';
@@ -96,28 +96,28 @@ if(isset($_SESSION['accountId'])) {
 						<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="loginForm">
 							<fieldset>
 							  <div class="form-group">
-									<label for="username" class="col-sm-2 control-label">Username</label>
+									<tag for="username" class="col-sm-2 form-control-label">Username</label>
 									<div class="col-sm-10">
 									  <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="password" class="col-sm-2 control-label">Password</label>
+									<tag for="password" class="col-sm-2 form-control-label">Password</label>
 									<div class="col-sm-10">
 									  <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" />
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
-									  <button type="submit" class="btn btn-default"> <i class="glyphicon glyphicon-log-in"></i> Sign in</button>
+									  <button type="submit" class="btn btn-secondary"> <i class="glyphicon glyphicon-log-in"></i> Sign in</button>
 									</div>
 								</div>
 							</fieldset>
 						</form>
 					</div>
-					<!-- panel-body -->
+					<!-- card-body -->
 				</div>
-				<!-- /panel -->
+				<!-- /card -->
 			</div>
 			<!-- /col-md-4 -->
 		</div>

@@ -10,23 +10,25 @@ if(isset($_SESSION['carrierSelection'])) {
 
 ?>
 
-<div calss="row">
-  <ol class="breadcrumb">
-    <li><a href="dashboard.php">Home</a></li>
-    <li class="active"><strong>Airbill Entry</strong></li>
-  </ol>
+<div class="row">
+  <div class="col-md-12">
+  	<ol class="breadcrumb">
+  	  <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+  	  <li class="breadcrumb-item active"><strong>Airbill Entry</strong></li>
+  	</ol>
+  </div>
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
+		<div class="card">
+			<div class="card-header">
 				<span class="glyphicon glyphicon-check"></span> Cargo Airbill Entry
 			</div>
-			<!-- /panel-heading -->
-			<div class="panel-body">
+			<!-- /card-heading -->
+			<div class="card-block">
 				<form class="form-inline" id="airwaybillEntryForm" action="php_action\airwaybillscanentry.php" method="post" >
 				<div class="form-group">
-				  <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</label>
+				  <tag class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</label>
 				  <div class="clearfix"></div>
 				    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 				      <select class="form-control" name="carrierSelection" id="carrierSelection" required>
@@ -43,7 +45,7 @@ if(isset($_SESSION['carrierSelection'])) {
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-6 control-label">Air Bill</label>
+				    <tag class="col-sm-6 control-label">Air Bill</label>
 				    <div class="col-sm-10">
 				      <input type="text" class="form-control" name="cargoAirbill" placeholder="Liatx123424523" required autofocus />
 				    </div>
@@ -56,7 +58,7 @@ if(isset($_SESSION['carrierSelection'])) {
 				</form>
 
 			</div>
-			<!-- /panel-body -->
+			<!-- /card-body -->
 		</div>
 	</div>
 </div>

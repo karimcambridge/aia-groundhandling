@@ -5,15 +5,15 @@
 	<div class="col-md-12">
 
 		<ol class="breadcrumb">
-		  <li><a href="dashboard.php">Home</a></li>
-		  <li class="active">Brand</li>
+		  <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+		  <li class="breadcrumb-item active">Brand</li>
 		</ol>
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">
+		<div class="card card-primary">
+			<div class="card-header">
 				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Manage Brand</div>
-			</div> <!-- /panel-heading -->
-			<div class="panel-body">
+			</div> <!-- /card-heading -->
+			<div class="card-block">
 
 				<div class="remove-messages"></div>
 
@@ -32,8 +32,8 @@
 				</table>
 				<!-- /table -->
 
-			</div> <!-- /panel-body -->
-		</div> <!-- /panel -->
+			</div> <!-- /card-body -->
+		</div> <!-- /card -->
 	</div> <!-- /col-md-12 -->
 </div> <!-- /row -->
 
@@ -48,15 +48,15 @@
 	      	<div id="add-brand-messages"></div>
 
 	        <div class="form-group">
-	        	<label for="brandName" class="col-sm-3 control-label">Brand Name: </label>
-	        	<label class="col-sm-1 control-label">: </label>
+	        	<tag for="brandName" class="col-sm-3 control-label">Brand Name: </label>
+	        	<tag class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
 				      <input type="text" class="form-control" id="brandName" placeholder="Brand Name" name="brandName" autocomplete="off">
 				    </div>
 	        </div> <!-- /form-group-->
 	        <div class="form-group">
-	        	<label for="brandStatus" class="col-sm-3 control-label">Status: </label>
-	        	<label class="col-sm-1 control-label">: </label>
+	        	<tag for="brandStatus" class="col-sm-3 control-label">Status: </label>
+	        	<tag class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
 				      <select class="form-control" id="brandStatus" name="brandStatus">
 				      	<option value="">~~SELECT~~</option>
@@ -104,15 +104,15 @@
 
 		      <div class="edit-brand-result">
 		      	<div class="form-group">
-		        	<label for="editBrandName" class="col-sm-3 control-label">Brand Name: </label>
-		        	<label class="col-sm-1 control-label">: </label>
+		        	<tag for="editBrandName" class="col-sm-3 control-label">Brand Name: </label>
+		        	<tag class="col-sm-1 control-label">: </label>
 					    <div class="col-sm-8">
 					      <input type="text" class="form-control" id="editBrandName" placeholder="Brand Name" name="editBrandName" autocomplete="off">
 					    </div>
 		        </div> <!-- /form-group-->
 		        <div class="form-group">
-		        	<label for="editBrandStatus" class="col-sm-3 control-label">Status: </label>
-		        	<label class="col-sm-1 control-label">: </label>
+		        	<tag for="editBrandStatus" class="col-sm-3 control-label">Status: </label>
+		        	<tag class="col-sm-1 control-label">: </label>
 					    <div class="col-sm-8">
 					      <select class="form-control" id="editBrandStatus" name="editBrandStatus">
 					      	<option value="">~~SELECT~~</option>

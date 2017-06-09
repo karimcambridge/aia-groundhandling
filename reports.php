@@ -1,6 +1,14 @@
 <?php require_once 'includes/header.php'; ?>
 
 <div class="row">
+  <div class="col-md-12">
+  	<ol class="breadcrumb">
+  	  <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+  	  <li class="breadcrumb-item active"><strong>Reports</strong></li>
+  	</ol>
+  </div>
+</div>
+<div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -10,19 +18,19 @@
 			<div class="panel-body">
 				<form class="form-inline" action="php_action/getOrderReport.php" method="post" id="getOrderReportForm">
 				  <div class="form-group">
-				    <label for="startDate" class="col-sm-8 control-label">Start Date</label>
+				    <label for="startDate" class="col-sm-8 form-control-label">Start Date</label>
 				    <div class="col-sm-10">
 				      <input type="text" class="form-control" id="startDate" placeholder="Start Date" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label for="endDate" class="col-sm-8 control-label">End Date</label>
+				    <label for="endDate" class="col-sm-8 form-control-label">End Date</label>
 				    <div class="col-sm-10">
 				      <input type="text" class="form-control" id="endDate" placeholder="End Date" />
 				    </div>
 				  </div>
 				  	<div class="form-group">
-				    <label for="startDate" class="col-sm-8 control-label">Report Type</label>
+				    <label for="reportType" class="col-sm-8 form-control-label">Report Type</label>
 				    <div class="col-sm-10">
 				      <input type="text" class="form-control" id="reportType" />
 				    </div>

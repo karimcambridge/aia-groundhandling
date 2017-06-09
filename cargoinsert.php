@@ -66,19 +66,19 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 ?>
 <div calss="row">
   <ol class="breadcrumb">
-    <li><a href="dashboard.php">Home</a></li>
-    <li class="active"><strong>Cargo Insert</strong></li>
+    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active"><strong>Cargo Insert</strong></li>
   </ol>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-primary">
-      <!-- panel-heading -->
-      <div class="panel-heading">
+    <div class="card">
+      <!-- card-heading -->
+      <div class="card-header">
         <span class="glyphicon glyphicon-check"></span> Cargo Insert
       </div>
-      <!-- panel-body -->
-      <div class="panel-body">
+      <!-- card-body -->
+      <div class="card-block">
         <?php
           if($errors) {
             echo '<div class="messages">';
@@ -86,7 +86,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
               echo '<div class="alert alert-danger alert-dismissible" role="alert">
               <span class="glyphicon glyphicon-exclamation-sign"></span>';
               echo '<h4 class="alert-heading">ERROR!</h4>';
-              echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+              echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
               echo $value . '</div>';
             }
             echo '</div>';
@@ -99,7 +99,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
               echo '<div class="alert alert-success alert-dismissible" role="alert">
               <span class="glyphicon glyphicon-exclamation-sign"></span>';
               echo '<h4 class="alert-heading">SUCCESS!</h4>';
-              echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+              echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
               echo $value . '</div>';
             }
             echo '</div>';
@@ -109,17 +109,17 @@ if(isset($_SESSION['air-way-bill-selection'])) {
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cargoInsertModal">Insert Cargo</button>
         </div>
         <div class="form-group">
-          <div class="modal fade" id="cargoInsertModal" role="dialog" aria-labelledby="cargoInsertModalLabel" aria-hidden="true">
+          <div class="modal fade" id="cargoInsertModal" role="dialog" aria-tagledby="cargoInsertModaltag" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <form id="cargoInsert" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title text-center" id="cargoInsertModalLabel">Enter the item information:</h1>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h1 class="modal-title text-center" id="cargoInsertModaltag">Enter the item information:</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-tag="Close"><span aria-hidden="true">&times;</span></button>
                   </div>
                   <div class="modal-body">
                     <div class="form-group">
-                      <label for="air-way-bill-selection" class="form-control-label">Select AirWayBill #</label>
+                      <tag for="air-way-bill-selection" class="form-control-tag">Select AirWayBill #</tag>
                       <select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
                       <?php
                         foreach($airwaybills as $airwaybill) {
@@ -133,12 +133,12 @@ if(isset($_SESSION['air-way-bill-selection'])) {
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
+                      <tag for="item-datetime" class="form-control-tag">AirWayBill date/time:</tag>
                       <input type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d' . 'T' . 'h:i:s', $airwaybill->getDateInTimestamp());?>" required></input>
                       <span class="validity"></span>
                     </div>
                     <div class="form-group">
-                      <label for="item-type" class="form-control-label">Type:</label>
+                      <tag for="item-type" class="form-control-tag">Type:</tag>
                       <select class="form-control" name="item-type" id="item-type" required>
                       <?php
                         foreach($cargotypes as $cargotype) {
@@ -148,15 +148,15 @@ if(isset($_SESSION['air-way-bill-selection'])) {
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="item-description" class="form-control-label">Description:</label>
+                      <tag for="item-description" class="form-control-tag">Description:</tag>
                       <textarea class="form-control" name="item-description" id="item-description" required></textarea>
                     </div>
                     <div class="form-group">
-                      <label for="item-datetime" class="form-control-label">Enter the items' weight:</label>
+                      <tag for="item-datetime" class="form-control-tag">Enter the items' weight:</tag>
                       <input type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="1000" value="0.00" required></input>
                     </div>
                     <div class="form-group">
-                      <label for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</label>
+                      <tag for="item-weight-type" class="form-control-tag">KG or Pounds (items will be stored as KG):</tag>
                       <select class="form-control" name="item-weight-type" id="item-weight-type" required>
                         <option value="kg" selected>KG</option>
                         <option value="lb">LBs (Pounds)</option>
@@ -173,7 +173,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
           </div>
         </div>
       </div>
-      <!-- /panel-body -->
+      <!-- /card-body -->
     </div>
   </div>
 </div>

@@ -16,10 +16,10 @@ if(empty($airwaybill)) {
 
 <div class="row">
 	<ol class="breadcrumb">
-		<li><a href="dashboard.php">Home</a></li>
+		<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
 		<?php
-    	    echo "<li><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Checkout</a></li>";
-    	    echo "<li class=\"active\"><strong>" . $airwaybill . "</strong></li>";
+    	    echo "<li class=\"breadcrumb-item\"><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Checkout</a></li>";
+    	    echo "<li class=\"breadcrumb-item active\"><strong>" . $airwaybill . "</strong></li>";
     	?>
 	</ol>
 </div>
