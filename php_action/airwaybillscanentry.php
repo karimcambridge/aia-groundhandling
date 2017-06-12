@@ -12,18 +12,24 @@ if($_POST) {
 			$carrierId = $carrier->getId();
 		}
 	}
-	
 	if($carrierId != -1) {
-		$airbill = $connectionHandle->real_escape_string($airbill);
-		$sql = "INSERT IGNORE INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airbill', '$carrierId')";
-		$result = $connectionHandle->query($sql);
-
-		if($connectionHandle->errno) {
-			echo 'MySQL Airwaybill Error: ' . $connectionHandle->error;
-			timeRedirect(10);
-		} else {
-			$_SESSION['carrierSelection'] = $previousCarrier;
-			instantRedirect();
+		$query = "SELECT NULL FROM `airwaybills` WHERE `airwaybill` = '" . $airwaybill . "';";
+		if($result = $connectionHandle->query($query)) {
+			if($result->num_rows == 1) {
+				echo 'This AirWayBill already exists!';
+			} else {
+				$airbill = $connectionHandle->real_escape_string($airbill);
+				$sql = "INSERT IGNORE INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airbill', '$carrierId')";
+				$result = $connectionHandle->query($sql);
+	
+				if($connectionHandle->errno) {
+					echo 'MySQL Airwaybill Error: ' . $connectionHandle->error;
+					timeRedirect(10);
+				} else {
+					$_SESSION['carrierSelection'] = $previousCarrier;
+					instantRedirect();
+				}
+			}
 		}
 	} else {
 		echo 'There was an error finding the selected carrier ID. Please tell the I.T guys!';
