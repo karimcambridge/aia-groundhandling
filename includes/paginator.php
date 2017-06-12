@@ -46,23 +46,12 @@
       if ( $this->_limit == 'all' ) {
           return '';
       }
-      $previousLinks = "";
+      $previousLinks = keepLinks("airwaybill");
       $last       = ceil( $this->_total / $this->_limit );
    
       $start      = ( ( $this->_page - $links ) > 0 ) ? $this->_page - $links : 1;
       $end        = ( ( $this->_page + $links ) < $last ) ? $this->_page + $links : $last;
 
-      if (!empty($_GET)) {
-        $parameters = array("airwaybill");
-        // Loop through the parameters
-        foreach ($_GET as $parameter => $value) {
-          // Append the parameter and its value to the new path
-          if(in_array($parameter, $parameters)) {
-            $previousLinks .= "&" . $parameter . "=" . urlencode($value);
-          }
-        }
-      }
-   
       $html       = '<ul class="' . $list_class . '">';
    
       if($this->_page >= 1) {

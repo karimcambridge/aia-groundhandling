@@ -22,6 +22,21 @@ function timeRedirect($value) {
 	die();
 }
 
+function keepLinks(...$parameters)
+{
+	$previousParams = "";
+	if(!empty($_GET)) {
+    	// Loop through the parameters
+    	foreach ($_GET as $parameter => $value) {
+    		// Append the parameter and its value to the new path
+    		if(in_array($parameter, $parameters)) {
+    		  $previousParams .= "&" . $parameter . "=" . urlencode($value);
+    		}
+    	}
+	}
+	return $previousParams;
+}
+
 require_once 'php_action/sql_config.php';
 require_once 'includes/AIAGroundOpsTemplate.interface.php';
 require_once 'includes/airwaybill.class.php';
