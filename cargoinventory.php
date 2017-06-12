@@ -151,8 +151,7 @@
 											$editingItemDescription = $results->data[$i]['item_description'];
 											$editingItemWeight = $results->data[$i]['item_weight'];
 											$editingItemDateUnix = strtotime($results->data[$i]['date_in']);
-											$now = time();
-											$editingItemDays = ceil(abs($now - $editingItemDateUnix) / 86400) - 1;
+											$editingItemDays = dateDifference(date("Y-m-d h:i:s"), $results->data[$i]['date_in']);
 											$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type']);
 										}
 									}
