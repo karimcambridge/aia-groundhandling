@@ -74,7 +74,8 @@
       else if(isset($_POST['cargoCheckout'])) {
         unset($_POST['cargoCheckout']);
         $connectionHandle->begin_transaction();
-        $connectionHandle->query("INSERT INTO `cargo_out` SELECT * FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
+        $connectionHandle->query("INSERT INTO `cargo_out` (`ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in` FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
+        $connectionHandle->query("UPDATE `cargo_out` SET `date_out` = NOW() WHERE `ID` = " . $item_id . ";");
         $connectionHandle->query("DELETE FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
         $connectionHandle->commit();
         sleep(1); // Sleep in order for the SQL to be updated so it won't fetch the data back on the inventory page on form refresh
