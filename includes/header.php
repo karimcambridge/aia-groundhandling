@@ -37,9 +37,9 @@
         <li class="nav-item"><a class="nav-link" href="cargoinsert.php">Insert Cargo <span class="fa fa-floppy-o"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="cargofees.php">Cargo Fees <span class="fa fa-eur"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="servicefees.php">Services Fees <span class="fa fa-usd"></span></a></li>
-        <li class="nav-item"><a class="nav-link" href="reports.php"><strong>Reports</strong> <span class="fa fa-folder-open"></span></a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="reports.php">Reports <span class="fa fa-folder-open"></span></a></li>
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-user"></span></a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">

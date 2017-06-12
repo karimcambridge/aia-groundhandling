@@ -10,12 +10,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<span class="glyphicon glyphicon-book"></span> <strong>Reports</strong>
-			</div>
-			<!-- /panel-heading -->
-			<div class="panel-body">
+		<div class="card">
+			<!-- /card-heading -->
+			<div class="card-block">
 				<form class="form-inline" action="php_action/getOrderReport.php" method="post" id="getOrderReportForm">
 				  <div class="form-group">
 				    <label for="startDate" class="col-sm-8 form-control-label">Start Date</label>
@@ -43,7 +40,7 @@
 				</form>
 
 			</div>
-			<!-- /panel-body -->
+			<!-- /card-body -->
 		</div>
 	</div>
 	<!-- /col-dm-12 -->

@@ -51,9 +51,7 @@ if(isset($_SESSION['carrierSelection'])) {
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <div class="col-sm-offset-1">
-				      <button type="submit" class="btn btn-primary"></span>Save changes</button>
-				    </div>
+				     <button type="submit" class="btn btn-primary"></span>Save changes</button>
 				  </div>
 				</form>
 
