@@ -35,6 +35,7 @@
     $editingItemType;
     $editingItemDescription;
     $editingItemWeight;
+    $editingItemDateUnix;
   }
   if(isset($_POST['cargoEdit']) || isset($_POST['cargoCheckout'])) {
     $item_id = $_POST['item-id'];
@@ -144,6 +145,7 @@
                       $editingItemType = $results->data[$i]['cargo_type'];
                       $editingItemDescription = $results->data[$i]['item_description'];
                       $editingItemWeight = $results->data[$i]['item_weight'];
+                      $editingItemDateUnix = strtotime($results->data[$i]['date_in']);
                     }
       	  		 	 }
                 }
@@ -182,7 +184,7 @@
                    </div>
                    <div class="form-group">
                      <tag for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
-                     <input type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d').'T'.date('h:i');?>" required></input>
+                     <input type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" required></input>
                      <span class="validity"></span>
                    </div>
                    <div class="form-group">
@@ -214,12 +216,12 @@
                        <option value="lb">LBs (Pounds)</option>
                      </select>
                    </div>
-                 </div>
-               </div>
-               <div class="modal-footer">
-                 <button type="submit" name="cargoEdit" class="btn btn-primary">Edit</button>
-                 <button type="submit" name="cargoCheckout" class="btn btn-success">Checkout</button>
-                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="cargoEdit" class="btn btn-primary">Edit</button>
+                    <button type="submit" name="cargoCheckout" class="btn btn-success">Checkout</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
                </div>
              </div>
            </form>
