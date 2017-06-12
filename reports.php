@@ -13,25 +13,13 @@
 		<div class="card">
 			<!-- /card-heading -->
 			<div class="card-block">
-				<form class="form-inline" action="php_action/getOrderReport.php" method="post" id="getOrderReportForm">
-				  <div class="form-group">
-				    <label for="startDate" class="col-sm-8 form-control-label">Start Date</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="startDate" placeholder="Start Date" />
-				    </div>
+				<label for="meeting">starting Date</label><input id="meeting" type="date" value="2017-06-13"/>
+				<label for="meeting">End Date: </label><input id="meeting" type="date" value="2017-07-23"/>
+ 			<button type="submit" class="btn btn-danger" id="generateReportBtn"><span class="glyphicon glyphicon-ok-sign"></span>  PDF Report</button>
+ 			<button type="submit" class="btn btn-info" id="generateReportBtn"><span class="glyphicon glyphicon-ok-sign"></span> Excel Report</button>
+				  
 				  </div>
-				  <div class="form-group">
-				    <label for="endDate" class="col-sm-8 form-control-label">End Date</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="endDate" placeholder="End Date" />
-				    </div>
-				  </div>
-				  	<div class="form-group">
-				    <label for="reportType" class="col-sm-8 form-control-label">Report Type</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="reportType" />
-				    </div>
-				  </div>
+				 
 				   <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 			      <select class="form-control" id="aircraftType" required>
 			        <option value="liat">LIAT</option>
@@ -42,14 +30,9 @@
 			        <option value="jetpack">JetPack</option>
 			      </select>
 			    </div>
-				  <div class="form-group">
-				    <div class="col-sm-offset-2 col-sm-10">
-				      <button type="submit" class="btn btn-success" id="generateReportBtn"><span class="glyphicon glyphicon-ok-sign"></span> Generate Report</button>
-				    </div>
-				  </div>
-				</form>
-<label for="meeting">Meeting Date : </label><input id="meeting" type="date" value="2017-06-13"/>//bhnjklrevise 
-<label for="meeting">Meeting Date : </label><input id="meeting" type="date" value="2011-01-13"/>
+				  
+
+
 			</div>
 			<!-- /card-body -->
 		</div>
