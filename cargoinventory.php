@@ -60,7 +60,7 @@
     if($itemTypeId != -1) {
       $item_description = $connectionHandle->real_escape_string($item_description);
       if($item_weight_type == 'lb') {
-        $item_weight *= 0.45359237;
+        $item_weight = poundsToKG($item_weight);
       }
       if(isset($_POST['cargoEdit'])) {
         unset($_POST['cargoEdit']);
@@ -158,7 +158,7 @@
       </div>
       <div class="form-group">
        <div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
-         <div class="modal-dialog" role="document">
+         <div class="modal-dialog modal-lg" role="document">
            <form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
              <div class="modal-content">
                <div class="modal-header">

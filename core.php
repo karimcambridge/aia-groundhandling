@@ -37,6 +37,12 @@ function keepLinks(...$parameters)
 	return $previousParams;
 }
 
+function poundsToKG($pounds)
+{
+	$pounds *= 0.45359237;
+	return $pounds;
+}
+
 require_once 'php_action/sql_config.php';
 require_once 'includes/AIAGroundOpsTemplate.interface.php';
 require_once 'includes/airwaybill.class.php';

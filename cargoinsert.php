@@ -32,7 +32,7 @@ if(isset($_POST['cargoInsert'])) {
         if($itemTypeId != -1) {
           $item_description = $connectionHandle->real_escape_string($item_description);
           if($item_weight_type == 'lb') {
-            $item_weight *= 0.45359237;
+            $item_weight = poundsToKG($item_weight);
           }
           $query = "INSERT INTO `cargo_inventory` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `state`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', '$item_datetime', 1);";
           $query .= "UPDATE `airwaybills` SET `count` = `count` + 1 WHERE `airwaybills`.`airwaybill` = '" . $airwaybill . "';";
@@ -110,7 +110,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
         </div>
         <div class="form-group">
           <div class="modal fade" id="cargoInsertModal" role="dialog" aria-tagledby="cargoInsertModaltag" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
               <form id="cargoInsert" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header">
