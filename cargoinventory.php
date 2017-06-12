@@ -130,7 +130,11 @@
                     } else {
                       echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . "'>";
                     }
-                    echo "<td><a href=" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . ">" . $results->data[$i]['airwaybill'] . "</a></  td>";
+                    if(empty($airwaybill)) {
+                      echo "<td><a href=" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . ">" . $results->data[$i]['airwaybill'] . "</a></td>";
+                    } else {
+                      echo "<td>" . $results->data[$i]['airwaybill'] . "</td>";
+                    }
                     echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
                     echo "<td>" . $results->data[$i]['item_description'] . "</td>";
                     echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
@@ -146,10 +150,8 @@
       	  		?>
       	  	</tbody>
       	  </table>
-          <div class="text-center">
-            <?php echo $Paginator->createLinks( $links, 'pagination pagination-sm' ); ?>
-          </div>
       	</div>
+        <?php echo $Paginator->createLinks( $links, 'pagination justify-content-center' ); ?>
       </div>
       <div class="form-group">
        <div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
