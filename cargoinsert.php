@@ -13,13 +13,8 @@ if(isset($_POST['cargoInsert'])) {
 	$item_weight = $_POST['item-weight'];
 	$item_weight_type = $_POST['item-weight-type'];
 
-	$itemTypeId = -1; // Cargo Type ID
+	$itemTypeId = getItemTypeId($item_type); // Cargo Type ID
 
-	foreach($cargotypes as $cargotype) {
-		if(strcmp($cargotype->getName(), $item_type) == 0) {
-			$itemTypeId = $cargotype->getId();
-		}
-	}
 	if($item_weight == 0.0) {
 		$errors[] = 'Please enter an item weight.';
 	} else {
@@ -127,7 +122,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 										</div>
 										<div class="form-group">
 											<tag for="item-datetime" class="form-control-tag">AirWayBill date/time:</tag>
-											<input type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $airwaybill->getDateInTimestamp()).'T'.date('h:i', $airwaybill->getDateInTimestamp());?>" required></input>
+											<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $airwaybill->getDateInTimestamp()).'T'.date('h:i', $airwaybill->getDateInTimestamp());?>" required></input>
 											<span class="validity"></span>
 										</div>
 										<div class="form-group">
@@ -146,7 +141,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 										</div>
 										<div class="form-group">
 											<tag for="item-datetime" class="form-control-tag">Enter the items' weight:</tag>
-											<input type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="1000" value="0.00" required></input>
+											<input class="form-control" type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="1000" value="0.00" required></input>
 										</div>
 										<div class="form-group">
 											<tag for="item-weight-type" class="form-control-tag">KG or Pounds (items will be stored as KG):</tag>

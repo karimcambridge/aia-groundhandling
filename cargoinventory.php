@@ -46,6 +46,8 @@
 		$editingItemDescription;
 		$editingItemWeight;
 		$editingItemDateUnix;
+		$editingItemDays;
+		$editingItemFee;
 	}
 	if(isset($_POST['cargoEdit']) || isset($_POST['cargoCheckout'])) {
 		$item_id = $_POST['item-id'];
@@ -59,14 +61,8 @@
 		$item_weight = $_POST['item-weight'];
 		$item_weight_type = $_POST['item-weight-type'];
 
-		$itemTypeId = -1; // Cargo Type ID
-
-		foreach($cargotypes as $cargotype) {
-			if(strcmp($cargotype->getName(), $item_type) == 0) {
-				$itemTypeId = $cargotype->getId();
-			}
-		}
-
+		$itemTypeId = getItemTypeId($item_type); // Cargo Type ID
+		echo $item_type;
 		if($itemTypeId != -1) {
 			$item_description = $connectionHandle->real_escape_string($item_description);
 			if($item_weight_type == 'lb') {
@@ -75,6 +71,7 @@
 			if(isset($_POST['cargoEdit'])) {
 				unset($_POST['cargoEdit']);
 				$query = "UPDATE `cargo_inventory` SET `cargo_type_id` = " . $itemTypeId . ", `item_description` = '" . $item_description . "', `item_weight` = " . $item_weight . " WHERE `ID` = " . $item_id . ";";
+
 				if($result = $connectionHandle->query($query)) {
 					if($connectionHandle->errno) {
 						$errors[] = 'Database Failed (' . $connectionHandle->error . ')';
@@ -154,8 +151,11 @@
 											$editingItemDescription = $results->data[$i]['item_description'];
 											$editingItemWeight = $results->data[$i]['item_weight'];
 											$editingItemDateUnix = strtotime($results->data[$i]['date_in']);
+											$now = time();
+											$editingItemDays = ceil(abs($now - $editingItemDateUnix) / 86400) - 1;
+											$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type']);
 										}
-								 }
+									}
 								}
 							?>
 						</tbody>
@@ -164,77 +164,85 @@
 				<?php echo $Paginator->createLinks( $links, 'pagination justify-content-center' ); ?>
 			</div>
 			<div class="form-group">
-			 <div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
-				 <div class="modal-dialog modal-lg" role="document">
-					 <form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-						 <div class="modal-content">
-							 <div class="modal-header">
-								 <h1 class="modal-title text-center" id="cargoEditModalLabel">Use the current item data below to edit or checkout the item:</h1>
-								 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							 </div>
-							 <div class="modal-body">
-								 <div class="form-group">
-										<input type="hidden" name="item-id" value="<?php echo $editingId; ?>">
-										<tag for="air-way-bill-selection" class="form-control-label">AirWayBill #</label>
-										<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
-										<?php
-											foreach($airwaybills as $value) {
-												echo "<option value=\"" . $value->getName() . "\"";
-												if($value->getName() == $airwaybill) {
-													echo "selected";
-												} else {
-													echo "disabled";
-												}
-												echo ">" . $value->getName()  . " (" . $value->getDateIn() . ")</option>";
+			 	<div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
+				 	<div class="modal-dialog modal-lg" role="document">
+					 	<form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+						 	<div class="modal-content">
+							 	<div class="modal-header">
+									<h1 class="modal-title text-center" id="cargoEditModalLabel">Use the current item data below to edit or checkout the item:</h1>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							 	</div>
+							 	<div class="modal-body">
+								<div class="form-group">
+									<input type="hidden" name="item-id" value="<?php echo $editingId; ?>">
+									<tag for="air-way-bill-selection" class="form-control-label">AirWayBill #</label>
+									<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
+									<?php
+										foreach($airwaybills as $value) {
+											echo "<option value=\"" . $value->getName() . "\"";
+											if($value->getName() == $airwaybill) {
+												echo "selected";
+											} else {
+												echo "disabled";
 											}
-										?>
-										</select>
-									 </div>
-									 <div class="form-group">
-										 <tag for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
-										 <input type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" required></input>
-										 <span class="validity"></span>
-									 </div>
-									 <div class="form-group">
-										 <tag for="item-type" class="form-control-label">Type:</label>
-										 <select class="form-control" name="item-type" id="item-type" required>
-										 <?php
-											 foreach($cargotypes as $value) {
-												 echo "<option value=\"" . $value->getName() . "\"";
-												 if($value->getName() == $editingItemType) {
-													 echo "selected";
-												 }
-												 echo ">" . $value->getName()  . "</option>";
-											 }
-										 ?>
-										 </select>
-									 </div>
-									 <div class="form-group">
-										 <tag for="item-description" class="form-control-label">Description:</label>
-										 <textarea class="form-control" name="item-description" id="item-description" required><?php echo $editingItemDescription; ?></textarea>
-									 </div>
-									 <div class="form-group">
-										 <tag for="item-datetime" class="form-control-label">Enter the items' weight:</label>
-										 <input type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="1000" <?php echo 'value="' . $editingItemWeight . '"'; ?>   required></input>
-									 </div>
-									 <div class="form-group">
-										 <tag for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</label>
-										 <select class="form-control" name="item-weight-type" id="item-weight-type" required>
-											 <option value="kg" selected>KG</option>
-											 <option value="lb">LBs (Pounds)</option>
-										 </select>
-									 </div>
-									</div>
-									<div class="modal-footer">
-										<button type="submit" name="cargoEdit" class="btn btn-primary">Edit</button>
-										<button type="submit" name="cargoCheckout" class="btn btn-success">Checkout</button>
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-									</div>
-							 </div>
-						 </div>
-					 </form>
-				 </div>
-			 </div>
+											echo ">" . $value->getName()  . " (" . $value->getDateIn() . ")</option>";
+										}
+									?>
+									</select>
+								</div>
+								<div class="form-group">
+									<tag for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
+									<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" required></input>
+									<span class="validity"></span>
+								</div>
+								<div class="form-group">
+									<tag for="item-type" class="form-control-label">Type:</label>
+									<select class="form-control" name="item-type" id="item-type" required>
+									<?php
+										foreach($cargotypes as $value) {
+											echo "<option value=\"" . $value->getName() . "\"";
+											if($value->getName() == $editingItemType) {
+												 echo "selected";
+											}
+											echo ">" . $value->getName()  . "</option>";
+										}
+									?>
+									</select>
+								</div>
+								<div class="form-group">
+									<tag for="item-description" class="form-control-label">Description:</label>
+									<textarea class="form-control" name="item-description" id="item-description" required><?php echo $editingItemDescription; ?></textarea>
+								</div>
+								<div class="form-group">
+									<tag for="item-datetime" class="form-control-label">Enter the items' weight:</label>
+									<input class="form-control" type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="10000" <?php echo 'value="' . $editingItemWeight . '"'; ?>   required></input>
+								</div>
+								<div class="form-group">
+									<tag for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</label>
+									<select class="form-control" name="item-weight-type" id="item-weight-type" required>
+										<option value="kg" selected>KG</option>
+										<option value="lb">LBs (Pounds)</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<tag for="item-days" class="form-control-label">Days In Cargo:</label>
+									<textarea class="form-control" rows="1" id="item-days" readonly><?php echo $editingItemDays ?></textarea>
+								</div>
+								<div class="form-group">
+									<tag for="item-day-fee" class="form-control-label">Checkout Levy:</label>
+									<textarea class="form-control" id="item-day-fee" readonly><?php echo number_format($editingItemFee, 2, '.', ''); ?></textarea>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" name="cargoEdit" class="btn btn-primary">Edit</button>
+								<button type="submit" name="cargoCheckout" class="btn btn-success">Checkout</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+							</div>
+							</div>
+						 	</div>
+					 	</form>
+				 	</div>
+			 	</div>
 			</div>
 		</div>
 	<div>
