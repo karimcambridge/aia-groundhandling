@@ -239,6 +239,10 @@ jQuery(document).ready(function($) {
         window.location = $(this).data("href");
     });
 });
+
+$('#cargoEditModal').on('shown.bs.modal', function () {
+  $('#item-description').focus();
+})
 </script>
 
 <?php

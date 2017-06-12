@@ -183,6 +183,10 @@ $(window).on('load',function(){
   $('#cargoInsertModal').modal('show');
 });
 
+$('#cargoInsertModal').on('shown.bs.modal', function () {
+  $('#item-description').focus();
+})
+
 $('#air-way-bill-selection').change(function(){
     if($(this).val() == 'Liatx970423') {
         console.log("test");
