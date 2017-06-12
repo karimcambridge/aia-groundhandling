@@ -13,21 +13,21 @@
 		<div class="card">
 			<!-- /card-heading -->
 			<div class="card-block">
-				<label for="meeting">starting Date</label><input id="meeting" type="date" value="2017-06-13"/>
-				<label for="meeting">End Date: </label><input id="meeting" type="date" value="2017-07-23"/>
+				<label for="meeting"><strong>Starting Date</label><input id="meeting" type="date" value="2017-06-13"/>
+				<label for="meeting"><strong>End Date: </label><input id="meeting" type="date" value="2017-07-23"/>
  			<button type="submit" class="btn btn-danger" id="generateReportBtn"><span class="glyphicon glyphicon-ok-sign"></span>  PDF Report</button>
  			<button type="submit" class="btn btn-info" id="generateReportBtn"><span class="glyphicon glyphicon-ok-sign"></span> Excel Report</button>
 				  
 				  </div>
-				 
-				   <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
+				
+				   <div class="col-xs-2 col-sm-2">
+				   <lable><strong> Type of Report</lable> 
 			      <select class="form-control" id="aircraftType" required>
-			        <option value="liat">LIAT</option>
-			        <option value="cal">CAL</option>
-			        <option value="dhl">DHL</option>
-			        <option value="fedex">Fedex</option>
-			        <option value="amerijet">AmeriJet</option>
-			        <option value="jetpack">JetPack</option>
+			        <option value="liat">Services</option>
+			        <option value="cal">Cargo</option>
+			        <option value="dhl">Inventory</option>
+			        <option value="fedex">processed cargo</option>
+			      
 			      </select>
 			    </div>
 				  
@@ -40,6 +40,7 @@
 	<!-- /col-dm-12 -->
 </div>
 <!-- /row -->
+
 
 <script src="custom/js/report.js"></script>
 
