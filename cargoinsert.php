@@ -179,7 +179,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 </div>
 
 <script type="text/javascript">
-$(window).on('load',function(){
+$(window).on('load', function() {
   $('#cargoInsertModal').modal('show');
 });
 
@@ -187,11 +187,10 @@ $('#cargoInsertModal').on('shown.bs.modal', function () {
   $('#item-description').focus();
 })
 
-$('#air-way-bill-selection').change(function(){
-    if($(this).val() == 'Liatx970423') {
-        console.log("test");
-        //$('#item-datetime').val() = "test";
-    }
+$('#air-way-bill-selection').change(function() {
+    console.log($(this).val());
+    var airwaybills = <?php echo json_encode($airwaybills); ?>;
+    $('#item-datetime').val("1996-08-07T01:11");
 });
 </script>
 

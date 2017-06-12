@@ -31,6 +31,16 @@
 
   $results    = $Paginator->getData( $limit, $page );
 
+  if(empty($results->data)) {
+    if(!empty($airwaybill)) {
+      header('location:http://127.00.1/groundopps/cargoinventory.php?airwaybill=' . $airwaybill);
+      die();
+    } else {
+      header('location:http://127.00.1/groundopps/cargoinventory.php');
+      die();
+    }
+  }
+
   if(isset($results) == true && !empty($editingId)) {
     $editingItemType;
     $editingItemDescription;
