@@ -32,13 +32,24 @@
 				      <input type="text" class="form-control" id="reportType" />
 				    </div>
 				  </div>
+				   <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
+			      <select class="form-control" id="aircraftType" required>
+			        <option value="liat">LIAT</option>
+			        <option value="cal">CAL</option>
+			        <option value="dhl">DHL</option>
+			        <option value="fedex">Fedex</option>
+			        <option value="amerijet">AmeriJet</option>
+			        <option value="jetpack">JetPack</option>
+			      </select>
+			    </div>
 				  <div class="form-group">
 				    <div class="col-sm-offset-2 col-sm-10">
 				      <button type="submit" class="btn btn-success" id="generateReportBtn"><span class="glyphicon glyphicon-ok-sign"></span> Generate Report</button>
 				    </div>
 				  </div>
 				</form>
-
+<label for="meeting">Meeting Date : </label><input id="meeting" type="date" value="2017-06-13"/>//bhnjklrevise 
+<label for="meeting">Meeting Date : </label><input id="meeting" type="date" value="2011-01-13"/>
 			</div>
 			<!-- /card-body -->
 		</div>
