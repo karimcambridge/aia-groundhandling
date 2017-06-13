@@ -47,8 +47,10 @@ if(isset($_POST['cargoInsert'])) {
 
 if(isset($_SESSION['air-way-bill-selection'])) {
 	$previousAirWayBill = $_SESSION['air-way-bill-selection'];
+	$airwaybill_datetimeUnix = $previousAirWayBill->getDateInTimestamp();
 } else {
 	$previousAirWayBill = "";
+	$airwaybill_datetimeUnix = $airwaybills[0]->getDateInTimestamp();
 }
 
 ?>
@@ -122,8 +124,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 										</div>
 										<div class="form-group">
 											<tag for="item-datetime" class="form-control-tag">AirWayBill date/time:</tag>
-											<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $airwaybill->getDateInTimestamp()).'T'.date('h:i', $airwaybill->getDateInTimestamp());?>" required></input>
-											<span class="validity"></span>
+											<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $airwaybill_datetimeUnix).'T'.date('h:i:s', $airwaybill_datetimeUnix);?>" readonly></input>
 										</div>
 										<div class="form-group">
 											<tag for="item-type" class="form-control-tag">Type:</tag>
@@ -166,19 +167,35 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 	</div>
 </div>
 
+<!-- Date.js -->
+<script src="custom/js/moment.js"></script>
+
 <script type="text/javascript">
-$(window).on('load', function() {
+$(document).ready(function() {
 	$('#cargoInsertModal').modal('show');
-});
 
-$('#cargoInsertModal').on('shown.bs.modal', function () {
-	$('#item-description').focus();
-})
+	$('#cargoInsertModal').on('shown.bs.modal', function () {
+		$('#item-description').focus();
+	})
 
-$('#air-way-bill-selection').change(function() {
-		console.log($(this).val());
-		var airwaybills = <?php echo json_encode($airwaybills); ?>;
-		$('#item-datetime').val("1996-08-07T01:11");
+	$('#air-way-bill-selection').change(function() {
+		//var airwaybills = <?php echo json_encode($airwaybills); ?>;
+		//$('#item-datetime').val("1996-08-07T01:11");
+		//console.log($(this).val());
+		var selectedAirwaybill = $(this).val();
+		var dataString = 'airwaybill=' + selectedAirwaybill;
+		$.ajax({
+			type: "POST",
+			url: "cargoinsert_dateupdate.php",
+			data: dataString,
+			cache: false,
+			success: function(data)
+			{
+				var timeStamp = parseInt(data);
+				$("#item-datetime").val(moment.unix(timeStamp).format('YYYY-MM-DDTHH:mm:ss'));
+			}
+		});
+	});
 });
 </script>
 
