@@ -109,6 +109,18 @@ function getItemTypeRate($item_type)
 	return $itemTypeRate;
 }
 
+function getCarrierNameFromId($carrierId)
+{
+	global $carriers;
+
+	foreach($carriers as $carrier) {
+		if($carrier->getId() == $carrierId) {
+			return $carrier->getName();
+		}
+	}
+	return "";
+}
+
 function calculateCheckoutFee($daysInCargo, $item_weight, $item_type)
 {
 	$itemTypeRate = getItemTypeRate($item_type);

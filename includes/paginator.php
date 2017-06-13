@@ -42,7 +42,7 @@
       return $result;
     }
 
-    public function createLinks( $links, $list_class ) {
+    public function createLinks( $links, $list_class, $count ) {
       if ( $this->_limit == 'all' ) {
           return '';
       }
@@ -54,9 +54,13 @@
 
       $html       = '<ul class="' . $list_class . '">';
    
-      if($this->_page >= 1) {
+      if($this->_page >= 1 && $count >= 1) {
         $class      = ( $this->_page == 1 ) ? "page-item disabled" : "page-item";
         $html       .= '<li class="' . $class . '"><a class="page-link" href="?limit=' . $this->_limit . '&page=' . ( $this->_page - 1 ) . $previousLinks . '">&laquo; Previous</a></li>';
+      }
+      else if($count == 0) {
+        $class      = ( $this->_page == 1 ) ? "page-item disabled" : "page-item";
+        $html       .= '<li class="' . $class . '"><a class="page-link" href="?limit=' . $this->_limit . '&page=' . ( $this->_page - 1 ) . $previousLinks . '">None</a></li>';
       }
       if ( $start > 1 ) {
           $html   .= '<li><a href="?limit=' . $this->_limit . '&page=1">1</a></li>';

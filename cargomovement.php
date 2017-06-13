@@ -5,28 +5,25 @@
 
 	$airwaybill;
 	$editingId;
-	$errors = array();
-	$messages_info = array();
-	$messages_success = array();
 
-	if(isset($_GET['airwaybill'])) {
+	if(isset( $_GET['airwaybill'] )) {
 		$airwaybill = $_GET['airwaybill'];
 		include 'custom/css/cargoedit.css';
 
 		if(isset( $_GET['edit'] )) {
 			$editingId = $_GET['edit'];
 			if(!is_numeric($editingId)) {
-				header('location:http://127.00.1/groundopps/cargoinventory.php?airwaybill=' . $airwaybill);
+				header('location:http://127.00.1/groundopps/cargomovement.php?airwaybill=' . $airwaybill);
 				die();
 			}
 		}
-		$query      = 'SELECT `cargo_inventory`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in` FROM `cargo_inventory`, `cargo_item_types` WHERE `cargo_inventory`.`cargo_type_id` = `cargo_item_types`.`ID` ';
+		$query      = 'SELECT `cargo_out`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in` FROM `cargo_out`, `cargo_item_types` WHERE `cargo_out`.`cargo_type_id` = `cargo_item_types`.`ID` ';
 		if(!empty($airwaybill)) {
 			$query    .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
 		$query      .= 'ORDER BY `date_in`,`airwaybill` DESC';
 	} else {
-		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `date_in`, `in_quantity` FROM `airwaybills` WHERE `in_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
+		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `date_in`, `out_quantity` FROM `airwaybills` WHERE `out_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
 	}
 
 	$limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 50;
@@ -37,11 +34,8 @@
 	$results    = $Paginator->getData( $limit, $page );
 
 	if(empty($results->data)) {
-		if(!empty($airwaybill)) {
-			header('location:http://127.00.1/groundopps/cargoinventory.php?airwaybill=' . $airwaybill);
-			die();
-		} else {
-			header('location:http://127.00.1/groundopps/cargoinventory.php');
+		if(isset( $_GET['airwaybill'] )) {
+			header('location:http://127.00.1/groundopps/cargomovement.php');
 			die();
 		}
 	}
@@ -54,52 +48,6 @@
 		$editingItemDays;
 		$editingItemFee;
 	}
-	if(isset($_POST['cargoEdit']) || isset($_POST['cargoCheckout'])) {
-		$item_airwaybill = $_POST['item-airwaybill'];
-		if(empty($item_airwaybill)) {
-			$errors[] = "There may have been an error. The airwaybill from the menu may not have been parsed properly. Please refresh the entire page.";
-		}
- 		$item_id = $_POST['item-id'];
-		if(!is_numeric($item_id)) {
-			header('location:http://127.00.1/groundopps/cargoinventory.php?airwaybill=' . $airwaybill);
-			die();
-		}
-		$item_datetime = $_POST['item-datetime']; // AirWayBill Date
-		$item_type = $_POST['item-type'];
-		$item_description = $_POST['item-description'];
-		$item_weight = $_POST['item-weight'];
-		$item_weight_type = $_POST['item-weight-type'];
-
-		$itemTypeId = getItemTypeId($item_type); // Cargo Type ID
-
-		if($itemTypeId != -1) {
-			$item_airwaybill = $connectionHandle->real_escape_string($item_airwaybill);
-			$item_description = $connectionHandle->real_escape_string($item_description);
-			if($item_weight_type == 'lb') {
-				$item_weight = poundsToKG($item_weight);
-			}
-			if(isset($_POST['cargoEdit'])) {
-				unset($_POST['cargoEdit']);
-				$query = "UPDATE `cargo_inventory` SET `cargo_type_id` = " . $itemTypeId . ", `item_description` = '" . $item_description . "', `item_weight` = " . $item_weight . " WHERE `ID` = " . $item_id . ";";
-
-				if($result = $connectionHandle->query($query)) {
-					if($connectionHandle->errno) {
-						$errors[] = 'Database Failed (' . $connectionHandle->error . ')';
-					} else {
-						$messages_success[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been edited successfully.';
-					}
-				}
-			}
-			else if(isset($_POST['cargoCheckout'])) {
-				unset($_POST['cargoCheckout']);
-				$connectionHandle->query("INSERT INTO `cargo_out` (`ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in` FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
-				$connectionHandle->query("UPDATE `cargo_out` SET `date_out` = NOW() WHERE `ID` = " . $item_id . ";");
-				$connectionHandle->query("DELETE FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
-				$connectionHandle->query("UPDATE `airwaybills` SET `in_quantity` = `in_quantity` - 1, `out_quantity` = `out_quantity` + 1 WHERE `airwaybill` = '" . $item_airwaybill . "';");
-				$messages_info[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been checked-out successfully.';
-			}
-		}
-	}
 ?>
 
 <div class="row">
@@ -108,10 +56,10 @@
 		 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
 			<?php
 				if(!empty($airwaybill)) {
-					echo "<li class=\"breadcrumb-item\"><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Inventory</a></li>";
+					echo "<li class=\"breadcrumb-item\"><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Movement</a></li>";
 					echo "<li class=\"breadcrumb-item active\"><strong>" . $airwaybill . "</strong></li>";
 				} else {
-					echo "<li class=\"breadcrumb-item active\"><strong>Cargo Inventory</strong></li>";
+					echo "<li class=\"breadcrumb-item active\"><strong>Cargo Movement</strong></li>";
 				}
 			?>
 	 </ol>
@@ -123,54 +71,15 @@
 			<div class="card-header">
 				<?php
 				if(empty($airwaybill)) {
-					echo "Cargo Inventory (Select an AirWayBill to view all items on that AirWayBill)";
+					echo "Cargo Movement (Select an AirWayBill to view all items on that AirWayBill)";
 				} else {
-					echo "Cargo Inventory (Select an item (row) to edit or checkout that cargo item)";
+					echo "Cargo Movement (Select an item (row) to view that cargo item information)";
 				}
 				?>
 			</div>
 			<div class="card-block">
-				<?php
-					if($errors) {
-						echo '<div class="messages">';
-						foreach ($errors as $key => $value) {
-							echo '<div class="alert alert-danger alert-dismissible" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign"></span>';
-							echo '<h4 class="alert-heading">ERROR!</h4>';
-							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
-							echo $value . '</div>';
-						}
-						echo '</div>';
-					}
-				?>
-				<?php
-					if($messages_info) {
-						echo '<div class="messages">';
-						foreach ($messages_info as $key => $value) {
-							echo '<div class="alert alert-info alert-dismissible" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign"></span>';
-							echo '<h4 class="alert-heading">NOTE:</h4>';
-							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
-							echo $value . '</div>';
-						}
-						echo '</div>';
-					}
-				?>
-				<?php
-					if($messages_success) {
-						echo '<div class="messages">';
-						foreach ($messages_success as $key => $value) {
-							echo '<div class="alert alert-success alert-dismissible" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign"></span>';
-							echo '<h4 class="alert-heading">SUCCESS!</h4>';
-							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
-							echo $value . '</div>';
-						}
-						echo '</div>';
-					}
-				?>
 				<div class="table-responsive">
-					<table class="table" id="cargoinventory">
+					<table class="table" id="cargomovement">
 						<thead>
 							<tr>
 							<?php
@@ -197,7 +106,7 @@
 											echo "<tr>";
 											echo "<td><a href=" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . keepLinks('limit', 'page', 'links') . ">" . $results->data[$i]['airwaybill'] . "</a></td>";
 											echo "<td>" . getCarrierNameFromId($results->data[$i]['carrier_id']) . "</td>";
-											echo "<td>" . $results->data[$i]['in_quantity'] . "</td>";
+											echo "<td>" . $results->data[$i]['out_quantity'] . "</td>";
 											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
 											echo "</tr>";
 										} else {
@@ -226,17 +135,16 @@
 				<?php echo $Paginator->createLinks( $links, 'pagination justify-content-center', count($results->data) ); ?>
 			</div>
 			<div class="form-group">
-			 	<div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
+			 	<div class="modal fade" id="cargoInfoModal" role="dialog" aria-labelledby="cargoInfoModalLabel" aria-hidden="true">
 				 	<div class="modal-dialog modal-lg" role="document">
 					 	<form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 						 	<div class="modal-content">
 							 	<div class="modal-header">
-									<h1 class="modal-title text-center" id="cargoEditModalLabel">Use the current item data below to edit or checkout the item:</h1>
+									<h1 class="modal-title text-center" id="cargoInfoModalLabel">Use the current item data below to edit or checkout the item:</h1>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							 	</div>
 							 	<div class="modal-body">
 								<div class="form-group">
-									<input type="hidden" name="item-airwaybill" value="<?php echo $airwaybill; ?>">
 									<input type="hidden" name="item-id" value="<?php echo $editingId; ?>">
 									<tag for="air-way-bill-selection" class="form-control-label">AirWayBill #</label>
 									<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
@@ -297,9 +205,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" name="cargoEdit" class="btn btn-success">Edit</button>
-								<button type="submit" name="cargoCheckout" class="btn btn-primary">Checkout</button>
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							</div>
 							</div>
 						 	</div>
@@ -318,7 +224,7 @@ jQuery(document).ready(function($) {
 	});
 });
 
-$('#cargoEditModal').on('shown.bs.modal', function () {
+$('#cargoInfoModal').on('shown.bs.modal', function () {
 	$('#item-description').focus();
 })
 
@@ -334,7 +240,7 @@ window.setTimeout(function() {
 if(!empty($editingId)) {
 	echo "<script type=\"text/javascript\">";
 	echo "$(window).on('load',function(){";
-	echo "$('#cargoEditModal').modal('show');";
+	echo "$('#cargoInfoModal').modal('show');";
 	echo "});";
 	echo "</script>";
 }

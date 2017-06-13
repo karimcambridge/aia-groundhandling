@@ -32,6 +32,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="groundopsNavBar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" href="index.php"><span class="fa fa-home"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="cargomovement.php">Cargo Movement <span class="fa fa-arrow-up"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="cargoinventory.php">Cargo Inventory <span class="fa fa-search"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="airwaybillscan.php">AirWayBill Entry <span class="fa fa-briefcase"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="cargoinsert.php">Insert Cargo <span class="fa fa-floppy-o"></span></a></li>

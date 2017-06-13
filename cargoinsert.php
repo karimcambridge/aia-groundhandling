@@ -25,7 +25,7 @@ if(isset($_POST['cargoInsert'])) {
 				$item_weight = poundsToKG($item_weight);
 			}
 			$query = "INSERT INTO `cargo_inventory` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', '$item_datetime');";
-			$query .= "UPDATE `airwaybills` SET `count` = `count` + 1 WHERE `airwaybills`.`airwaybill` = '" . $airwaybill . "';";
+			$query .= "UPDATE `airwaybills` SET `in_quantity` = `in_quantity` + 1 WHERE `airwaybills`.`airwaybill` = '" . $airwaybill . "';";
 
 			if($result = $connectionHandle->multi_query($query)) {
 				if($connectionHandle->insert_id == 0) { // handle first result
@@ -37,7 +37,9 @@ if(isset($_POST['cargoInsert'])) {
 				}
 			}
 			$_SESSION['air-way-bill-selection'] = $airwaybill;
-			$messages[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been inserted in the cargo inventory under AirWayBill (' . $airwaybill . ') successfully.';
+			if(empty($errors)) {
+				$messages[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been inserted in the cargo inventory under AirWayBill (' . $airwaybill . ') successfully.';
+			}
 			unset($_POST['cargoInsert']);
 		} else {
 			$errors[] = 'Error finding selected Item Type ID ('. $item_type . '). Please report the issue.';
@@ -197,6 +199,12 @@ $(document).ready(function() {
 		});
 	});
 });
+
+window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove();
+    });
+}, 12000);
 </script>
 
 <?php
