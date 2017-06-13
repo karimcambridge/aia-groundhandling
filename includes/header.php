@@ -28,7 +28,7 @@
   </head>
   <body>
   <nav class="navbar navbar-inverse bg-inverse sticky-top navbar-toggleable-md navbar-full">
-    <a class="navbar-brand" href="#"><img src="assets/images/brand/AIA_Logo_NoBackground_v1_white.png" width="80" height="40" alt=""> Ground Operations <small>beta</small></a>
+    <a class="navbar-brand" href="#"><img src="assets/images/brand/AIA_Logo_NoBackground_v1_white.png" width="80" height="40" alt=""> Ground Handling <small>beta</small></a>
     <div class="collapse navbar-collapse justify-content-end" id="groundopsNavBar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" href="index.php"><span class="fa fa-home"></span></a></li>
@@ -36,7 +36,6 @@
         <li class="nav-item"><a class="nav-link" href="cargoinventory.php">Cargo Inventory <span class="fa fa-search"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="airwaybillscan.php">AirWayBill Entry <span class="fa fa-briefcase"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="cargoinsert.php">Insert Cargo <span class="fa fa-floppy-o"></span></a></li>
-        <li class="nav-item"><a class="nav-link" href="cargofees.php">Cargo Fees <span class="fa fa-eur"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="servicefees.php">Services Fees <span class="fa fa-usd"></span></a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
