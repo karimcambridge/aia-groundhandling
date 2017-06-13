@@ -15,8 +15,8 @@
 			<div class="card-block">
 				<tag for="meeting"><strong>Starting Date:</strong> </tag><input id="meeting" type="date" value="2017-06-13"/>
 				<tag for="meeting"><strong>End Date:</strong> </tag><input id="meeting" type="date" value="2017-07-23"/>
- 				<button type="submit" class="btn btn-danger" id="generateReportBtnPdf"><span class="fa fa-envelope-o"></span> PDF Report</button>
- 				<button type="submit" class="btn btn-info" id="generateReportBtnExcel"><span class="fa fa-envelope"></span> Excel Report</button>
+ 				<button type="submit" class="btn btn-danger" id="generateReportBtnPdf"><span class="fa fa-file-pdf-o"></span> PDF Report</button>
+ 				<button type="submit" class="btn btn-info" id="generateReportBtnExcel"><span class="fa fa-file-excel-o"></span> Excel Report</button>
 				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
 					<tag><strong>Type of Report</strong></tag>
 			    	<select class="form-control" id="aircraftType" required>
