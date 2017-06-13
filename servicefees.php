@@ -11,9 +11,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<div class="card-header">
-				<strong> Aircraft Carrier Service Fees </strong>
-			</div>
+			<div class="card-header"><strong>Aircraft Carrier Service Fees</strong></div>
 			<!-- /card-heading -->
 			<div class="card-panel">
 				<tag class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">Registration #<br><br></label>

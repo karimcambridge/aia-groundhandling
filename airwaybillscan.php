@@ -11,9 +11,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<div class="card-header">
-				<span class="glyphicon glyphicon-check"></span> Cargo AirWayBill Entry
-			</div>
+			<div class="card-header"><strong>Cargo AirWayBill Entry</strong></div>
 			<!-- /card-heading -->
 			<div class="card-block">
 				<form class="form-inline" id="airwaybillEntryForm" action="" method="post" >

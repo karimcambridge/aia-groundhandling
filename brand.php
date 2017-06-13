@@ -11,7 +11,7 @@
 
 		<div class="card card-primary">
 			<div class="card-header">
-				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Manage Brand</div>
+				<div class="page-heading">Manage Brand</div>
 			</div> <!-- /card-heading -->
 			<div class="card-block">
 

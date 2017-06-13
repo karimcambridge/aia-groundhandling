@@ -68,7 +68,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header"><strong>
 				<?php
 				if(empty($airwaybill)) {
 					echo "Cargo Movement (Select an AirWayBill to view all items on that AirWayBill)";
@@ -76,7 +76,7 @@
 					echo "Cargo Movement (Select an item (row) to view that cargo item information)";
 				}
 				?>
-			</div>
+			</strong></div>
 			<div class="card-block">
 				<div class="table-responsive">
 					<table class="table" id="cargomovement">

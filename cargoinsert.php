@@ -66,9 +66,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 	<div class="col-md-12">
 		<div class="card">
 			<!-- card-heading -->
-			<div class="card-header">
-				<span class="glyphicon glyphicon-check"></span> Cargo Insert
-			</div>
+			<div class="card-header"><strong>Cargo Insert</strong></div>
 			<!-- card-body -->
 			<div class="card-block">
 				<?php

@@ -120,7 +120,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header"><strong>
 				<?php
 				if(empty($airwaybill)) {
 					echo "Cargo Inventory (Select an AirWayBill to view all items on that AirWayBill)";
@@ -128,7 +128,7 @@
 					echo "Cargo Inventory (Select an item (row) to edit or checkout that cargo item)";
 				}
 				?>
-			</div>
+			</strong></div>
 			<div class="card-block">
 				<?php
 					if($errors) {
