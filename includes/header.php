@@ -28,7 +28,7 @@
   </head>
   <body>
   <nav class="navbar navbar-inverse bg-inverse sticky-top navbar-toggleable-md navbar-full">
-    <a class="navbar-brand" href="index.php">Ground Operations</a>
+    <a class="navbar-brand" href="#"><img src="assets/images/brand/AIA_Logo_NoBackground_v1.png" width="80" height="40" alt=""> Ground Operations <small>beta</small></a>
     <div class="collapse navbar-collapse justify-content-end" id="groundopsNavBar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" href="index.php"><span class="fa fa-home"></span></a></li>
