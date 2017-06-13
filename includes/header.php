@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AIA Ground Handling</title>
 
-    <!-- bootstrap-->
+    <!-- bootstrap -->
     <link rel="stylesheet" href="assets/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
 
     <!-- FontAwesome css -->
@@ -16,15 +16,17 @@
     <!-- Custom css -->
     <link rel="stylesheet" href="custom/css/custom.css">
 
-    <!-- jquery v3.2.1 -->
+    <!-- jquery -->
     <script src="assets/jquery/jquery.min.js"></script>
 
-    <!-- tether 1.3.3 -->
+    <!-- tether -->
     <script src="assets/tether-1.3.3/js/tether.min.js"></script>
 
-    <!-- Bootstrap v4-alhpa.6 js -->
+    <!-- Bootstrap js -->
     <script src="assets/bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
-
+    
+    <!-- Bootstrap notify js -->
+    <script src="assets/bootstrap-notify-3.1.3/bootstrap-notify.min.js"></script>
   </head>
   <body>
   <nav class="navbar navbar-inverse bg-inverse sticky-top navbar-toggleable-md navbar-full">
