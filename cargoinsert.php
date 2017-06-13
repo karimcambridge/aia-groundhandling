@@ -24,7 +24,7 @@ if(isset($_POST['cargoInsert'])) {
 			if($item_weight_type == 'lb') {
 				$item_weight = poundsToKG($item_weight);
 			}
-			$query = "INSERT INTO `cargo_inventory` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `state`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', '$item_datetime', 1);";
+			$query = "INSERT INTO `cargo_inventory` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', '$item_datetime');";
 			$query .= "UPDATE `airwaybills` SET `count` = `count` + 1 WHERE `airwaybills`.`airwaybill` = '" . $airwaybill . "';";
 
 			if($result = $connectionHandle->multi_query($query)) {
