@@ -119,7 +119,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 													if($airwaybill->getName() == $previousAirWayBill) {
 														echo "selected";
 													}
-													echo ">" . $airwaybill->getName()  . " (" . $airwaybill->getDateIn() . ")</option>";
+													echo ">" . $airwaybill->getName()  . "</option>";
 												}
 											?>
 											</select>
@@ -181,9 +181,6 @@ $(document).ready(function() {
 	})
 
 	$('#air-way-bill-selection').change(function() {
-		//var airwaybills = <?php echo json_encode($airwaybills); ?>;
-		//$('#item-datetime').val("1996-08-07T01:11");
-		//console.log($(this).val());
 		var selectedAirwaybill = $(this).val();
 		var dataString = 'airwaybill=' + selectedAirwaybill;
 		$.ajax({

@@ -121,6 +121,18 @@ function getCarrierNameFromId($carrierId)
 	return "";
 }
 
+function getCarrierIdFromName($carrier_name)
+{
+	global $carriers;
+
+	foreach($carriers as $carrier) {
+		if(strcmp($carrier->getName(), $carrier_name) == 0) {
+			return $carrier->getId();
+		}
+	}
+	return -1;
+}
+
 function calculateCheckoutFee($daysInCargo, $item_weight, $item_type)
 {
 	$itemTypeRate = getItemTypeRate($item_type);

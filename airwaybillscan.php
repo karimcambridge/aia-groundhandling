@@ -1,20 +1,10 @@
 <?php require_once 'includes/header.php'; ?>
-	
-<?php
-
-if(isset($_SESSION['carrierSelection'])) {
-	$previousCarrier = $_SESSION['carrierSelection'];
-} else {
-	$previousCarrier = "";
-}
-
-?>
 
 <div class="row">
 	<div class="col-md-12">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-			<li class="breadcrumb-item active"><strong>Airbill Entry</strong></li>
+			<li class="breadcrumb-item active"><strong>AirWayBill Entry</strong></li>
 		</ol>
 	</div>
 </div>
@@ -22,51 +12,59 @@ if(isset($_SESSION['carrierSelection'])) {
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">
-				<span class="glyphicon glyphicon-check"></span> Cargo Airbill Entry
+				<span class="glyphicon glyphicon-check"></span> Cargo AirWayBill Entry
 			</div>
 			<!-- /card-heading -->
 			<div class="card-block">
-				<form class="form-inline" id="airwaybillEntryForm" action="php_action\airwaybillscanentry.php" method="post" >
-				<div class="form-group">
-					<tag class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</label>
-					<div class="clearfix"></div>
+				<form class="form-inline" id="airwaybillEntryForm" action="" method="post" >
+					<div class="form-group">
+					<tag class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</tag>
 						<div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-							<select class="form-control" name="carrierSelection" id="carrierSelection" required>
-						<?php
-							foreach($carriers as $carrier) {
-								echo "<option value=\"" . $carrier->getName() . "\"";
-								if($carrier->getName() == $previousCarrier) {
-									echo "selected";
+							<select class="form-control" id="carrier-selection" name="carrier-selection" required>
+							<?php
+								foreach($carriers as $carrier) {
+									echo "<option value=\"" . $carrier->getId() . "\"";
+									echo ">" . $carrier->getName() . "</option>";
 								}
-								echo ">" . $carrier->getName() . "</option>";
-							}
-						?>
+							?>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<tag class="col-sm-6 control-label">Air Bill</label>
+						<tag class="col-sm-6 control-label">Air Way Bill #</tag>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="cargoAirbill" placeholder="Liatx123424523" required autofocus />
+							<input type="text" class="form-control" id="air-way-bill-scan" name="air-way-bill-scan" placeholder="xxx-xxx-xxx" required autofocus />
 						</div>
 					</div>
 					<div class="form-group">
-						 <button type="submit" class="btn btn-primary"></span>Save changes</button>
+						<button type="button" id="air-way-bill-scan-button" name="air-way-bill-scan-button" class="btn btn-primary"></span>Save changes</button>
 					</div>
 				</form>
-
 			</div>
-			<!-- /card-body -->
 		</div>
 	</div>
 </div>
 
-<?php
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#air-way-bill-scan-button').click(function() {
+		var scannedAirWayBill = $("#air-way-bill-scan").val();
+		var scannedCarrier = $("#carrier-selection").val();
 
-if(isset($_SESSION['carrierSelection'])) {
-	unset($_SESSION['carrierSelection']);
-}
-
-?>
+		var dataString = 'airwaybill=' + scannedAirWayBill + '&carrierid=' + scannedCarrier;
+		$.ajax({
+			type: "POST",
+			url: "airwaybillscan_update.php",
+			data: dataString,
+			cache: false,
+			success: function(data) {
+				if(!empty(data)) {
+					document.write(data);
+				}
+			}
+		});
+	});
+});
+</script>
 
 <?php require_once 'includes/footer.php';?>

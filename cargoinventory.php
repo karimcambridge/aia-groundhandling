@@ -248,7 +248,7 @@
 											} else {
 												echo "disabled";
 											}
-											echo ">" . $value->getName()  . " (" . $value->getDateIn() . ")</option>";
+											echo ">" . $value->getName()  . "</option>";
 										}
 									?>
 									</select>
