@@ -5,6 +5,10 @@
 
 	$airwaybill;
 	$editingId;
+	$errors = array();
+	$messages_info = array();
+	$messages_success = array();
+
 	if(isset( $_GET['airwaybill'] )) {
 		$airwaybill = $_GET['airwaybill'];
 		include 'custom/css/cargoedit.css';
@@ -62,7 +66,7 @@
 		$item_weight_type = $_POST['item-weight-type'];
 
 		$itemTypeId = getItemTypeId($item_type); // Cargo Type ID
-		echo $item_type;
+
 		if($itemTypeId != -1) {
 			$item_description = $connectionHandle->real_escape_string($item_description);
 			if($item_weight_type == 'lb') {
@@ -75,6 +79,8 @@
 				if($result = $connectionHandle->query($query)) {
 					if($connectionHandle->errno) {
 						$errors[] = 'Database Failed (' . $connectionHandle->error . ')';
+					} else {
+						$messages_success[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been edited successfully.';
 					}
 				}
 			}
@@ -83,6 +89,7 @@
 				$connectionHandle->query("INSERT INTO `cargo_out` (`ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in` FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
 				$connectionHandle->query("UPDATE `cargo_out` SET `date_out` = NOW() WHERE `ID` = " . $item_id . ";");
 				$connectionHandle->query("DELETE FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
+				$messages_info[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been checked-out successfully.';
 			}
 		}
 	}
@@ -116,6 +123,45 @@
 				?>
 			</div>
 			<div class="card-block">
+				<?php
+					if($errors) {
+						echo '<div class="messages">';
+						foreach ($errors as $key => $value) {
+							echo '<div class="alert alert-danger alert-dismissible" role="alert">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>';
+							echo '<h4 class="alert-heading">ERROR!</h4>';
+							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
+							echo $value . '</div>';
+						}
+						echo '</div>';
+					}
+				?>
+				<?php
+					if($messages_info) {
+						echo '<div class="messages">';
+						foreach ($messages_info as $key => $value) {
+							echo '<div class="alert alert-info alert-dismissible" role="alert">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>';
+							echo '<h4 class="alert-heading">NOTE:</h4>';
+							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
+							echo $value . '</div>';
+						}
+						echo '</div>';
+					}
+				?>
+				<?php
+					if($messages_success) {
+						echo '<div class="messages">';
+						foreach ($messages_success as $key => $value) {
+							echo '<div class="alert alert-success alert-dismissible" role="alert">
+							<span class="glyphicon glyphicon-exclamation-sign"></span>';
+							echo '<h4 class="alert-heading">SUCCESS!</h4>';
+							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
+							echo $value . '</div>';
+						}
+						echo '</div>';
+					}
+				?>
 				<div class="table-responsive">
 					<table class="table" id="cargoinventory">
 						<thead>
@@ -233,8 +279,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" name="cargoEdit" class="btn btn-primary">Edit</button>
-								<button type="submit" name="cargoCheckout" class="btn btn-success">Checkout</button>
+								<button type="submit" name="cargoEdit" class="btn btn-success">Edit</button>
+								<button type="submit" name="cargoCheckout" class="btn btn-primary">Checkout</button>
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 							</div>
 							</div>
@@ -249,14 +295,20 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-		$(".clickable-row").click(function() {
-				window.location = $(this).data("href");
-		});
+	$(".clickable-row").click(function() {
+		window.location = $(this).data("href");
+	});
 });
 
 $('#cargoEditModal').on('shown.bs.modal', function () {
 	$('#item-description').focus();
 })
+
+window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove();
+    });
+}, 7000);
 </script>
 
 <?php

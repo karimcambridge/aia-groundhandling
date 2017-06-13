@@ -71,6 +71,18 @@ function keepLinks(...$parameters)
 	return $previousParams;
 }
 
+function getAirWayBill($airwaybillname)
+{
+	global $airwaybills;
+
+	foreach($airwaybills as $airwaybill) {
+		if(strcmp($airwaybill->getName(), $airwaybillname) == 0) {
+			return $airwaybill;
+		}
+	}
+	return NULL;
+}
+
 function getItemTypeId($item_type)
 {
 	global $cargotypes;

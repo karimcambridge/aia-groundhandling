@@ -37,7 +37,7 @@ if(isset($_POST['cargoInsert'])) {
 				}
 			}
 			$_SESSION['air-way-bill-selection'] = $airwaybill;
-			$messages[] = 'Item ' . $item_description . ' has been inserted in the cargo inventory under AirWayBill ' . $airwaybill . ' successfully.';
+			$messages[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been inserted in the cargo inventory under AirWayBill (' . $airwaybill . ') successfully.';
 			unset($_POST['cargoInsert']);
 		} else {
 			$errors[] = 'Error finding selected Item Type ID ('. $item_type . '). Please report the issue.';
@@ -47,7 +47,7 @@ if(isset($_POST['cargoInsert'])) {
 
 if(isset($_SESSION['air-way-bill-selection'])) {
 	$previousAirWayBill = $_SESSION['air-way-bill-selection'];
-	$airwaybill_datetimeUnix = $previousAirWayBill->getDateInTimestamp();
+	$airwaybill_datetimeUnix = getAirWayBill($previousAirWayBill)->getDateInTimestamp();
 } else {
 	$previousAirWayBill = "";
 	$airwaybill_datetimeUnix = $airwaybills[0]->getDateInTimestamp();
