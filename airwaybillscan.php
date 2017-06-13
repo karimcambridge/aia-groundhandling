@@ -18,7 +18,17 @@
 			<div class="card-block">
 				<form class="form-inline" id="airwaybillEntryForm" action="" method="post" >
 					<div class="form-group">
-					<tag class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</tag>
+						<div class="messages">
+							<div id="errorbox" class="alert alert-danger alert-dismissible hide" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>test
+							</div>
+							<div id="successbox" class="alert alert-success alert-dismissible hide" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>test
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<tag class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</tag>
 						<div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 							<select class="form-control" id="carrier-selection" name="carrier-selection" required>
 							<?php
@@ -59,12 +69,22 @@ $(document).ready(function() {
 			cache: false,
 			success: function(data) {
 				if(!empty(data)) {
-					document.write(data);
+					$('#errorbox').html(data);
+					$('#errorbox').show();
+				} else {
+					$('#successbox').html(data);
+					$('#successbox').show();
 				}
 			}
 		});
 	});
 });
+
+window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove();
+    });
+}, 7000);
 </script>
 
 <?php require_once 'includes/footer.php';?>
