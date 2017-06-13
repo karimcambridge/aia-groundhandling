@@ -11,7 +11,9 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<!-- /card-heading -->
+			<div class="card-header">
+				<span class="glyphicon glyphicon-check"></span> Reports
+			</div>
 			<div class="card-block">
 				<tag for="meeting"><strong>Starting Date:</strong> </tag><input id="meeting" type="date" value="2017-06-13"/>
 				<tag for="meeting"><strong>End Date:</strong> </tag><input id="meeting" type="date" value="2017-07-23"/>
