@@ -320,7 +320,10 @@ jQuery(document).ready(function($) {
 });
 
 $('#cargoEditModal').on('shown.bs.modal', function () {
-	$('#item-description').focus();
+	var fieldInput = $('#item-description');
+	var fieldLen = fieldInput.val().length;
+	fieldInput.focus();
+	fieldInput[0].setSelectionRange(fieldLen, fieldLen);
 })
 
 window.setTimeout(function() {
