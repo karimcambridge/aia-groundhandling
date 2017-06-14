@@ -20,9 +20,9 @@
 				die();
 			}
 		}
-		$query      = 'SELECT `cargo_inventory`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in` FROM `cargo_inventory`, `cargo_item_types` WHERE `cargo_inventory`.`cargo_type_id` = `cargo_item_types`.`ID` ';
+		$query      = 'SELECT `cargo_inventory`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `cargo_inventory`, `cargo_item_types` WHERE `cargo_inventory`.`cargo_type_id` = `cargo_item_types`.`ID` ';
 		if(!empty($airwaybill)) {
-			$query    .= "AND `airwaybill` = '" . $airwaybill . "'";
+			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
 		$query      .= 'ORDER BY `date_in`,`airwaybill` DESC';
 	} else {
@@ -40,7 +40,6 @@
 		header('location:cargoinventory.php');
 		die();
 	}
-
 	if(isset($results) == true && !empty($editingId)) {
 		$editingItemType;
 		$editingItemDescription;
@@ -48,6 +47,7 @@
 		$editingItemDateUnix;
 		$editingItemDays;
 		$editingItemFee;
+		$editingItemRefrigeratedUnix;
 	}
 	if(isset($_POST['cargoEdit']) || isset($_POST['cargoCheckout'])) {
 		$item_airwaybill = $_POST['item-airwaybill'];
@@ -59,12 +59,30 @@
 			header('location:cargoinventory.php?airwaybill=' . $airwaybill);
 			die();
 		}
+		$item_refrigerated_unix = 0;
+		$item_refrigerated_time = 0;
+
 		$item_datetime = $_POST['item-datetime']; // AirWayBill Date
 		$item_type = $_POST['item-type'];
 		$item_description = $_POST['item-description'];
 		$item_weight = $_POST['item-weight'];
 		$item_weight_type = $_POST['item-weight-type'];
 
+		$frozenRow = getCargoRefrigeratedTimes($item_id);
+		$item_refrigerated_time = $frozenRow['refrigerated_time'];
+		$item_refrigerated_unix = $frozenRow['refrigerated_unix'];
+
+		if(isset($_POST['item-refrigerated'])) {
+			$item_refrigerated = $_POST['item-refrigerated'];
+			if($item_refrigerated == 'yes' && $item_refrigerated_unix == 0) { // was not refrigerated before .. so change to refrigerated!
+				$item_refrigerated_unix = time();
+			}
+		} else {
+			if($item_refrigerated_unix) {
+				$item_refrigerated_time += time() - $item_refrigerated_unix;
+				$item_refrigerated_unix = 0;
+			}
+		}
 		$itemTypeId = getItemTypeId($item_type); // Cargo Type ID
 
 		if($itemTypeId != -1) {
@@ -75,7 +93,7 @@
 			}
 			if(isset($_POST['cargoEdit'])) {
 				unset($_POST['cargoEdit']);
-				$query = "UPDATE `cargo_inventory` SET `cargo_type_id` = " . $itemTypeId . ", `item_description` = '" . $item_description . "', `item_weight` = " . $item_weight . " WHERE `ID` = " . $item_id . ";";
+				$query = "UPDATE `cargo_inventory` SET `cargo_type_id` = " . $itemTypeId . ", `item_description` = '" . $item_description . "', `item_weight` = " . $item_weight . ", `refrigerated_time` = " . $item_refrigerated_time . ", `refrigerated_unix` = " . $item_refrigerated_unix . " WHERE `ID` = " . $item_id . ";";
 
 				if($result = $connectionHandle->query($query)) {
 					if($connectionHandle->errno) {
@@ -87,7 +105,7 @@
 			}
 			else if(isset($_POST['cargoCheckout'])) {
 				unset($_POST['cargoCheckout']);
-				$connectionHandle->query("INSERT INTO `cargo_out` (`ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in` FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
+				$connectionHandle->query("INSERT INTO `cargo_out` (`ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time` FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
 				$connectionHandle->query("UPDATE `cargo_out` SET `date_out` = NOW() WHERE `ID` = " . $item_id . ";");
 				$connectionHandle->query("DELETE FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
 				$connectionHandle->query("UPDATE `airwaybills` SET `in_quantity` = `in_quantity` - 1, `out_quantity` = `out_quantity` + 1 WHERE `airwaybill` = '" . $item_airwaybill . "';");
@@ -180,6 +198,8 @@
 									echo '<th class="active">Item Description</th>';
 									echo '<th class="active">Item Weight (KG)</th>';
 									echo '<th class="active">Time of System Entry</th>';
+									echo '<th class="active">Being Refrigerated Currently?</th>';
+									echo '<th class="active">Time Refrigerated</th>';
 								}
 							?>
 							</tr>
@@ -202,7 +222,21 @@
 											echo "<td>" . $results->data[$i]['item_description'] . "</td>";
 											echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
 											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
-											echo "</tr>";
+											if($results->data[$i]['refrigerated_unix']) {
+												echo "<td>Yes</td>";
+											} else {
+												echo "<td>No</td>";
+											}
+											if($results->data[$i]['refrigerated_time']) {
+												$cur_refrigerated_time = 0;
+												if($results->data[$i]['refrigerated_unix']) {
+													$cur_refrigerated_time += (time() - $results->data[$i]['refrigerated_unix']);
+												}
+												$cur_refrigerated_time += $results->data[$i]['refrigerated_time'];
+												echo "<td>" . timeFormat($cur_refrigerated_time) . "</td>";
+											} else {
+												echo "<td>None</td>";
+											}												echo "</tr>";
 											if(!empty($editingId) && $editingId == $results->data[$i]['ID']) {
 												$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
 												$editingItemType = $results->data[$i]['cargo_type'];
@@ -210,7 +244,8 @@
 												$editingItemWeight = $results->data[$i]['item_weight'];
 												$editingItemDateUnix = strtotime($airwaybillEx->getDateIn());
 												$editingItemDays = dateDifference(date("Y-m-d h:i:s"), $airwaybillEx->getDateIn());
-												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type']);
+												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
+												$editingItemRefrigeratedUnix = $results->data[$i]['refrigerated_unix'];
 											}
 										}
 									}
@@ -235,7 +270,7 @@
 									<input type="hidden" name="item-airwaybill" value="<?php echo $airwaybill; ?>">
 									<input type="hidden" name="item-id" value="<?php echo $editingId; ?>">
 									<tag for="air-way-bill-selection" class="form-control-label">AirWayBill #</label>
-									<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
+									<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" readonly disabled>
 									<?php
 										foreach($airwaybills as $value) {
 											echo "<option value=\"" . $value->getName() . "\"";
@@ -284,7 +319,7 @@
 								</div>
 								<div class="form-check">
 									<tag for="item-refrigerated" class="form-check-label">
-										<input type="checkbox" class="form-check-input" name="item-refrigerated" id="item-refrigerated" value="yes">
+										<input type="checkbox" class="form-check-input" name="item-refrigerated" id="item-refrigerated" value="yes" <?php if($editingItemRefrigeratedUnix) { echo "checked"; } ?>>
 										Is the item being refrigerated?
 									</tag>
 								</div>

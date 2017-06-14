@@ -17,9 +17,9 @@
 				die();
 			}
 		}
-		$query      = 'SELECT `cargo_out`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in` FROM `cargo_out`, `cargo_item_types` WHERE `cargo_out`.`cargo_type_id` = `cargo_item_types`.`ID` ';
+		$query      = 'SELECT `cargo_out`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `refrigerated_time` FROM `cargo_out`, `cargo_item_types` WHERE `cargo_out`.`cargo_type_id` = `cargo_item_types`.`ID` ';
 		if(!empty($airwaybill)) {
-			$query    .= "AND `airwaybill` = '" . $airwaybill . "'";
+			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
 		$query      .= 'ORDER BY `date_in`,`airwaybill` DESC';
 	} else {
@@ -93,7 +93,8 @@
 									echo '<th class="active">Type of Cargo</th>';
 									echo '<th class="active">Item Description</th>';
 									echo '<th class="active">Item Weight (KG)</th>';
-									echo '<th class="active">Date Received</th>';
+									echo '<th class="active">Time of System Entry</th>';
+									echo '<th class="active">Time Refrigerated</th>';
 								}
 							?>
 							</tr>
@@ -116,6 +117,11 @@
 											echo "<td>" . $results->data[$i]['item_description'] . "</td>";
 											echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
 											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
+											if($results->data[$i]['refrigerated_time']) {
+												echo "<td>" . timeFormat($results->data[$i]['refrigerated_time']) . "</td>";
+											} else {
+												echo "<td>None</td>";
+											}
 											echo "</tr>";
 											if(!empty($editingId) && $editingId == $results->data[$i]['ID']) {
 												$editingItemType = $results->data[$i]['cargo_type'];
@@ -123,7 +129,7 @@
 												$editingItemWeight = $results->data[$i]['item_weight'];
 												$editingItemDateUnix = strtotime($results->data[$i]['date_in']);
 												$editingItemDays = dateDifference(date("Y-m-d h:i:s"), $results->data[$i]['date_in']);
-												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type']);
+												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], , $results->data[$i]['refrigerated_time']);
 											}
 										}
 									}
@@ -147,7 +153,7 @@
 								<div class="form-group">
 									<input type="hidden" name="item-id" value="<?php echo $editingId; ?>">
 									<tag for="air-way-bill-selection" class="form-control-label">AirWayBill #</label>
-									<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
+									<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" readonly disabled>
 									<?php
 										foreach($airwaybills as $value) {
 											echo "<option value=\"" . $value->getName() . "\"";
@@ -163,12 +169,12 @@
 								</div>
 								<div class="form-group">
 									<tag for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
-									<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" required></input>
+									<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" readonly></input>
 									<span class="validity"></span>
 								</div>
 								<div class="form-group">
 									<tag for="item-type" class="form-control-label">Type:</label>
-									<select class="form-control" name="item-type" id="item-type" required>
+									<select class="form-control" name="item-type" id="item-type" readonly disabled>
 									<?php
 										foreach($cargotypes as $value) {
 											echo "<option value=\"" . $value->getName() . "\"";
@@ -182,15 +188,15 @@
 								</div>
 								<div class="form-group">
 									<tag for="item-description" class="form-control-label">Description:</label>
-									<textarea class="form-control" name="item-description" id="item-description" required><?php echo $editingItemDescription; ?></textarea>
+									<textarea class="form-control" name="item-description" id="item-description" readonly><?php echo $editingItemDescription; ?></textarea>
 								</div>
 								<div class="form-group">
 									<tag for="item-datetime" class="form-control-label">Enter the items' weight:</label>
-									<input class="form-control" type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="10000" <?php echo 'value="' . $editingItemWeight . '"'; ?>   required></input>
+									<input class="form-control" type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="10000" <?php echo 'value="' . $editingItemWeight . '"'; ?>   readonly></input>
 								</div>
 								<div class="form-group">
 									<tag for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</label>
-									<select class="form-control" name="item-weight-type" id="item-weight-type" required>
+									<select class="form-control" name="item-weight-type" id="item-weight-type" readonly disabled>
 										<option value="kg" selected>KG</option>
 										<option value="lb">LBs (Pounds)</option>
 									</select>
@@ -205,7 +211,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" id="cargoInfoModalClose" name="cargoInfoModalClose">Close</button>
 							</div>
 							</div>
 						 	</div>
@@ -225,7 +231,7 @@ jQuery(document).ready(function($) {
 });
 
 $('#cargoInfoModal').on('shown.bs.modal', function () {
-	$('#item-description').focus();
+	$('#cargoInfoModalClose').focus();
 })
 
 window.setTimeout(function() {

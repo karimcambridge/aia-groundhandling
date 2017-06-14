@@ -49,6 +49,32 @@ if($connectionHandle->ping()) {
 	}
 }
 
+function timeFormat($seconds)
+{
+    if(!is_numeric($seconds))
+        throw new Exception("Invalid Parameter Type!");
+
+    $ret = "";
+
+    $hours = (string )floor($seconds / 3600);
+    $secs = (string )$seconds % 60;
+    $mins = (string )floor(($seconds - ($hours * 3600)) / 60);
+
+    if(strlen($hours) == 1)
+        $hours = "0" . $hours;
+    if(strlen($secs) == 1)
+        $secs = "0" . $secs;
+    if(strlen($mins) == 1)
+        $mins = "0" . $mins;
+
+    if($hours == 0)
+        $ret = "$mins:$secs";
+    else
+        $ret = "$hours:$mins:$secs";
+
+    return $ret;
+}
+
 function keepLinks(...$parameters)
 {
 	$previousParams = "";
@@ -74,6 +100,24 @@ function getAirWayBill($airwaybillname)
 		}
 	}
 	return NULL;
+}
+
+function getCargoRefrigeratedTimes($item_id)
+{
+	global $connectionHandle;
+	$row = array();
+
+	if(!is_numeric($item_id)) {
+		return $row;
+	}
+	$query = "SELECT `refrigerated_time`, `refrigerated_unix` FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";";
+	if($result = $connectionHandle->query($query)) {
+		if($result->num_rows) {
+			$row = $result->fetch_assoc();
+			return $row;
+		}
+	}
+	return $row;
 }
 
 function getItemTypeId($item_type)
@@ -126,9 +170,12 @@ function getCarrierIdFromName($carrier_name)
 	return -1;
 }
 
-function calculateCheckoutFee($daysInCargo, $item_weight, $item_type)
+function calculateCheckoutFee($daysInCargo, $item_weight, $item_type, $refrigerated_time)
 {
 	$itemTypeRate = getItemTypeRate($item_type);
+	if($refrigerated_time) {
+		$itemTypeRate += 0.0378;
+	}
 	$checkoutFee = 0.0;
 	if($daysInCargo == 6) {
 		$checkoutFee = 5.0;
