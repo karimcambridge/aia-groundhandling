@@ -186,23 +186,33 @@ function calculateCheckoutFee($daysInCargo, $item_weight, $item_type, $refrigera
 			$checkoutFee += $itemTypeRate;
 		}
 	}
+	if($refrigerated_time) {
+		$checkoutFee += ($checkoutFee * 1.15);
+	}
+	//$checkoutFee += ($checkoutFee * 1.16); no vat!
 	return $checkoutFee;
 }
 
-function dateDiff($d1, $d2)
+function number_of_cargo_days($from, $to)
 {
-	return ceil(abs(strtotime($d1)-strtotime($d2))/86400); // Return the number of days between the two dates (ceil specific for cargo)
-}
+    $workingDays = [1, 2, 3, 4, 5]; # date format = N (1 = Monday, ...)
+    $holidayDays = ['*-12-25', '*-12-26', '*-01-01', '*-03-14', '*-08-01', '*-10-27']; # variable and fixed holidays
 
-/*function dateDifference($date_1, $date_2, $differenceFormat = '%a') // Wouldn't this create a problem with more than 31 days?
-{
-    $datetime1 = date_create($date_1);
-    $datetime2 = date_create($date_2);
-    
-    $interval = date_diff($datetime1, $datetime2);
-    
-    return $interval->format($differenceFormat);
-}*/
+    $from = new DateTime($from);
+    $to = new DateTime($to);
+    $to->modify('+1 day');
+    $interval = new DateInterval('P1D');
+    $periods = new DatePeriod($from, $interval, $to);
+
+    $days = 0;
+    foreach($periods as $period) {
+        if(!in_array($period->format('N'), $workingDays)) continue;
+        if(in_array($period->format('Y-m-d'), $holidayDays)) continue;
+        if(in_array($period->format('*-m-d'), $holidayDays)) continue;
+        $days++;
+    }
+    return $days;
+}
 
 function poundsToKG($pounds)
 {

@@ -17,7 +17,7 @@
 				die();
 			}
 		}
-		$query      = 'SELECT `cargo_out`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `refrigerated_time` FROM `cargo_out`, `cargo_item_types` WHERE `cargo_out`.`cargo_type_id` = `cargo_item_types`.`ID` ';
+		$query      = 'SELECT `cargo_out`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `cargo_out`, `cargo_item_types` WHERE `cargo_out`.`cargo_type_id` = `cargo_item_types`.`ID` ';
 		if(!empty($airwaybill)) {
 			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
@@ -94,6 +94,7 @@
 									echo '<th class="active">Item Description</th>';
 									echo '<th class="active">Item Weight (KG)</th>';
 									echo '<th class="active">Time of System Entry</th>';
+									echo '<th class="active">Time of System Checkout</th>';
 									echo '<th class="active">Days Was In Cargo</th>';
 									echo '<th class="active">Time Refrigerated</th>';
 								}
@@ -113,7 +114,7 @@
 											echo "</tr>";
 										} else {
 											$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
-											$editingItemDays = dateDiff(date("Y-m-d h:i:s"), $airwaybillEx->getDateIn());
+											$editingItemDays = number_of_cargo_days(date('Y-m-d', $airwaybillEx->getDateInTimestamp()), date('Y-m-d', strtotime($results->data[$i]['date_out'])));
 
 											echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
 											echo "<td>" . $results->data[$i]['airwaybill'] . "</td>";
@@ -121,6 +122,7 @@
 											echo "<td>" . $results->data[$i]['item_description'] . "</td>";
 											echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
 											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
+											echo "<td>" . $results->data[$i]['date_out'] . "</td>";
 											echo "<td>" . $editingItemDays . "</td>";
 											if($results->data[$i]['refrigerated_time']) {
 												echo "<td>" . timeFormat($results->data[$i]['refrigerated_time']) . "</td>";
@@ -133,8 +135,7 @@
 												$editingItemDescription = $results->data[$i]['item_description'];
 												$editingItemWeight = $results->data[$i]['item_weight'];
 												$editingItemDateUnix = strtotime($results->data[$i]['date_in']);
-												$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
-												$editingItemDays = dateDiff(date("Y-m-d h:i:s"), $airwaybillEx->getDateIn());
+												$editingItemDays = number_of_cargo_days($results->data[$i]['date_out'], $airwaybillEx->getDateIn());
 												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
 											}
 										}
@@ -146,7 +147,7 @@
 				</div>
 				<?php echo $Paginator->createLinks( $links, 'pagination justify-content-center', count($results->data) ); ?>
 			</div>
-			<div class="form-group mb-0">
+			<div class="form-group mb-0 text-center">
 			 	<div class="modal fade" id="cargoInfoModal" role="dialog" aria-labelledby="cargoInfoModalLabel" aria-hidden="true">
 				 	<div class="modal-dialog modal-lg" role="document">
 					 	<form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
