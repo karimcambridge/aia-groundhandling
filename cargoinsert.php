@@ -4,6 +4,7 @@
 
 $errors = array();
 $messages = array();
+$hasAnAirWayBill = true;
 
 if(isset($_POST['cargoInsert'])) {
 	$airwaybill = $_POST['air-way-bill-selection'];
@@ -52,7 +53,11 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 	$airwaybill_datetimeUnix = getAirWayBill($previousAirWayBill)->getDateInTimestamp();
 } else {
 	$previousAirWayBill = "";
-	$airwaybill_datetimeUnix = $airwaybills[0]->getDateInTimestamp();
+	if(empty($airwaybills)) {
+		$hasAnAirWayBill = false;
+	} else {
+		$airwaybill_datetimeUnix = $airwaybills[0]->getDateInTimestamp();
+	}
 }
 
 ?>
@@ -66,11 +71,9 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 	<div class="col-md-12">
 		<div class="card">
 			<!-- card-heading -->
-			<div class="card-header">
-				<span class="glyphicon glyphicon-check"></span> Cargo Insert
-			</div>
+			<div class="card-header"><strong>Cargo Insert</strong></div>
 			<!-- card-body -->
-			<div class="card-block">
+			<div class="card-block text-center">
 				<?php
 					if($errors) {
 						echo '<div class="messages">';
@@ -97,10 +100,10 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 						echo '</div>';
 					}
 				?>
-				<div class="text-center">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cargoInsertModal">Insert Cargo</button>
-				</div>
-				<div class="form-group">
+				<?php
+						echo ($hasAnAirWayBill == true) ? '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cargoInsertModal">Insert Cargo</button>' : '<small>There are no Air Way Bills in the database. Please enter one.</small><br><button type="button" class="btn btn-danger" onclick="location.href=\'airwaybillscan.php\'";>Insert Air Way Bill</button>';
+				?>
+				<div class="form-group mb-0">
 					<div class="modal fade" id="cargoInsertModal" role="dialog" aria-tagledby="cargoInsertModaltag" aria-hidden="true">
 						<div class="modal-dialog modal-lg" role="document">
 							<form id="cargoInsert" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
@@ -174,12 +177,13 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#cargoInsertModal').modal('show');
-
+	var $hasAnAirWayBill = <?php echo $hasAnAirWayBill; ?>;
+	if($hasAnAirWayBill) {
+		$('#cargoInsertModal').modal('show');
+	}
 	$('#cargoInsertModal').on('shown.bs.modal', function () {
 		$('#item-description').focus();
 	})
-
 	$('#air-way-bill-selection').change(function() {
 		var selectedAirwaybill = $(this).val();
 		var dataString = 'airwaybill=' + selectedAirwaybill;

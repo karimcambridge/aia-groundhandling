@@ -13,7 +13,7 @@
 		if(isset( $_GET['edit'] )) {
 			$editingId = $_GET['edit'];
 			if(!is_numeric($editingId)) {
-				header('location:http://127.00.1/groundopps/cargomovement.php?airwaybill=' . $airwaybill);
+				header('location:cargomovement.php?airwaybill=' . $airwaybill);
 				die();
 			}
 		}
@@ -35,7 +35,7 @@
 
 	if(empty($results->data)) {
 		if(isset( $_GET['airwaybill'] )) {
-			header('location:http://127.00.1/groundopps/cargomovement.php');
+			header('location:cargomovement.php');
 			die();
 		}
 	}
@@ -68,7 +68,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header"><strong>
 				<?php
 				if(empty($airwaybill)) {
 					echo "Cargo Movement (Select an AirWayBill to view all items on that AirWayBill)";
@@ -76,7 +76,7 @@
 					echo "Cargo Movement (Select an item (row) to view that cargo item information)";
 				}
 				?>
-			</div>
+			</strong></div>
 			<div class="card-block">
 				<div class="table-responsive">
 					<table class="table" id="cargomovement">
@@ -134,7 +134,7 @@
 				</div>
 				<?php echo $Paginator->createLinks( $links, 'pagination justify-content-center', count($results->data) ); ?>
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-0">
 			 	<div class="modal fade" id="cargoInfoModal" role="dialog" aria-labelledby="cargoInfoModalLabel" aria-hidden="true">
 				 	<div class="modal-dialog modal-lg" role="document">
 					 	<form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">

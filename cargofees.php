@@ -10,9 +10,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<!-- card-heading -->
-			<div class="card-header">
-				<strong>Cargo Fees</strong>
-			</div>
+			<div class="card-header"><strong>Cargo Fees</strong></div>
 			<!-- card-body -->
 			<div class="card-block">
 				<form class="form-horizontal" method="post" id="cargoFees">

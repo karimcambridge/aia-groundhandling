@@ -39,21 +39,13 @@ if($connectionHandle->ping()) {
 			$cargotypes[] = new CargoType($row['ID'], $row['cargo_type'], $row['price_KG']);
 		}
 	}
-}
-
-function instantRedirect() {
-	if(isset($_SERVER["HTTP_REFERER"])) {
-		header("Location: " . $_SERVER["HTTP_REFERER"]);
+	$sql = "SELECT * FROM `consignees` ORDER BY `consignees`.`ID` ASC";
+	
+	if($result = $connectionHandle->query($sql)) {
+		while ( $row = $result->fetch_assoc() ) {
+			$consignees[] = new Carrier($row['ID'], $row['name'], $row['carrier_id']);
+		}
 	}
-	die();
-}
-
-function timeRedirect($value) {
-	sleep($value);
-	if(isset($_SERVER["HTTP_REFERER"])) {
-		header("Location: " . $_SERVER["HTTP_REFERER"]);
-	}
-	die();
 }
 
 function keepLinks(...$parameters)
