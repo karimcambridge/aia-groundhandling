@@ -221,7 +221,7 @@
 				</div>
 				<?php echo $Paginator->createLinks( $links, 'pagination justify-content-center', count($results->data) ); ?>
 			</div>
-			<div class="form-group mb-0">
+			<div class="form-group mb-0 text-center">
 			 	<div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
 				 	<div class="modal-dialog modal-lg" role="document">
 					 	<form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
@@ -281,6 +281,12 @@
 										<option value="kg" selected>KG</option>
 										<option value="lb">LBs (Pounds)</option>
 									</select>
+								</div>
+								<div class="form-check">
+									<tag for="item-refrigerated" class="form-check-label">
+										<input type="checkbox" class="form-check-input" name="item-refrigerated" id="item-refrigerated" value="yes">
+										Is the item being refrigerated?
+									</tag>
 								</div>
 								<div class="form-group">
 									<tag for="item-days" class="form-control-label">Days In Cargo:</label>

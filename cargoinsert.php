@@ -7,13 +7,20 @@ $messages = array();
 $hasAnAirWayBill = true;
 
 if(isset($_POST['cargoInsert'])) {
+	$item_refrigerated_unix = 0;
+
 	$airwaybill = $_POST['air-way-bill-selection'];
 	$item_datetime = $_POST['item-datetime']; // AirWayBill Date
 	$item_type = $_POST['item-type'];
 	$item_description = $_POST['item-description'];
 	$item_weight = $_POST['item-weight'];
 	$item_weight_type = $_POST['item-weight-type'];
-
+	if(isset($_POST['item-refrigerated'])) {
+		$item_refrigerated = $_POST['item-refrigerated'];
+		if($item_refrigerated == 'yes') {
+			$item_refrigerated_unix = time();
+		}
+	}
 	$itemTypeId = getItemTypeId($item_type); // Cargo Type ID
 
 	if($item_weight == 0.0) {
@@ -25,7 +32,7 @@ if(isset($_POST['cargoInsert'])) {
 			if($item_weight_type == 'lb') {
 				$item_weight = poundsToKG($item_weight);
 			}
-			$query = "INSERT INTO `cargo_inventory` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', CURRENT_TIMESTAMP());";
+			$query = "INSERT INTO `cargo_inventory` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', CURRENT_TIMESTAMP(), 0, '$item_refrigerated_unix');";
 			$query .= "UPDATE `airwaybills` SET `in_quantity` = `in_quantity` + 1 WHERE `airwaybills`.`airwaybill` = '" . $airwaybill . "';";
 
 			if($result = $connectionHandle->multi_query($query)) {
@@ -155,6 +162,12 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 												<option value="kg" selected>KG</option>
 												<option value="lb">LBs (Pounds)</option>
 											</select>
+										</div>
+										<div class="form-check">
+											<tag for="item-refrigerated" class="form-check-label">
+												<input type="checkbox" class="form-check-input" name="item-refrigerated" id="item-refrigerated" value="yes">
+												Is the item being refrigerated?
+											</tag>
 										</div>
 									</div>
 									<div class="modal-footer">
