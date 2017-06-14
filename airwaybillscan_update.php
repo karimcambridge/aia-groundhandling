@@ -9,11 +9,16 @@ if($_POST['airwaybill']) {
 	if(!empty($airwaybill)) {
 		if(is_numeric($carrierId) && $carrierId >= 0) {
 			$airwaybill = $connectionHandle->real_escape_string($airwaybill);
-			$query = "SELECT NULL FROM `airwaybills` WHERE `airwaybill` = '$airwaybill' LIMIT 1;";
+			$query = "SELECT `carrier_id` FROM `airwaybills` WHERE `airwaybill` = '$airwaybill' LIMIT 1;";
 			if($result = $connectionHandle->query($query)) {
 				if($result->num_rows == 1) {
-					$query = "UPDATE `airwaybills` SET `scan_quantity` = `scan_quantity` + 1 WHERE `airwaybills`.`airwaybill` = '$airwaybill';";
-					$result = $connectionHandle->query($query);
+					$row = $result->fetch_assoc();
+					if($row['carrier_id'] == $carrierId) {
+						$query = "UPDATE `airwaybills` SET `scan_quantity` = `scan_quantity` + 1 WHERE `airwaybills`.`airwaybill` = '$airwaybill';";
+						$result = $connectionHandle->query($query);
+					} else {
+						echo json_encode('This Air Way Bill is already in the database with the Carrier (' . getCarrierNameFromId($row['carrier_id']) . '). Please re-check your Carrier.');
+					}
 				} else {
 					$query = "INSERT IGNORE INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airwaybill', '$carrierId');";
 					$result = $connectionHandle->query($query);

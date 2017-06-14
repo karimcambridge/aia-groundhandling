@@ -179,7 +179,7 @@
 									echo '<th class="active">Type of Cargo</th>';
 									echo '<th class="active">Item Description</th>';
 									echo '<th class="active">Item Weight (KG)</th>';
-									echo '<th class="active">Date Received</th>';
+									echo '<th class="active">Time of System Entry</th>';
 								}
 							?>
 							</tr>
@@ -204,11 +204,12 @@
 											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
 											echo "</tr>";
 											if(!empty($editingId) && $editingId == $results->data[$i]['ID']) {
+												$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
 												$editingItemType = $results->data[$i]['cargo_type'];
 												$editingItemDescription = $results->data[$i]['item_description'];
 												$editingItemWeight = $results->data[$i]['item_weight'];
-												$editingItemDateUnix = strtotime($results->data[$i]['date_in']);
-												$editingItemDays = dateDifference(date("Y-m-d h:i:s"), $results->data[$i]['date_in']);
+												$editingItemDateUnix = strtotime($airwaybillEx->getDateIn());
+												$editingItemDays = dateDifference(date("Y-m-d h:i:s"), $airwaybillEx->getDateIn());
 												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type']);
 											}
 										}
@@ -250,8 +251,7 @@
 								</div>
 								<div class="form-group">
 									<tag for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
-									<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" required></input>
-									<span class="validity"></span>
+									<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" readonly></input>
 								</div>
 								<div class="form-group">
 									<tag for="item-type" class="form-control-label">Type:</label>

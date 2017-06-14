@@ -2,11 +2,11 @@
 
 require_once 'core.php';
 
-echo 'ehcoing list ';
+echo 'echoing list?';
 if($_POST['carrierid']) {
 	$carrierid = $_POST['carrierid'];
 	
-	echo 'ehcoing list ' . $carrierid;
+	echo 'echoing list ' . $carrierid;
 
 	if(!empty($carrierid)) {
 		$consigneelist = array();
