@@ -34,7 +34,7 @@ if($_POST['airwaybill']) {
 		echo json_encode('There was an error posting the selected AirWayBill ID. Please tell the I.T guys!');
 	}
 } else {
-	echo json_encode('POST FAILED!');
+	echo json_encode('Please enter an Air Way Bill #.');
 }
 
 ?>

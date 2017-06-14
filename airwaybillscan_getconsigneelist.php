@@ -19,10 +19,10 @@ if($_POST['carrierid']) {
 			echo json_encode($consigneelist);
 		}
 	} else {
-		echo json_encode('There was an error posting the selected carrierid ID. Please tell the I.T guys!');
+		echo json_encode('There was an error posting the selected carrier ID. Please report this to I.T.');
 	}
 } else {
-	echo json_encode('POST FAILED!');
+	echo json_encode('Please enter a Carrier from the DropDown List.');
 }
 
 ?>
