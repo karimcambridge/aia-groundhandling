@@ -41,21 +41,6 @@ if($connectionHandle->ping()) {
 	}
 }
 
-function instantRedirect() {
-	if(isset($_SERVER["HTTP_REFERER"])) {
-		header("Location: " . $_SERVER["HTTP_REFERER"]);
-	}
-	die();
-}
-
-function timeRedirect($value) {
-	sleep($value);
-	if(isset($_SERVER["HTTP_REFERER"])) {
-		header("Location: " . $_SERVER["HTTP_REFERER"]);
-	}
-	die();
-}
-
 function keepLinks(...$parameters)
 {
 	$previousParams = "";

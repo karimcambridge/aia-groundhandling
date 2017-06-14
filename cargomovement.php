@@ -13,7 +13,7 @@
 		if(isset( $_GET['edit'] )) {
 			$editingId = $_GET['edit'];
 			if(!is_numeric($editingId)) {
-				header('location:http://127.00.1/groundopps/cargomovement.php?airwaybill=' . $airwaybill);
+				header('location:cargomovement.php?airwaybill=' . $airwaybill);
 				die();
 			}
 		}
@@ -35,7 +35,7 @@
 
 	if(empty($results->data)) {
 		if(isset( $_GET['airwaybill'] )) {
-			header('location:http://127.00.1/groundopps/cargomovement.php');
+			header('location:cargomovement.php');
 			die();
 		}
 	}

@@ -16,7 +16,7 @@
 		if(isset( $_GET['edit'] )) {
 			$editingId = $_GET['edit'];
 			if(!is_numeric($editingId)) {
-				header('location:http://127.00.1/groundopps/cargoinventory.php?airwaybill=' . $airwaybill);
+				header('location:cargoinventory.php?airwaybill=' . $airwaybill);
 				die();
 			}
 		}
@@ -36,14 +36,9 @@
 
 	$results    = $Paginator->getData( $limit, $page );
 
-	if(empty($results->data)) {
-		if(!empty($airwaybill)) {
-			header('location:http://127.00.1/groundopps/cargoinventory.php?airwaybill=' . $airwaybill);
-			die();
-		} else {
-			header('location:http://127.00.1/groundopps/cargoinventory.php');
-			die();
-		}
+	if(empty($results->data) && !empty($airwaybill)) {
+		header('location:cargoinventory.php');
+		die();
 	}
 
 	if(isset($results) == true && !empty($editingId)) {
@@ -61,7 +56,7 @@
 		}
  		$item_id = $_POST['item-id'];
 		if(!is_numeric($item_id)) {
-			header('location:http://127.00.1/groundopps/cargoinventory.php?airwaybill=' . $airwaybill);
+			header('location:cargoinventory.php?airwaybill=' . $airwaybill);
 			die();
 		}
 		$item_datetime = $_POST['item-datetime']; // AirWayBill Date

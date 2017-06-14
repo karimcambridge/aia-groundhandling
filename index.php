@@ -4,7 +4,7 @@ require_once 'php_action/sql_config.php';
 session_start();
 
 if(isset($_SESSION['accountId'])) {
-	header('location:http://127.00.1/groundopps/dashboard.php');
+	header('location:dashboard.php');
 	die();
 } else {
 	$errors = array();
@@ -37,7 +37,7 @@ if(isset($_SESSION['accountId'])) {
 						$user_id = $value['accountid'];
 						$_SESSION['accountId'] = $user_id;
 					}
-					header('location: http://127.0.0.1/groundopps/dashboard.php');
+					header('location:dashboard.php');
 				} else{
 					$errors[] = "Incorrect username/password combination";
 				} // else
