@@ -39,6 +39,13 @@ if($connectionHandle->ping()) {
 			$cargotypes[] = new CargoType($row['ID'], $row['cargo_type'], $row['price_KG']);
 		}
 	}
+	$sql = "SELECT * FROM `consignees` ORDER BY `consignees`.`ID` ASC";
+	
+	if($result = $connectionHandle->query($sql)) {
+		while ( $row = $result->fetch_assoc() ) {
+			$consignees[] = new Carrier($row['ID'], $row['name'], $row['carrier_id']);
+		}
+	}
 }
 
 function keepLinks(...$parameters)
