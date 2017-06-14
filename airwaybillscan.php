@@ -48,11 +48,43 @@ $(document).ready(function() {
 	var centerX = $(window).width() / 2;
 	var centerY = $(window).height() / 2;
 
-	$('#air-way-bill-scan-button').click(function() {
-		var scannedAirWayBill = $("#air-way-bill-scan").val();
-		var scannedCarrier = $("#carrier-selection").val();
+	$('#carrier-selection').change(function() {
+		var dataString = 'carrierid=' + $("#carrier-selection").val();
+		$.ajax({
+			type: "POST",
+			url: "airwaybillscan_getconsigneelist.php",
+			data: dataString,
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				if(data instanceof String) {
+					$.notify({
+						icon: 'fa fa-exclamation-triangle',
+						title: '<strong>Error!</strong>',
+						message: data
+					},{
+						type: 'danger',
+						animate: {
+							enter: 'animated zoomInDown',
+							exit: 'animated zoomOutUp'
+						},
+						newest_on_top: true,
+						offset: {
+							x: centerX,
+							y: centerY
+						}
+					});
+				} else {
+					console.log(data);
+					var newData = jQuery.parseJSON(data);
+					console.log("not string " + newData);
+				}
+			}
+		});
+	});
 
-		var dataString = 'airwaybill=' + scannedAirWayBill + '&carrierid=' + scannedCarrier;
+	$('#air-way-bill-scan-button').click(function() {
+		var dataString = 'airwaybill=' + $("#air-way-bill-scan").val() + '&carrierid=' + $("#carrier-selection").val();
 		$.ajax({
 			type: "POST",
 			url: "airwaybillscan_update.php",

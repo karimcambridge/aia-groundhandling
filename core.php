@@ -10,8 +10,9 @@ session_start();
 require_once 'php_action/sql_config.php';
 require_once 'includes/AIAGroundOpsTemplate.interface.php';
 require_once 'includes/airwaybill.class.php';
-require_once 'includes/carrier.class.php';
 require_once 'includes/cargotype.class.php';
+require_once 'includes/carrier.class.php';
+require_once 'includes/consignee.class.php';
 
 if($connectionHandle->ping()) {
 	$airwaybills = array();
