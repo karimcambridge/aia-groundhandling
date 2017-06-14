@@ -189,7 +189,12 @@ function calculateCheckoutFee($daysInCargo, $item_weight, $item_type, $refrigera
 	return $checkoutFee;
 }
 
-function dateDifference($date_1, $date_2, $differenceFormat = '%a')
+function dateDiff($d1, $d2)
+{
+	return ceil(abs(strtotime($d1)-strtotime($d2))/86400); // Return the number of days between the two dates (ceil specific for cargo)
+}
+
+/*function dateDifference($date_1, $date_2, $differenceFormat = '%a') // Wouldn't this create a problem with more than 31 days?
 {
     $datetime1 = date_create($date_1);
     $datetime2 = date_create($date_2);
@@ -197,8 +202,7 @@ function dateDifference($date_1, $date_2, $differenceFormat = '%a')
     $interval = date_diff($datetime1, $datetime2);
     
     return $interval->format($differenceFormat);
-    
-}
+}*/
 
 function poundsToKG($pounds)
 {

@@ -94,6 +94,7 @@
 									echo '<th class="active">Item Description</th>';
 									echo '<th class="active">Item Weight (KG)</th>';
 									echo '<th class="active">Time of System Entry</th>';
+									echo '<th class="active">Days Was In Cargo</th>';
 									echo '<th class="active">Time Refrigerated</th>';
 								}
 							?>
@@ -111,12 +112,16 @@
 											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
 											echo "</tr>";
 										} else {
+											$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
+											$editingItemDays = dateDiff(date("Y-m-d h:i:s"), $airwaybillEx->getDateIn());
+
 											echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
 											echo "<td>" . $results->data[$i]['airwaybill'] . "</td>";
 											echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
 											echo "<td>" . $results->data[$i]['item_description'] . "</td>";
 											echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
 											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
+											echo "<td>" . $editingItemDays . "</td>";
 											if($results->data[$i]['refrigerated_time']) {
 												echo "<td>" . timeFormat($results->data[$i]['refrigerated_time']) . "</td>";
 											} else {
@@ -128,8 +133,9 @@
 												$editingItemDescription = $results->data[$i]['item_description'];
 												$editingItemWeight = $results->data[$i]['item_weight'];
 												$editingItemDateUnix = strtotime($results->data[$i]['date_in']);
-												$editingItemDays = dateDifference(date("Y-m-d h:i:s"), $results->data[$i]['date_in']);
-												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], , $results->data[$i]['refrigerated_time']);
+												$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
+												$editingItemDays = dateDiff(date("Y-m-d h:i:s"), $airwaybillEx->getDateIn());
+												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
 											}
 										}
 									}
