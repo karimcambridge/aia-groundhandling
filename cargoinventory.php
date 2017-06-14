@@ -220,7 +220,7 @@
 				</div>
 				<?php echo $Paginator->createLinks( $links, 'pagination justify-content-center', count($results->data) ); ?>
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-0">
 			 	<div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
 				 	<div class="modal-dialog modal-lg" role="document">
 					 	<form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
