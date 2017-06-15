@@ -68,124 +68,125 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 }
 
 ?>
-<div calss="row">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-		<li class="breadcrumb-item active"><strong>Cargo Insert</strong></li>
-	</ol>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="card">
-			<!-- card-heading -->
-			<div class="card-header"><strong>Cargo Insert</strong></div>
-			<!-- card-body -->
-			<div class="card-block text-center">
-				<?php
-					if($errors) {
-						echo '<div class="messages">';
-						foreach ($errors as $key => $value) {
-							echo '<div class="alert alert-danger alert-dismissible" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign"></span>';
-							echo '<h4 class="alert-heading">ERROR!</h4>';
-							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
-							echo $value . '</div>';
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+				<li class="breadcrumb-item active"><strong>Cargo Insert</strong></li>
+			</ol>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header"><strong>Cargo Insert</strong></div>
+				<div class="card-block text-center">
+					<?php
+						if($errors) {
+							echo '<div class="messages">';
+							foreach ($errors as $key => $value) {
+								echo '<div class="alert alert-danger alert-dismissible" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>';
+								echo '<h4 class="alert-heading">ERROR!</h4>';
+								echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
+								echo $value . '</div>';
+							}
+							echo '</div>';
 						}
-						echo '</div>';
-					}
-				?>
-				<?php
-					if($messages) {
-						echo '<div class="messages">';
-						foreach ($messages as $key => $value) {
-							echo '<div class="alert alert-success alert-dismissible" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign"></span>';
-							echo '<h4 class="alert-heading">SUCCESS!</h4>';
-							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
-							echo $value . '</div>';
+					?>
+					<?php
+						if($messages) {
+							echo '<div class="messages">';
+							foreach ($messages as $key => $value) {
+								echo '<div class="alert alert-success alert-dismissible" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>';
+								echo '<h4 class="alert-heading">SUCCESS!</h4>';
+								echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
+								echo $value . '</div>';
+							}
+							echo '</div>';
 						}
-						echo '</div>';
-					}
-				?>
-				<?php
-						echo ($hasAnAirWayBill == true) ? '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cargoInsertModal">Insert Cargo</button>' : '<small>There are no Air Way Bills in the database. Please enter one.</small><br><button type="button" class="btn btn-danger" onclick="location.href=\'airwaybillscan.php\'";>Insert Air Way Bill</button>';
-				?>
-				<div class="form-group mb-0">
-					<div class="modal fade" id="cargoInsertModal" role="dialog" aria-tagledby="cargoInsertModaltag" aria-hidden="true">
-						<div class="modal-dialog modal-lg" role="document">
-							<form id="cargoInsert" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title text-center" id="cargoInsertModaltag">Enter the item information:</h1>
-										<button type="button" class="close" data-dismiss="modal" aria-tag="Close"><span aria-hidden="true">&times;</span></button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<tag for="air-way-bill-selection" class="form-control-tag">Select AirWayBill #</tag>
-											<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
-											<?php
-												foreach($airwaybills as $airwaybill) {
-													echo "<option value=\"" . $airwaybill->getName() . "\"";
-													if($airwaybill->getName() == $previousAirWayBill) {
-														echo "selected";
+					?>
+					<?php
+							echo ($hasAnAirWayBill == true) ? '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cargoInsertModal">Insert Cargo</button>' : '<small>There are no Air Way Bills in the database. Please enter one.</small><br><button type="button" class="btn btn-danger" onclick="location.href=\'airwaybillscan.php\'";>Insert Air Way Bill</button>';
+					?>
+					<div class="form-group mb-0">
+						<div class="modal fade" id="cargoInsertModal" role="dialog" aria-tagledby="cargoInsertModaltag" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<form id="cargoInsert" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1 class="modal-title text-center" id="cargoInsertModaltag">Enter the item information:</h1>
+											<button type="button" class="close" data-dismiss="modal" aria-tag="Close"><span aria-hidden="true">&times;</span></button>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<tag for="air-way-bill-selection" class="form-control-tag">Select AirWayBill #</tag>
+												<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" required>
+												<?php
+													foreach($airwaybills as $airwaybill) {
+														echo "<option value=\"" . $airwaybill->getName() . "\"";
+														if($airwaybill->getName() == $previousAirWayBill) {
+															echo "selected";
+														}
+														echo ">" . $airwaybill->getName()  . "</option>";
 													}
-													echo ">" . $airwaybill->getName()  . "</option>";
-												}
-											?>
-											</select>
+												?>
+												</select>
+											</div>
+											<div class="form-group">
+												<tag for="item-datetime" class="form-control-tag">AirWayBill date/time:</tag>
+												<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $airwaybill_datetimeUnix).'T'.date('h:i:s', $airwaybill_datetimeUnix);?>" readonly></input>
+											</div>
+											<div class="form-group">
+												<tag for="item-type" class="form-control-tag">Type:</tag>
+												<select class="form-control" name="item-type" id="item-type" required>
+												<?php
+													foreach($cargotypes as $cargotype) {
+														echo '<option value="' . $cargotype->getName() . '">' . $cargotype->getName() . '</option>';
+													}
+												?>
+												</select>
+											</div>
+											<div class="form-group">
+												<tag for="item-description" class="form-control-tag">Description:</tag>
+												<textarea class="form-control" name="item-description" id="item-description" required></textarea>
+											</div>
+											<div class="form-group">
+												<tag for="item-datetime" class="form-control-tag">Enter the items' weight:</tag>
+												<input class="form-control" type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="1000" value="0.00" required></input>
+											</div>
+											<div class="form-group">
+												<tag for="item-weight-type" class="form-control-tag">KG or Pounds (items will be stored as KG):</tag>
+												<select class="form-control" name="item-weight-type" id="item-weight-type" required>
+													<option value="kg" selected>KG</option>
+													<option value="lb">LBs (Pounds)</option>
+												</select>
+											</div>
+											<div class="form-check">
+												<tag for="item-refrigerated" class="form-check-label">
+													<input type="checkbox" class="form-check-input" name="item-refrigerated" id="item-refrigerated" value="yes">
+													Is the item being refrigerated?
+												</tag>
+											</div>
 										</div>
-										<div class="form-group">
-											<tag for="item-datetime" class="form-control-tag">AirWayBill date/time:</tag>
-											<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $airwaybill_datetimeUnix).'T'.date('h:i:s', $airwaybill_datetimeUnix);?>" readonly></input>
+										<div class="modal-footer">
+											<button type="submit" name="cargoInsert" class="btn btn-primary">Add to inventory</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 										</div>
-										<div class="form-group">
-											<tag for="item-type" class="form-control-tag">Type:</tag>
-											<select class="form-control" name="item-type" id="item-type" required>
-											<?php
-												foreach($cargotypes as $cargotype) {
-													echo '<option value="' . $cargotype->getName() . '">' . $cargotype->getName() . '</option>';
-												}
-											?>
-											</select>
-										</div>
-										<div class="form-group">
-											<tag for="item-description" class="form-control-tag">Description:</tag>
-											<textarea class="form-control" name="item-description" id="item-description" required></textarea>
-										</div>
-										<div class="form-group">
-											<tag for="item-datetime" class="form-control-tag">Enter the items' weight:</tag>
-											<input class="form-control" type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="1000" value="0.00" required></input>
-										</div>
-										<div class="form-group">
-											<tag for="item-weight-type" class="form-control-tag">KG or Pounds (items will be stored as KG):</tag>
-											<select class="form-control" name="item-weight-type" id="item-weight-type" required>
-												<option value="kg" selected>KG</option>
-												<option value="lb">LBs (Pounds)</option>
-											</select>
-										</div>
-										<div class="form-check">
-											<tag for="item-refrigerated" class="form-check-label">
-												<input type="checkbox" class="form-check-input" name="item-refrigerated" id="item-refrigerated" value="yes">
-												Is the item being refrigerated?
-											</tag>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="submit" name="cargoInsert" class="btn btn-primary">Add to inventory</button>
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 									</div>
 								</div>
-							</div>
-						</form>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /card-body -->
 		</div>
 	</div>
 </div>
 
-<!-- Date.js -->
 <script src="custom/js/moment.js"></script>
 
 <script type="text/javascript">

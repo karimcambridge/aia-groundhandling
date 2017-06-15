@@ -115,239 +115,241 @@
 	}
 ?>
 
-<div class="row">
-	<div class="col-md-12">
-	 <ol class="breadcrumb">
-		 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-			<?php
-				if(!empty($airwaybill)) {
-					echo "<li class=\"breadcrumb-item\"><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Inventory</a></li>";
-					echo "<li class=\"breadcrumb-item active\"><strong>" . $airwaybill . "</strong></li>";
-				} else {
-					echo "<li class=\"breadcrumb-item active\"><strong>Cargo Inventory</strong></li>";
-				}
-			?>
-	 </ol>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+				<?php
+					if(!empty($airwaybill)) {
+						echo "<li class=\"breadcrumb-item\"><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Inventory</a></li>";
+						echo "<li class=\"breadcrumb-item active\"><strong>" . $airwaybill . "</strong></li>";
+					} else {
+						echo "<li class=\"breadcrumb-item active\"><strong>Cargo Inventory</strong></li>";
+					}
+				?>
+			</ol>
+		</div>
 	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="card">
-			<div class="card-header"><strong>
-				<?php
-				if(empty($airwaybill)) {
-					echo "Cargo Inventory (Select an AirWayBill to view all items on that AirWayBill)";
-				} else {
-					echo "Cargo Inventory (Select an item (row) to edit or checkout that cargo item)";
-				}
-				?>
-			</strong></div>
-			<div class="card-block">
-				<?php
-					if($errors) {
-						echo '<div class="messages">';
-						foreach ($errors as $key => $value) {
-							echo '<div class="alert alert-danger alert-dismissible" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign"></span>';
-							echo '<h4 class="alert-heading">ERROR!</h4>';
-							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
-							echo $value . '</div>';
-						}
-						echo '</div>';
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header"><strong>
+					<?php
+					if(empty($airwaybill)) {
+						echo "Cargo Inventory (Select an AirWayBill to view all items on that AirWayBill)";
+					} else {
+						echo "Cargo Inventory (Select an item (row) to edit or checkout that cargo item)";
 					}
-				?>
-				<?php
-					if($messages_info) {
-						echo '<div class="messages">';
-						foreach ($messages_info as $key => $value) {
-							echo '<div class="alert alert-info alert-dismissible" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign"></span>';
-							echo '<h4 class="alert-heading">NOTE:</h4>';
-							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
-							echo $value . '</div>';
+					?>
+				</strong></div>
+				<div class="card-block">
+					<?php
+						if($errors) {
+							echo '<div class="messages">';
+							foreach ($errors as $key => $value) {
+								echo '<div class="alert alert-danger alert-dismissible" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>';
+								echo '<h4 class="alert-heading">ERROR!</h4>';
+								echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
+								echo $value . '</div>';
+							}
+							echo '</div>';
 						}
-						echo '</div>';
-					}
-				?>
-				<?php
-					if($messages_success) {
-						echo '<div class="messages">';
-						foreach ($messages_success as $key => $value) {
-							echo '<div class="alert alert-success alert-dismissible" role="alert">
-							<span class="glyphicon glyphicon-exclamation-sign"></span>';
-							echo '<h4 class="alert-heading">SUCCESS!</h4>';
-							echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
-							echo $value . '</div>';
+					?>
+					<?php
+						if($messages_info) {
+							echo '<div class="messages">';
+							foreach ($messages_info as $key => $value) {
+								echo '<div class="alert alert-info alert-dismissible" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>';
+								echo '<h4 class="alert-heading">NOTE:</h4>';
+								echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
+								echo $value . '</div>';
+							}
+							echo '</div>';
 						}
-						echo '</div>';
-					}
-				?>
-				<div class="table-responsive">
-					<table class="table" id="cargoinventory">
-						<thead>
-							<tr>
-							<?php
-								if(empty($airwaybill)) {
-									echo '<th class="active">Air Way Bill #</th>';
-									echo '<th class="active">Carrier</th>';
-									echo '<th class="active">Item Quantity</th>';
-									echo '<th class="active">Date Received</th>';
-								} else {
-									echo '<th class="active">Air Way Bill #</th>';
-									echo '<th class="active">Type of Cargo</th>';
-									echo '<th class="active">Item Description</th>';
-									echo '<th class="active">Item Weight (KG)</th>';
-									echo '<th class="active">Time of System Entry</th>';
-									echo '<th class="active">Days In Cargo</th>';
-									echo '<th class="active">Being Refrigerated Currently?</th>';
-									echo '<th class="active">Time Refrigerated</th>';
-								}
-							?>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								if(isset($results) == true) {
-									for( $i = 0; $i < count( $results->data ); $i++ ) {
-										if(empty($airwaybill)) {
-											echo "<tr>";
-											echo "<td><a href=" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . keepLinks('limit', 'page', 'links') . ">" . $results->data[$i]['airwaybill'] . "</a></td>";
-											echo "<td>" . getCarrierNameFromId($results->data[$i]['carrier_id']) . "</td>";
-											echo "<td>" . $results->data[$i]['in_quantity'] . "</td>";
-											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
-											echo "</tr>";
-										} else {
-											$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
-											$editingItemDateUnix = strtotime($airwaybillEx->getDateIn());
-											$editingItemDays = number_of_cargo_days(date('Y-m-d', $editingItemDateUnix), date('Y-m-d'));
-											echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
-											echo "<td>" . $results->data[$i]['airwaybill'] . "</td>";
-											echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
-											echo "<td>" . $results->data[$i]['item_description'] . "</td>";
-											echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
-											echo "<td>" . $results->data[$i]['date_in'] . "</td>";
-											echo "<td>" . $editingItemDays . "</td>";
-											if($results->data[$i]['refrigerated_unix']) {
-												echo "<td>Yes</td>";
+					?>
+					<?php
+						if($messages_success) {
+							echo '<div class="messages">';
+							foreach ($messages_success as $key => $value) {
+								echo '<div class="alert alert-success alert-dismissible" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"></span>';
+								echo '<h4 class="alert-heading">SUCCESS!</h4>';
+								echo '<button type="button" class="close" data-dismiss="alert" aria-tag="Close"><span aria-hidden="true">&times;</span></button>';
+								echo $value . '</div>';
+							}
+							echo '</div>';
+						}
+					?>
+					<div class="table-responsive">
+						<table class="table" id="cargoinventory">
+							<thead>
+								<tr>
+								<?php
+									if(empty($airwaybill)) {
+										echo '<th class="active">Air Way Bill #</th>';
+										echo '<th class="active">Carrier</th>';
+										echo '<th class="active">Item Quantity</th>';
+										echo '<th class="active">Date Received</th>';
+									} else {
+										echo '<th class="active">Air Way Bill #</th>';
+										echo '<th class="active">Type of Cargo</th>';
+										echo '<th class="active">Item Description</th>';
+										echo '<th class="active">Item Weight (KG)</th>';
+										echo '<th class="active">Time of System Entry</th>';
+										echo '<th class="active">Days In Cargo</th>';
+										echo '<th class="active">Being Refrigerated Currently?</th>';
+										echo '<th class="active">Time Refrigerated</th>';
+									}
+								?>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									if(isset($results) == true) {
+										for( $i = 0; $i < count( $results->data ); $i++ ) {
+											if(empty($airwaybill)) {
+												echo "<tr>";
+												echo "<td><a href=" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . keepLinks('limit', 'page', 'links') . ">" . $results->data[$i]['airwaybill'] . "</a></td>";
+												echo "<td>" . getCarrierNameFromId($results->data[$i]['carrier_id']) . "</td>";
+												echo "<td>" . $results->data[$i]['in_quantity'] . "</td>";
+												echo "<td>" . $results->data[$i]['date_in'] . "</td>";
+												echo "</tr>";
 											} else {
-												echo "<td>No</td>";
-											}
-											if($results->data[$i]['refrigerated_time']) {
-												$cur_refrigerated_time = 0;
+												$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
+												$editingItemDateUnix = strtotime($airwaybillEx->getDateIn());
+												$editingItemDays = number_of_cargo_days(date('Y-m-d', $editingItemDateUnix), date('Y-m-d'));
+												echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
+												echo "<td>" . $results->data[$i]['airwaybill'] . "</td>";
+												echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
+												echo "<td>" . $results->data[$i]['item_description'] . "</td>";
+												echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
+												echo "<td>" . $results->data[$i]['date_in'] . "</td>";
+												echo "<td>" . $editingItemDays . "</td>";
 												if($results->data[$i]['refrigerated_unix']) {
-													$cur_refrigerated_time += (time() - $results->data[$i]['refrigerated_unix']);
+													echo "<td>Yes</td>";
+												} else {
+													echo "<td>No</td>";
 												}
-												$cur_refrigerated_time += $results->data[$i]['refrigerated_time'];
-												echo "<td>" . timeFormat($cur_refrigerated_time) . "</td>";
-											} else {
-												echo "<td>None</td>";
-											}
-											echo "</tr>";
-											if(!empty($editingId) && $editingId == $results->data[$i]['ID']) {
-												$editingItemType = $results->data[$i]['cargo_type'];
-												$editingItemDescription = $results->data[$i]['item_description'];
-												$editingItemWeight = $results->data[$i]['item_weight'];
-												$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
-												$editingItemRefrigeratedUnix = $results->data[$i]['refrigerated_unix'];
+												if($results->data[$i]['refrigerated_time']) {
+													$cur_refrigerated_time = 0;
+													if($results->data[$i]['refrigerated_unix']) {
+														$cur_refrigerated_time += (time() - $results->data[$i]['refrigerated_unix']);
+													}
+													$cur_refrigerated_time += $results->data[$i]['refrigerated_time'];
+													echo "<td>" . timeFormat($cur_refrigerated_time) . "</td>";
+												} else {
+													echo "<td>None</td>";
+												}
+												echo "</tr>";
+												if(!empty($editingId) && $editingId == $results->data[$i]['ID']) {
+													$editingItemType = $results->data[$i]['cargo_type'];
+													$editingItemDescription = $results->data[$i]['item_description'];
+													$editingItemWeight = $results->data[$i]['item_weight'];
+													$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
+													$editingItemRefrigeratedUnix = $results->data[$i]['refrigerated_unix'];
+												}
 											}
 										}
 									}
-								}
-							?>
-						</tbody>
-					</table>
+								?>
+							</tbody>
+						</table>
+					</div>
+					<?php echo $Paginator->createLinks( $links, 'pagination justify-content-center', count($results->data) ); ?>
 				</div>
-				<?php echo $Paginator->createLinks( $links, 'pagination justify-content-center', count($results->data) ); ?>
-			</div>
-			<div class="form-group mb-0 text-center">
-			 	<div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
-				 	<div class="modal-dialog modal-lg" role="document">
-					 	<form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-						 	<div class="modal-content">
-							 	<div class="modal-header">
-									<h1 class="modal-title text-center" id="cargoEditModalLabel">Use the current item data below to edit or checkout the item:</h1>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<div class="form-group mb-0 text-center">
+				 	<div class="modal fade" id="cargoEditModal" role="dialog" aria-labelledby="cargoEditModalLabel" aria-hidden="true">
+					 	<div class="modal-dialog modal-lg" role="document">
+						 	<form id="cargoEdit" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+							 	<div class="modal-content">
+								 	<div class="modal-header">
+										<h1 class="modal-title text-center" id="cargoEditModalLabel">Use the current item data below to edit or checkout the item:</h1>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								 	</div>
+								 	<div class="modal-body">
+									<div class="form-group">
+										<input type="hidden" name="item-airwaybill" value="<?php echo $airwaybill; ?>">
+										<input type="hidden" name="item-id" value="<?php echo $editingId; ?>">
+										<tag for="air-way-bill-selection" class="form-control-label">AirWayBill #</tag>
+										<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" readonly disabled>
+										<?php
+											foreach($airwaybills as $value) {
+												echo "<option value=\"" . $value->getName() . "\"";
+												if($value->getName() == $airwaybill) {
+													echo "selected";
+												} else {
+													echo "disabled";
+												}
+												echo ">" . $value->getName()  . "</option>";
+											}
+										?>
+										</select>
+									</div>
+									<div class="form-group">
+										<tag for="item-datetime" class="form-control-label">AirWayBill date/time:</tag>
+										<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" readonly></input>
+									</div>
+									<div class="form-group">
+										<tag for="item-type" class="form-control-label">Type:</tag>
+										<select class="form-control" name="item-type" id="item-type" required>
+										<?php
+											foreach($cargotypes as $value) {
+												echo "<option value=\"" . $value->getName() . "\"";
+												if($value->getName() == $editingItemType) {
+													 echo "selected";
+												}
+												echo ">" . $value->getName()  . "</option>";
+											}
+										?>
+										</select>
+									</div>
+									<div class="form-group">
+										<tag for="item-description" class="form-control-label">Description:</tag>
+										<textarea class="form-control" name="item-description" id="item-description" required><?php echo $editingItemDescription; ?></textarea>
+									</div>
+									<div class="form-group">
+										<tag for="item-datetime" class="form-control-label">Enter the items' weight:</tag>
+										<input class="form-control" type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="10000" <?php echo 'value="' . $editingItemWeight . '"'; ?>   required></input>
+									</div>
+									<div class="form-group">
+										<tag for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</tag>
+										<select class="form-control" name="item-weight-type" id="item-weight-type" required>
+											<option value="kg" selected>KG</option>
+											<option value="lb">LBs (Pounds)</option>
+										</select>
+									</div>
+									<div class="form-check">
+										<tag for="item-refrigerated" class="form-check-label">
+											<input type="checkbox" class="form-check-input" name="item-refrigerated" id="item-refrigerated" value="yes" <?php if($editingItemRefrigeratedUnix) { echo "checked"; } ?>>
+											Is the item being refrigerated?
+										</tag>
+									</div>
+									<div class="form-group">
+										<tag for="item-days" class="form-control-label">Days In Cargo:</tag>
+										<textarea class="form-control" rows="1" id="item-days" readonly><?php echo $editingItemDays ?></textarea>
+									</div>
+									<div class="form-group">
+										<tag for="item-day-fee" class="form-control-label">Checkout Levy:</tag>
+										<textarea class="form-control" id="item-day-fee" readonly><?php echo number_format($editingItemFee, 2, '.', ''); ?></textarea>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="submit" name="cargoEdit" class="btn btn-success">Edit</button>
+									<button type="submit" name="cargoCheckout" class="btn btn-primary">Checkout</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+								</div>
+								</div>
 							 	</div>
-							 	<div class="modal-body">
-								<div class="form-group">
-									<input type="hidden" name="item-airwaybill" value="<?php echo $airwaybill; ?>">
-									<input type="hidden" name="item-id" value="<?php echo $editingId; ?>">
-									<tag for="air-way-bill-selection" class="form-control-label">AirWayBill #</label>
-									<select class="form-control" name="air-way-bill-selection" id="air-way-bill-selection" readonly disabled>
-									<?php
-										foreach($airwaybills as $value) {
-											echo "<option value=\"" . $value->getName() . "\"";
-											if($value->getName() == $airwaybill) {
-												echo "selected";
-											} else {
-												echo "disabled";
-											}
-											echo ">" . $value->getName()  . "</option>";
-										}
-									?>
-									</select>
-								</div>
-								<div class="form-group">
-									<tag for="item-datetime" class="form-control-label">AirWayBill date/time:</label>
-									<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $editingItemDateUnix).'T'.date('h:i', $editingItemDateUnix);?>" readonly></input>
-								</div>
-								<div class="form-group">
-									<tag for="item-type" class="form-control-label">Type:</label>
-									<select class="form-control" name="item-type" id="item-type" required>
-									<?php
-										foreach($cargotypes as $value) {
-											echo "<option value=\"" . $value->getName() . "\"";
-											if($value->getName() == $editingItemType) {
-												 echo "selected";
-											}
-											echo ">" . $value->getName()  . "</option>";
-										}
-									?>
-									</select>
-								</div>
-								<div class="form-group">
-									<tag for="item-description" class="form-control-label">Description:</label>
-									<textarea class="form-control" name="item-description" id="item-description" required><?php echo $editingItemDescription; ?></textarea>
-								</div>
-								<div class="form-group">
-									<tag for="item-datetime" class="form-control-label">Enter the items' weight:</label>
-									<input class="form-control" type="number" name="item-weight" id="item-weight" step="0.01" min="0" max="10000" <?php echo 'value="' . $editingItemWeight . '"'; ?>   required></input>
-								</div>
-								<div class="form-group">
-									<tag for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</label>
-									<select class="form-control" name="item-weight-type" id="item-weight-type" required>
-										<option value="kg" selected>KG</option>
-										<option value="lb">LBs (Pounds)</option>
-									</select>
-								</div>
-								<div class="form-check">
-									<tag for="item-refrigerated" class="form-check-label">
-										<input type="checkbox" class="form-check-input" name="item-refrigerated" id="item-refrigerated" value="yes" <?php if($editingItemRefrigeratedUnix) { echo "checked"; } ?>>
-										Is the item being refrigerated?
-									</tag>
-								</div>
-								<div class="form-group">
-									<tag for="item-days" class="form-control-label">Days In Cargo:</label>
-									<textarea class="form-control" rows="1" id="item-days" readonly><?php echo $editingItemDays ?></textarea>
-								</div>
-								<div class="form-group">
-									<tag for="item-day-fee" class="form-control-label">Checkout Levy:</label>
-									<textarea class="form-control" id="item-day-fee" readonly><?php echo number_format($editingItemFee, 2, '.', ''); ?></textarea>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="submit" name="cargoEdit" class="btn btn-success">Edit</button>
-								<button type="submit" name="cargoCheckout" class="btn btn-primary">Checkout</button>
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-							</div>
-							</div>
-						 	</div>
-					 	</form>
+						 	</form>
+					 	</div>
 				 	</div>
-			 	</div>
+				</div>
 			</div>
-		</div>
-	<div>
+		<div>
+	</div>
 </div>
 
 <script type="text/javascript">

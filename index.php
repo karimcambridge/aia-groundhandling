@@ -50,34 +50,38 @@ if(isset($_SESSION['accountId'])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>AIA Ground OPS System</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AIA Ground Handling Web System</title>
 
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
-	<!-- bootstrap theme-->
-	<link rel="stylesheet" href="assests/bootstrap/css/bootstrap-theme.min.css">
-	<!-- font awesome -->
-	<link rel="stylesheet" href="assests/font-awesome/css/font-awesome.min.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="assets/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
 
-  <!-- custom css -->
-  <link rel="stylesheet" href="custom/css/custom.css">
+    <!-- FontAwesome css -->
+    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 
-  <!-- jquery -->
-	<script src="assests/jquery/jquery.min.js"></script>
-  <!-- jquery ui -->
-  <link rel="stylesheet" href="assests/jquery-ui/jquery-ui.min.css">
-  <script src="assests/jquery-ui/jquery-ui.min.js"></script>
+    <!-- custom css -->
+    <link rel="stylesheet" href="custom/css/custom.css">
 
-  <!-- bootstrap js -->
-	<script src="assests/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jquery -->
+    <script src="assets/jquery/jquery.min.js"></script>
+
+    <!-- tether -->
+    <script src="assets/tether-1.3.3/js/tether.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="assets/bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    
+    <!-- Bootstrap notify js -->
+    <script src="assets/bootstrap-notify-3.1.3/bootstrap-notify.min.js"></script>
 </head>
 <body>
-	<div class="container">
-		<div class="row vertical">
-			<div class="col-md-5 col-md-offset-4">
-				<div class="card card-info">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
 					<div class="card-header">
 						<h3 class="card-title">Please Sign in here</h3>
 					</div>
@@ -96,13 +100,13 @@ if(isset($_SESSION['accountId'])) {
 						<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="loginForm">
 							<fieldset>
 							  <div class="form-group">
-									<tag for="username" class="col-sm-2 form-control-label">Username</label>
+									<tag for="username" class="col-sm-2 form-control-label">Username</tag>
 									<div class="col-sm-10">
 									  <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" />
 									</div>
 								</div>
 								<div class="form-group">
-									<tag for="password" class="col-sm-2 form-control-label">Password</label>
+									<tag for="password" class="col-sm-2 form-control-label">Password</tag>
 									<div class="col-sm-10">
 									  <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" />
 									</div>
