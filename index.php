@@ -84,7 +84,7 @@ if(isset($_SESSION['accountId'])) {
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">Please Sign in:</h3>
+						<h3 class="card-title mb-0">Please Sign in:</h3>
 					</div>
 					<div class="card-block">
 						<?php
@@ -112,7 +112,7 @@ if(isset($_SESSION['accountId'])) {
 									  <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" />
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-0">
 									<div class="col-sm-12 text-center">
 									  <button type="submit" class="btn btn-secondary"> <i class="glyphicon glyphicon-log-in"></i> Sign in</button>
 									</div>
