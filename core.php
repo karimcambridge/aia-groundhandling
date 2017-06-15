@@ -4,7 +4,6 @@ session_start();
 
 require_once 'config.php';
 require_once 'dbconnect.php';
-require_once 'includes/user.class.php';
 require_once 'includes/AIAGroundOpsTemplate.interface.php';
 require_once 'includes/airwaybill.class.php';
 require_once 'includes/cargotype.class.php';

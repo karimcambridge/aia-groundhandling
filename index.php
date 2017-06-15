@@ -13,37 +13,39 @@ if(isset($_SESSION['accountId'])) {
 		$password = $_POST['password'];
 
 		if(empty($username) || empty($password)) {
-			if($username == "") {
-				$errors[] = "Username is required";
+			if(empty($username)) {
+				$errors[] = "A Username is required. Please enter one.";
 			}
-			if($password == "") {
-				$errors[] = "Password is required";
+			if(empty($password)) {
+				$errors[] = "A Password is required. Please enter one.";
 			}
 		} else {
 			$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
 			$result = $connectionHandle->query($sql);
 
 			if($result->num_rows == 1) {
-				$password = $password;
+				$password = $connectionHandle->real_escape_string($password);
 
-				$loginSql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
+				$loginSql = "SELECT `accountid`, `username`, `level` FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
 				$loginResult = $connectionHandle->query($loginSql);
 
 				if($loginResult->num_rows == 1) {
 					if(!isset($_SESSION['accountId'])) {
 						$value = $loginResult->fetch_assoc();
-						$user = new User($value['accountid']);
+
 						$_SESSION['accountId'] = $value['accountid'];
+						$_SESSION['accountUsername'] = $value['username'];
+						$_SESSION['accountLevel'] = $value['level'];
 					}
 					header('location:' . FILE_DASHBOARD);
 				} else{
-					$errors[] = "Incorrect username/password combination";
-				} // else
+					$errors[] = "Incorrect username/password combination.";
+				}
 			} else {
-				$errors[] = "Username does not exists";
-			} // else
-		} // else not empty username // password
-	} // if $_POST
+				$errors[] = "This Username (" . $username . ") does not exist.";
+			}
+		}
+	}
 }
 ?>
 
@@ -79,8 +81,8 @@ if(isset($_SESSION['accountId'])) {
 	<div class="text-center">
 		<img src="assets/images/brand/AIA_GroundHandling_Logo_NoBackground_white_v1.png" alt="">
 	</div>
-	<div class="container">
-		<div class="row">
+	<div class="container mt-5">
+		<div class="row form-group">
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">

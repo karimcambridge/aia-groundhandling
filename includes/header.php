@@ -46,9 +46,9 @@
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-user"></span></a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="logout.php"><span class="fa fa-sign-out"> Logout</span></a>
-            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="settings.php"><span class="fa fa-cog"> Settings</span></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="logout.php"><span class="fa fa-sign-out"> Logout</span></a>
           </div >
         </li>
       </ul>
