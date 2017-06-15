@@ -10,6 +10,6 @@
 	</div>
 </div>
 
-<div class="text-center"><h1>Welcome to the AIA Operations Dashboard!</h1></div>
+<div class="text-center"><h1>Welcome to the AIA Grounding Handling Web System!</h1></div>
 
 <?php require_once 'includes/footer.php'; ?>

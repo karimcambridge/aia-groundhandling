@@ -1,10 +1,9 @@
 <?php
-require_once 'php_action/sql_config.php';
 
-session_start();
+require_once 'core.php';
 
 if(isset($_SESSION['accountId'])) {
-	header('location:dashboard.php');
+	header('location:' . FILE_DASHBOARD);
 	die();
 } else {
 	$errors = array();
@@ -31,13 +30,12 @@ if(isset($_SESSION['accountId'])) {
 				$loginResult = $connectionHandle->query($loginSql);
 
 				if($loginResult->num_rows == 1) {
-					// set session
 					if(!isset($_SESSION['accountId'])) {
 						$value = $loginResult->fetch_assoc();
-						$user_id = $value['accountid'];
-						$_SESSION['accountId'] = $user_id;
+						$user = new User($value['accountid']);
+						$_SESSION['accountId'] = $value['accountid'];
 					}
-					header('location:dashboard.php');
+					header('location:' . FILE_DASHBOARD);
 				} else{
 					$errors[] = "Incorrect username/password combination";
 				} // else
@@ -77,13 +75,16 @@ if(isset($_SESSION['accountId'])) {
     <!-- Bootstrap notify js -->
     <script src="assets/bootstrap-notify-3.1.3/bootstrap-notify.min.js"></script>
 </head>
-<body>
-	<div class="container-fluid">
+<body style="background-color: #2A2A2A">
+	<div class="text-center">
+		<img src="assets/images/brand/AIA_GroundHandling_Logo_NoBackground_white_v1.png" alt="">
+	</div>
+	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">Please Sign in here</h3>
+						<h3 class="card-title">Please Sign in:</h3>
 					</div>
 					<div class="card-block">
 						<?php
@@ -100,33 +101,28 @@ if(isset($_SESSION['accountId'])) {
 						<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="loginForm">
 							<fieldset>
 							  <div class="form-group">
-									<tag for="username" class="col-sm-2 form-control-label">Username</tag>
-									<div class="col-sm-10">
+									<tag for="username" class="col-sm-12 form-control-label">Username</tag>
+									<div class="col-sm-12">
 									  <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" />
 									</div>
 								</div>
 								<div class="form-group">
-									<tag for="password" class="col-sm-2 form-control-label">Password</tag>
-									<div class="col-sm-10">
+									<tag for="password" class="col-sm-12 form-control-label">Password</tag>
+									<div class="col-sm-12">
 									  <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" />
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-10">
+									<div class="col-sm-12 text-center">
 									  <button type="submit" class="btn btn-secondary"> <i class="glyphicon glyphicon-log-in"></i> Sign in</button>
 									</div>
 								</div>
 							</fieldset>
 						</form>
 					</div>
-					<!-- card-body -->
 				</div>
-				<!-- /card -->
 			</div>
-			<!-- /col-md-4 -->
 		</div>
-		<!-- /row -->
 	</div>
-	<!-- container -->
 </body>
 </html>
