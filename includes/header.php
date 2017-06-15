@@ -13,7 +13,7 @@
     <!-- FontAwesome css -->
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 
-    <!-- Custom css -->
+    <!-- custom css -->
     <link rel="stylesheet" href="custom/css/custom.css">
 
     <!-- jquery -->

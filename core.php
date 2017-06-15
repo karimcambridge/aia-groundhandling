@@ -44,7 +44,7 @@ if($connectionHandle->ping()) {
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
-			$consignees[] = new Carrier($row['ID'], $row['name'], $row['carrier_id']);
+			$consignees[] = new Consignee($row['ID'], $row['name'], $row['carrier_id']);
 		}
 	}
 }

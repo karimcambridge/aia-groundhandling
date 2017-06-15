@@ -4,32 +4,30 @@
 	<div class="col-md-12">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-			<li class="breadcrumb-item active"><strong>AirWayBill Entry</strong></li>
+			<li class="breadcrumb-item active"><strong>AirWayBill # Entry</strong></li>
 		</ol>
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<div class="card-header"><strong>Cargo AirWayBill Entry</strong></div>
-			<!-- /card-heading -->
+			<div class="card-header"><strong>Cargo AirWayBill # Entry</strong></div>
 			<div class="card-block">
-				<form class="form-inline" id="airwaybillEntryForm" action="" method="post" >
+				<form class="form-inline" id="airwaybillEntryForm" method="post">
 					<div class="form-group">
-						<tag class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">Owner / Carrier</tag>
+						<tag for="carrier-selection" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control-label">Owner / Carrier</tag>
 						<div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 							<select class="form-control" id="carrier-selection" name="carrier-selection" required>
 							<?php
 								foreach($carriers as $carrier) {
-									echo "<option value=\"" . $carrier->getId() . "\"";
-									echo ">" . $carrier->getName() . "</option>";
+									echo '<option value="' . $carrier->getId() . '">' . $carrier->getName() . '</option>';
 								}
 							?>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<tag class="col-sm-6 control-label">Air Way Bill #</tag>
+						<tag for="air-way-bill-scan" class="col-sm-6 form-control-label">Air Way Bill #</tag>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="air-way-bill-scan" name="air-way-bill-scan" placeholder="xxx-xxx-xxx" required autofocus />
 						</div>
@@ -45,16 +43,12 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var centerX = $(window).width() / 2;
-	var centerY = $(window).height() / 2;
-
 	$('#carrier-selection').change(function() {
 		var dataString = 'carrierid=' + $("#carrier-selection").val();
 		$.ajax({
 			type: "POST",
 			url: "airwaybillscan_getconsigneelist.php",
 			data: dataString,
-			dataType: 'json',
 			cache: false,
 			success: function(data) {
 				if(data instanceof String) {
@@ -82,7 +76,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-
 	$('#air-way-bill-scan-button').click(function() {
 		var dataString = 'airwaybill=' + $("#air-way-bill-scan").val() + '&carrierid=' + $("#carrier-selection").val();
 		$.ajax({
