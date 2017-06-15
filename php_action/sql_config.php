@@ -1,9 +1,9 @@
 <?php
 
 $localhost = "127.0.0.1";
-$username = "root";
+$username = "groundhandling";
 $password = "";
-$dbname = "airport";
+$dbname = "AIAgroundhandling";
 
 // db connection
 $connectionHandle = new mysqli($localhost, $username, $password, $dbname);
