@@ -65,8 +65,8 @@ $(document).ready(function() {
 
 						var htmlString = '<tag for="consignee-selection" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control-label">Consignees</tag>' + '<select class="form-control" id="consignee-selection" name="consignee-selection" required>';
 
-						for(var i = 0; i < newData.length; i++) {
-							htmlString += '<option value="' + newData[i] + '">' + newData[i] + '</option>';
+						for(var i = 0; i < newData.length; i += 2) {
+							htmlString += '<option value="' + newData[i] + '">' + newData[i + 1] + '</option>';
 						}
 						htmlString += '</class>';
 
@@ -99,6 +99,9 @@ $(document).ready(function() {
 	});
 	$('#air-way-bill-scan-button').click(function() {
 		var dataString = 'airwaybill=' + $("#air-way-bill-scan").val() + '&carrierid=' + $("#carrier-selection").val();
+		if($("#consignee-selection").val()) {
+			dataString += '&consigneeid=' + $("#consignee-selection").val();
+		}
 		$.ajax({
 			type: "POST",
 			url: "airwaybillscan_update.php",

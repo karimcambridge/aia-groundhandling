@@ -1,8 +1,8 @@
 <?php
 
 $localhost = "localhost";
-$username = "groundhandling";
-$password = "AIAgroundhandling";
+$username = "root";
+$password = "";
 $dbname = "airport";
 
 // db connection

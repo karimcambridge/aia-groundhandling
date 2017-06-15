@@ -5,7 +5,10 @@ require_once 'core.php';
 if($_POST['airwaybill']) {
 	$airwaybill = $_POST['airwaybill'];
 	$carrierId = $_POST['carrierid'];
-
+	$consigneeId;
+	if(isset($_POST['consigneeid'])) {
+		$consigneeId = $_POST['consigneeid'];
+	}
 	if(!empty($airwaybill)) {
 		if(is_numeric($carrierId) && $carrierId >= 0) {
 			$airwaybill = $connectionHandle->real_escape_string($airwaybill);
@@ -20,7 +23,7 @@ if($_POST['airwaybill']) {
 						echo json_encode('This Air Way Bill is already in the database with the Carrier (' . getCarrierNameFromId($row['carrier_id']) . '). Please re-check your Carrier.');
 					}
 				} else {
-					$query = "INSERT IGNORE INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airwaybill', '$carrierId');";
+					$query = (!empty($consigneeId)) ? "INSERT IGNORE INTO `airwaybills` (`airwaybill`, `carrier_id`, `consignee_id`) VALUES ('$airwaybill', '$carrierId', '$consigneeId');" : "INSERT IGNORE INTO `airwaybills` (`airwaybill`, `carrier_id`) VALUES ('$airwaybill', '$carrierId');";
 					$result = $connectionHandle->query($query);
 				}
 			}

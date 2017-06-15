@@ -10,6 +10,7 @@ if($_POST['carrierid']) {
 		foreach($consignees as $consignee) {
 			if($consignee->getCarrierId() == $carrierid) {
 				$consigneelist[] = $consignee->getId();
+				$consigneelist[] = $consignee->getName();
 			}
 		}
 		if(!empty($consigneelist)) {
