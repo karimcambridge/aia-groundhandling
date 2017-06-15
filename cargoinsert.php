@@ -4,7 +4,7 @@
 
 $errors = array();
 $messages = array();
-$hasAnAirWayBill = true;
+$hasAnAirWayBill = 1;
 
 if(isset($_POST['cargoInsert'])) {
 	$item_refrigerated_unix = 0;
@@ -57,13 +57,15 @@ if(isset($_POST['cargoInsert'])) {
 
 if(isset($_SESSION['air-way-bill-selection'])) {
 	$previousAirWayBill = $_SESSION['air-way-bill-selection'];
-	$airwaybill_datetimeUnix = getAirWayBill($previousAirWayBill)->getDateInTimestamp();
+	$airwaybillDateTimeUnix = getAirWayBill($previousAirWayBill)->getDateInTimestamp();
+	$airwaybillConsignee = getConsigneeNameFromId(getAirWayBill($previousAirWayBill)->getConsigneeId());
 } else {
 	$previousAirWayBill = "";
 	if(empty($airwaybills)) {
-		$hasAnAirWayBill = false;
+		$hasAnAirWayBill = 0;
 	} else {
-		$airwaybill_datetimeUnix = $airwaybills[0]->getDateInTimestamp();
+		$airwaybillDateTimeUnix = $airwaybills[0]->getDateInTimestamp();
+		$airwaybillConsignee = getConsigneeNameFromId($airwaybills[0]->getConsigneeId());
 	}
 }
 
@@ -110,7 +112,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 						}
 					?>
 					<?php
-							echo ($hasAnAirWayBill == true) ? '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cargoInsertModal">Insert Cargo</button>' : '<small>There are no Air Way Bills in the database. Please enter one.</small><br><button type="button" class="btn btn-danger" onclick="location.href=\'airwaybillscan.php\'";>Insert Air Way Bill</button>';
+							echo ($hasAnAirWayBill == 1) ? '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cargoInsertModal">Insert Cargo</button>' : '<small>There are no Air Way Bills in the database. Please enter one.</small><br><button type="button" class="btn btn-danger" onclick="location.href=\'airwaybillscan.php\'";>Insert Air Way Bill</button>';
 					?>
 					<div class="form-group mb-0">
 						<div class="modal fade" id="cargoInsertModal" role="dialog" aria-tagledby="cargoInsertModaltag" aria-hidden="true">
@@ -138,7 +140,11 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 											</div>
 											<div class="form-group">
 												<tag for="item-datetime" class="form-control-tag">AirWayBill date/time:</tag>
-												<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $airwaybill_datetimeUnix).'T'.date('h:i:s', $airwaybill_datetimeUnix);?>" readonly></input>
+												<input class="form-control" type="datetime-local" name="item-datetime" id="item-datetime" value="<?php echo date('Y-m-d', $airwaybillDateTimeUnix).'T'.date('h:i:s', $airwaybillDateTimeUnix);?>" readonly></input>
+											</div>
+											<div class="form-group">
+												<tag for="item-type" class="form-control-tag">Consignee:</tag>
+												<input class="form-control" type="text" name="item-consignee" id="item-consignee" value="<?=$airwaybillConsignee;?>" readonly></input>
 											</div>
 											<div class="form-group">
 												<tag for="item-type" class="form-control-tag">Type:</tag>
@@ -191,7 +197,7 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var $hasAnAirWayBill = <?php echo $hasAnAirWayBill; ?>;
+	var $hasAnAirWayBill = <?=$hasAnAirWayBill;?>;
 	if($hasAnAirWayBill) {
 		$('#cargoInsertModal').modal('show');
 	}
@@ -208,8 +214,10 @@ $(document).ready(function() {
 			cache: false,
 			success: function(data)
 			{
-				var timeStamp = parseInt(data);
+				var newData = data.split(',');
+				var timeStamp = parseInt(newData[0]);
 				$("#item-datetime").val(moment.unix(timeStamp).format('YYYY-MM-DDTHH:mm:ss'));
+				$("#item-consignee").val((newData[1].length == 0) ? ("None") : newData[1]);
 			}
 		});
 	});

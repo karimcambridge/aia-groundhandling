@@ -79,6 +79,13 @@
 					?>
 				</strong></div>
 				<div class="card-block">
+					<?php
+						if(!empty($airwaybill)) {
+							echo '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 form-control">';
+							echo '<strong>Air Way Bill #:</strong> ' . $airwaybill . ' <strong>Consignee:</strong> ' . getConsigneeNameFromId(getAirWayBill($airwaybill)->getConsigneeId());
+							echo '</div>';
+						}
+					?>
 					<div class="table-responsive">
 						<table class="table" id="cargomovement">
 							<thead>
@@ -90,7 +97,6 @@
 										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Date Received</th>';
 									} else {
-										echo '<th class="active">Air Way Bill #</th>';
 										echo '<th class="active">Type of Cargo</th>';
 										echo '<th class="active">Item Description</th>';
 										echo '<th class="active">Item Weight (KG)</th>';
@@ -118,7 +124,6 @@
 												$editingItemDays = number_of_cargo_days(date('Y-m-d', $airwaybillEx->getDateInTimestamp()), date('Y-m-d', strtotime($results->data[$i]['date_out'])));
 
 												echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
-												echo "<td>" . $results->data[$i]['airwaybill'] . "</td>";
 												echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_description'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
@@ -128,7 +133,7 @@
 												if($results->data[$i]['refrigerated_time']) {
 													echo "<td>" . timeFormat($results->data[$i]['refrigerated_time']) . "</td>";
 												} else {
-													echo "<td>None</td>";
+													echo "<td>Never</td>";
 												}
 												echo "</tr>";
 												if(!empty($editingId) && $editingId == $results->data[$i]['ID']) {

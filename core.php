@@ -19,11 +19,11 @@ if($connectionHandle->ping()) {
 	$carriers = array();
 	$cargotypes = array();
 
-	$sql = "SELECT `ID`, `airwaybill`, `carrier_id`, `date_in`, UNIX_TIMESTAMP(`date_in`) AS `date_in_timestamp` FROM `airwaybills` ORDER BY `airwaybills`.`date_in` DESC";
+	$sql = "SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, UNIX_TIMESTAMP(`date_in`) AS `date_in_timestamp` FROM `airwaybills` ORDER BY `airwaybills`.`date_in` DESC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
-			$airwaybills[] = new AirWayBill($row['ID'], $row['airwaybill'], $row['carrier_id'], $row['date_in'], $row['date_in_timestamp']);
+			$airwaybills[] = new AirWayBill($row['ID'], $row['airwaybill'], $row['carrier_id'], $row['consignee_id'], $row['date_in'], $row['date_in_timestamp']);
 		}
 	}
 	$sql = "SELECT * FROM `carriers` ORDER BY `carriers`.`ID` ASC";
@@ -168,6 +168,18 @@ function getCarrierIdFromName($carrier_name)
 		}
 	}
 	return -1;
+}
+
+function getConsigneeNameFromId($consigneeId)
+{
+	global $consignees;
+
+	foreach($consignees as $consignee) {
+		if($consignee->getId() == $consigneeId) {
+			return $consignee->getName();
+		}
+	}
+	return "None";
 }
 
 function calculateCheckoutFee($daysInCargo, $item_weight, $item_type, $refrigerated_time)
