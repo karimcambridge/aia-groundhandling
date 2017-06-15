@@ -2,8 +2,8 @@
 
 $localhost = "localhost";
 $username = "groundhandling";
-$password = "";
-$dbname = "AIAgroundhandling";
+$password = "AIAgroundhandling";
+$dbname = "airport";
 
 // db connection
 $connectionHandle = new mysqli($localhost, $username, $password, $dbname);
