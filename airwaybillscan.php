@@ -26,9 +26,10 @@
 							</select>
 						</div>
 					</div>
+					<div class="form-group" id='consignee-group'></div>
 					<div class="form-group">
-						<tag for="air-way-bill-scan" class="col-sm-6 form-control-label">Air Way Bill #</tag>
-						<div class="col-sm-10">
+						<tag for="air-way-bill-scan" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control-label">Air Way Bill #</tag>
+						<div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 							<input type="text" class="form-control" id="air-way-bill-scan" name="air-way-bill-scan" placeholder="xxx-xxx-xxx" required autofocus />
 						</div>
 					</div>
@@ -43,6 +44,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	var centerX = $(window).width() / 2;
+	var centerY = $(window).height() / 2;
+
 	$('#carrier-selection').change(function() {
 		var dataString = 'carrierid=' + $("#carrier-selection").val();
 		$.ajax({
@@ -51,7 +55,26 @@ $(document).ready(function() {
 			data: dataString,
 			cache: false,
 			success: function(data) {
-				if(data instanceof String) {
+				if(data.length) {
+					$("#consignee-div").remove();
+					var newData = JSON.parse(data);
+					if(newData.length > 0) {
+						var newConsigneeDiv = $(document.createElement('div')).attr("id", 'consignee-div').attr("class", 'col-xs-2 col-sm-2 col-md-1 col-lg-1');
+
+						var htmlString = '<tag for="consignee-selection" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control-label">Consignees</tag>' + '<select class="form-control" id="consignee-selection" name="consignee-selection" required>';
+
+						for(var i = 0; i < newData.length; i++) {
+							htmlString += '<option value="' + newData[i] + '">' + newData[i] + '</option>';
+						}
+						htmlString += '</class>';
+
+						newConsigneeDiv.after().html(htmlString);
+						newConsigneeDiv.appendTo("#consignee-group");
+					}
+				} else {
+					$("#consignee-div").remove();
+				}
+				/*if(data instanceof String) {
 					$.notify({
 						icon: 'fa fa-exclamation-triangle',
 						title: '<strong>Error!</strong>',
@@ -68,11 +91,7 @@ $(document).ready(function() {
 							y: centerY
 						}
 					});
-				} else {
-					console.log(data);
-					var newData = jQuery.parseJSON(data);
-					console.log("not string " + newData);
-				}
+				}*/
 			}
 		});
 	});
@@ -88,7 +107,7 @@ $(document).ready(function() {
 					$.notify({
 						icon: 'fa fa-exclamation-triangle',
 						title: '<strong>Error!</strong>',
-						message: data
+						message: JSON.parse(data)
 					},{
 						type: 'danger',
 						animate: {

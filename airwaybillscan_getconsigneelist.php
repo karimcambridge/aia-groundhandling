@@ -2,12 +2,9 @@
 
 require_once 'core.php';
 
-echo 'echoing list?';
 if($_POST['carrierid']) {
 	$carrierid = $_POST['carrierid'];
 	
-	echo 'echoing list ' . $carrierid;
-
 	if(!empty($carrierid)) {
 		$consigneelist = array();
 		foreach($consignees as $consignee) {
