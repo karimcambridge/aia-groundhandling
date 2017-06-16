@@ -21,10 +21,10 @@
 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
 						<tag><strong>Type of Report</strong></tag>
 				    	<select class="form-control" id="aircraftType" required>
-				    		<option value="liat">Services</option>
-				    		<option value="cal">Cargo</option>
-				    		<option value="dhl">Inventory</option>
-				    		<option value="fedex">processed cargo</option>
+				    		<option value="">Services</option>
+				    		<option value="">Cargo</option>
+				    		<option value="">Inventory</option>
+				    		<option value="">processed cargo</option>
 				    	</select>
 				    </div>
 				</div>
