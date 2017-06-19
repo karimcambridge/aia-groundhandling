@@ -4,4 +4,9 @@
 
 	define('USER_LEVEL_NAME', array('Regular', 'Supervisor / Administrator'));
 
+	/*define("TABLE_AIRWAYBILLS", "airwaybills");
+	define("TABLE_AIRWAYBILLS", "airwaybills");
+	define("TABLE_AIRWAYBILLS", "airwaybills");
+	define("TABLE_AIRWAYBILLS", "airwaybills");*/
+
 ?>
