@@ -30,7 +30,7 @@
   </head>
   <body>
   <nav class="navbar navbar-inverse bg-inverse sticky-top navbar-toggleable-md navbar-full">
-    <a class="navbar-brand" href="#"><img src="assets/images/brand/AIA_GroundHandling_Logo_NoBackground_white_v1.png" width="80" height="40" alt=""> Ground Handling <small>beta</small></a>
+    <a class="navbar-brand" href="index.php"><img src="assets/images/brand/AIA_GroundHandling_Logo_NoBackground_white_v1.png" width="80" height="40" alt=""> Ground Handling <small>beta</small></a>
     <div class="collapse navbar-collapse justify-content-end" id="groundopsNavBar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" href="index.php"><span class="fa fa-home"></span></a></li>
@@ -42,6 +42,11 @@
         <li class="nav-item"><a class="nav-link" href="servicefees.php">Services Fees <span class="fa fa-usd"></span></a></li>-->
       </ul>
       <ul class="navbar-nav ml-auto">
+        <?php
+          if($_SESSION['accountLevel'] == 1) {
+            echo '<li class="nav-item"><a class="nav-link" href="audit.php">Audit <span class="fa fa-history"></span></a></li>';
+          }
+        ?>
         <li class="nav-item"><a class="nav-link" href="reports.php">Reports <span class="fa fa-folder-open"></span></a></li>
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-user"></span></a>
@@ -49,7 +54,7 @@
             <a class="dropdown-item" href="settings.php"><span class="fa fa-cog"> Settings</span></a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="logout.php"><span class="fa fa-sign-out"> Logout</span></a>
-          </div >
+          </div>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
