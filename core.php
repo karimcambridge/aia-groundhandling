@@ -12,6 +12,7 @@ if(strpos($_SERVER['REQUEST_URI'], "groundhandling/index.php") == false) {
 require_once 'config.php';
 require_once 'dbconnect.php';
 require_once 'includes/AIAGroundOpsTemplate.interface.php';
+require_once 'includes/account.class.php';
 require_once 'includes/airwaybill.class.php';
 require_once 'includes/cargotype.class.php';
 require_once 'includes/carrier.class.php';
@@ -39,6 +40,13 @@ if($connectionHandle->ping()) {
 	$carriers = array();
 	$cargotypes = array();
 
+	$sql = "SELECT `accountid`, `username` FROM `". TABLE_ACCOUNTS ."` ORDER BY `". TABLE_ACCOUNTS ."`.`accountid` ASC";
+	
+	if($result = $connectionHandle->query($sql)) {
+		while ( $row = $result->fetch_assoc() ) {
+			$accounts[] = new Account($row['accountid'], $row['username']);
+		}
+	}
 	$sql = "SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, UNIX_TIMESTAMP(`date_in`) AS `date_in_timestamp` FROM `". TABLE_AIRWAYBILLS ."` ORDER BY `". TABLE_AIRWAYBILLS ."`.`date_in` DESC";
 	
 	if($result = $connectionHandle->query($sql)) {
@@ -114,6 +122,18 @@ function keepLinks(...$parameters)
     	}
 	}
 	return $previousParams;
+}
+
+function getAccountNameFromId($accountid)
+{
+	global $accounts;
+
+	foreach($accounts as $account) {
+		if($account->getId() == $accountid) {
+			return $account->getName();
+		}
+	}
+	return "";
 }
 
 function getAirWayBill($airwaybillname)
