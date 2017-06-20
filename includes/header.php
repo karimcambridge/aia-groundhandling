@@ -44,7 +44,7 @@
       <ul class="navbar-nav ml-auto">
         <?php
           if($_SESSION['accountLevel'] == 1) {
-            echo '<li class="nav-item"><a class="nav-link" href="audit.php">Audit <span class="fa fa-history"></span></a></li>';
+            echo '<li class="nav-item"><a class="nav-link" href="eventlogs.php">Event Logs <span class="fa fa-history"></span></a></li>';
           }
         ?>
         <li class="nav-item"><a class="nav-link" href="reports.php">Reports <span class="fa fa-folder-open"></span></a></li>

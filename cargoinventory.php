@@ -29,7 +29,7 @@
 		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, `in_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `in_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
 	}
 
-	$limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 50;
+	$limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 12;
 	$page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
 	$links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 15;
 	$Paginator  = new Paginator( $connectionHandle, $query );

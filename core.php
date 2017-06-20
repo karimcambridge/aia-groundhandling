@@ -18,10 +18,10 @@ require_once 'includes/cargotype.class.php';
 require_once 'includes/carrier.class.php';
 require_once 'includes/consignee.class.php';
 
-$auditeventnames = [
+$eventlognames = [
 	"User Authentication",
 	"User Log Out",
-	"Flypassen 2",
+	"CSV Report Download",
 	"Flypassen 3",
 	"Flypassen 4",
 	"Flypassen 5",
@@ -77,10 +77,15 @@ if($connectionHandle->ping()) {
 	}
 }
 
-function logAudit($accountid, $eventid)
+function logEvent($accountid, $eventid, $data = "")
 {
 	global $connectionHandle;
-	$connectionHandle->query("INSERT INTO `". TABLE_AUDIT ."` (`accountid`, `event_id`) VALUES ($accountid, $eventid);");
+	if(empty($data)) {
+		$result = $connectionHandle->query("INSERT INTO `". TABLE_EVENT_LOGS ."` (`accountid`, `event_id`) VALUES ($accountid, $eventid);");
+	} else {
+		$data = $connectionHandle->real_escape_string($data);
+		$result = $connectionHandle->query("INSERT INTO `". TABLE_EVENT_LOGS ."` (`accountid`, `event_id`, `data`) VALUES ($accountid, $eventid, '". $data ."');");
+	}
 }
 
 function timeFormat($seconds)

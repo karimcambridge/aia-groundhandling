@@ -1,4 +1,5 @@
 <?php
+
 require_once 'core.php';
 
 $colnames = [
@@ -81,6 +82,7 @@ if(!empty($query)) {
 	if($result->num_rows == 0) {
 		header("location: reports.php?error=nodata&datestart=" . $dateStart . "&dateend=" . $dateEnd);
 	} else {
+		logEvent($_SESSION['accountId'], EVENT_LOG_REPORT_CREATE_CSV, $downloadFileName);
 		$filename = $downloadFileName . "_" . date('Ymd H:m:s') . ".csv";
 
 		header("Content-Disposition: attachment; filename=\"$filename\"");
