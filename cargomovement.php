@@ -17,13 +17,13 @@
 				die();
 			}
 		}
-		$query      = 'SELECT `cargo_out`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `cargo_out`, `cargo_item_types` WHERE `cargo_out`.`cargo_type_id` = `cargo_item_types`.`ID` ';
+		$query      = 'SELECT `' . TABLE_CARGO_OUT . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `' . TABLE_CARGO_OUT . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_OUT . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
 		if(!empty($airwaybill)) {
 			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
 		$query      .= 'ORDER BY `date_in`,`airwaybill` DESC';
 	} else {
-		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `date_in`, `out_quantity` FROM `airwaybills` WHERE `out_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
+		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `date_in`, `out_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `out_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
 	}
 
 	$limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 50;

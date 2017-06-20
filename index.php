@@ -20,13 +20,13 @@ if(isset($_SESSION['accountId'])) {
 				$errors[] = "A Password is required. Please enter one.";
 			}
 		} else {
-			$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
+			$sql = "SELECT * FROM `". TABLE_ACCOUNTS ."` WHERE `username` = '$username'";
 			$result = $connectionHandle->query($sql);
 
 			if($result->num_rows == 1) {
 				$password = $connectionHandle->real_escape_string($password);
 
-				$loginSql = "SELECT `accountid`, `username`, `level` FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
+				$loginSql = "SELECT `accountid`, `username`, `level` FROM `". TABLE_ACCOUNTS ."` WHERE `username` = '$username' AND `password` = '$password'";
 				$loginResult = $connectionHandle->query($loginSql);
 
 				if($loginResult->num_rows == 1) {

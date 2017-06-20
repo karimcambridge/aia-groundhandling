@@ -58,19 +58,19 @@ foreach($_POST as $key => $value) {
 switch($downloadFileName)
 {
 	case "cargo-inventory":
-		$query = "SELECT `cargo_inventory`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in` FROM `cargo_inventory`, `cargo_item_types` WHERE `cargo_inventory`.`cargo_type_id` = `cargo_item_types`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';"; // , `refrigerated_time`, `refrigerated_unix`
+		$query = "SELECT `". TABLE_CARGO_INVENTORY ."`.`ID`, `airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in` FROM `". TABLE_CARGO_INVENTORY ."`, `". TABLE_CARGO_ITEM_TYPES ."` WHERE `". TABLE_CARGO_INVENTORY ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';"; // , `refrigerated_time`, `refrigerated_unix`
 		break;
 	case "cargo-processed":
-		$query = "SELECT `cargo_out`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `cargo_out`, `cargo_item_types` WHERE `cargo_out`.`cargo_type_id` = `cargo_item_types`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
+		$query = "SELECT `". TABLE_CARGO_OUT ."`.`ID`, `airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `". TABLE_CARGO_OUT ."`, `". TABLE_CARGO_ITEM_TYPES ."` WHERE `". TABLE_CARGO_OUT ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
 		break;
 	case "air-way-bills":
-		$query = "SELECT `airwaybills`.`ID`, `airwaybill`, `carriers`.`name` AS `carrier_name`, `consignees`.`name` AS `consignee_name`, `date_in`, `scan_quantity`, `in_quantity`, `out_quantity` FROM `airwaybills`, `carriers`, `consignees` WHERE `airwaybills`.`carrier_id` = `carriers`.`ID` AND `airwaybills`.`consignee_id` = `consignees`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
+		$query = "SELECT `". TABLE_AIRWAYBILLS ."`.`ID`, `airwaybill`, `". TABLE_CARRIERS ."`.`name` AS `carrier_name`, `". TABLE_CONSIGNEES ."`.`name` AS `consignee_name`, `date_in`, `scan_quantity`, `in_quantity`, `out_quantity` FROM `". TABLE_AIRWAYBILLS ."`, `". TABLE_CARRIERS ."`, `". TABLE_CONSIGNEES ."` WHERE `". TABLE_AIRWAYBILLS ."`.`carrier_id` = `". TABLE_CARRIERS ."`.`ID` AND `". TABLE_AIRWAYBILLS ."`.`consignee_id` = `". TABLE_CONSIGNEES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
 		break;
 	case "carriers";
-		$query = "SELECT * FROM `carriers`";
+		$query = "SELECT * FROM `". TABLE_CARRIERS ."`";
 		break;
 	case "consignees";
-		$query = "SELECT * FROM `consignees`";
+		$query = "SELECT * FROM `". TABLE_CONSIGNEES ."`";
 		break;
 }
 

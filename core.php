@@ -15,28 +15,28 @@ if($connectionHandle->ping()) {
 	$carriers = array();
 	$cargotypes = array();
 
-	$sql = "SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, UNIX_TIMESTAMP(`date_in`) AS `date_in_timestamp` FROM `airwaybills` ORDER BY `airwaybills`.`date_in` DESC";
+	$sql = "SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, UNIX_TIMESTAMP(`date_in`) AS `date_in_timestamp` FROM `". TABLE_AIRWAYBILLS ."` ORDER BY `". TABLE_AIRWAYBILLS ."`.`date_in` DESC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
 			$airwaybills[] = new AirWayBill($row['ID'], $row['airwaybill'], $row['carrier_id'], $row['consignee_id'], $row['date_in'], $row['date_in_timestamp']);
 		}
 	}
-	$sql = "SELECT * FROM `carriers` ORDER BY `carriers`.`ID` ASC";
+	$sql = "SELECT * FROM `". TABLE_CARRIERS ."` ORDER BY `". TABLE_CARRIERS ."`.`ID` ASC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
 			$carriers[] = new Carrier($row['ID'], $row['name']);
 		}
 	}
-	$sql = "SELECT `ID`, `cargo_type`, `price_KG` FROM `cargo_item_types` ORDER BY `cargo_item_types`.`ID` ASC";
+	$sql = "SELECT `ID`, `cargo_type`, `price_KG` FROM `". TABLE_CARGO_ITEM_TYPES ."` ORDER BY `". TABLE_CARGO_ITEM_TYPES ."`.`ID` ASC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
 			$cargotypes[] = new CargoType($row['ID'], $row['cargo_type'], $row['price_KG']);
 		}
 	}
-	$sql = "SELECT * FROM `consignees` ORDER BY `consignees`.`ID` ASC";
+	$sql = "SELECT * FROM `". TABLE_CONSIGNEES ."` ORDER BY `". TABLE_CONSIGNEES ."`.`ID` ASC";
 	
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {

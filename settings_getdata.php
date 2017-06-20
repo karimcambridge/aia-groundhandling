@@ -4,7 +4,7 @@ require_once 'core.php';
 
 if($_POST['getusers']) {
 	$userlist = array();
-	$query = "SELECT `accountid`, `username`, `level`, `can_be_altered` FROM `users`";
+	$query = "SELECT `accountid`, `username`, `level`, `can_be_altered` FROM `". TABLE_ACCOUNTS ."`";
 	if($result = $connectionHandle->query($query)) {
 		while($row = $result->fetch_assoc()) {
 			$userlist[] = $row['accountid'];

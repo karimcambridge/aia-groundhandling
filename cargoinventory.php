@@ -20,13 +20,13 @@
 				die();
 			}
 		}
-		$query      = 'SELECT `cargo_inventory`.`ID`, `airwaybill`, `cargo_item_types`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `cargo_inventory`, `cargo_item_types` WHERE `cargo_inventory`.`cargo_type_id` = `cargo_item_types`.`ID` ';
+		$query      = 'SELECT `' . TABLE_CARGO_INVENTORY . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `' . TABLE_CARGO_INVENTORY . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_INVENTORY . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
 		if(!empty($airwaybill)) {
 			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
 		$query      .= 'ORDER BY `date_in`,`airwaybill` DESC';
 	} else {
-		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, `in_quantity` FROM `airwaybills` WHERE `in_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
+		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, `in_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `in_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
 	}
 
 	$limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 50;
@@ -93,7 +93,7 @@
 			}
 			if(isset($_POST['cargoEdit'])) {
 				unset($_POST['cargoEdit']);
-				$query = "UPDATE `cargo_inventory` SET `cargo_type_id` = " . $itemTypeId . ", `item_description` = '" . $item_description . "', `item_weight` = " . $item_weight . ", `refrigerated_time` = " . $item_refrigerated_time . ", `refrigerated_unix` = " . $item_refrigerated_unix . " WHERE `ID` = " . $item_id . ";";
+				$query = "UPDATE `" . TABLE_CARGO_INVENTORY . "` SET `cargo_type_id` = " . $itemTypeId . ", `item_description` = '" . $item_description . "', `item_weight` = " . $item_weight . ", `refrigerated_time` = " . $item_refrigerated_time . ", `refrigerated_unix` = " . $item_refrigerated_unix . " WHERE `ID` = " . $item_id . ";";
 
 				if($result = $connectionHandle->query($query)) {
 					if($connectionHandle->errno) {
@@ -105,10 +105,10 @@
 			}
 			else if(isset($_POST['cargoCheckout'])) {
 				unset($_POST['cargoCheckout']);
-				$connectionHandle->query("INSERT INTO `cargo_out` (`ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time` FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
-				$connectionHandle->query("UPDATE `cargo_out` SET `date_out` = NOW() WHERE `ID` = " . $item_id . ";");
-				$connectionHandle->query("DELETE FROM `cargo_inventory` WHERE `ID` = " . $item_id . ";");
-				$connectionHandle->query("UPDATE `airwaybills` SET `in_quantity` = `in_quantity` - 1, `out_quantity` = `out_quantity` + 1 WHERE `airwaybill` = '" . $item_airwaybill . "';");
+				$connectionHandle->query("INSERT INTO `" . TABLE_CARGO_OUT . "` (`ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time` FROM `" . TABLE_CARGO_INVENTORY . "` WHERE `ID` = " . $item_id . ";");
+				$connectionHandle->query("UPDATE `" . TABLE_CARGO_OUT . "` SET `date_out` = NOW() WHERE `ID` = " . $item_id . ";");
+				$connectionHandle->query("DELETE FROM `" . TABLE_CARGO_INVENTORY . "` WHERE `ID` = " . $item_id . ";");
+				$connectionHandle->query("UPDATE `" . TABLE_AIRWAYBILLS . "` SET `in_quantity` = `in_quantity` - 1, `out_quantity` = `out_quantity` + 1 WHERE `airwaybill` = '" . $item_airwaybill . "';");
 				$messages_info[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been checked-out successfully.';
 			}
 		}
