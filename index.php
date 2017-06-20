@@ -36,6 +36,7 @@ if(isset($_SESSION['accountId'])) {
 						$_SESSION['accountId'] = $value['accountid'];
 						$_SESSION['accountUsername'] = $value['username'];
 						$_SESSION['accountLevel'] = $value['level'];
+						logAudit($value['accountid'], AUDIT_EVENT_AUTH);
 					}
 					header('location:' . FILE_DASHBOARD);
 				} else{

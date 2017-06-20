@@ -2,6 +2,13 @@
 
 session_start();
 
+if(strpos($_SERVER['REQUEST_URI'], "groundhandling/index.php") == false) {
+	if(!isset($_SESSION['accountId'])) {
+		header('location: index.php');
+		exit();
+	}
+}
+
 require_once 'config.php';
 require_once 'dbconnect.php';
 require_once 'includes/AIAGroundOpsTemplate.interface.php';
@@ -10,12 +17,22 @@ require_once 'includes/cargotype.class.php';
 require_once 'includes/carrier.class.php';
 require_once 'includes/consignee.class.php';
 
-if(strpos($_SERVER['REQUEST_URI'], "groundhandling/index.php") == false) {
-	if(!isset($_SESSION['accountId'])) {
-		header('location: index.php');
-		exit();
-	}
-}
+$auditeventnames = [
+	"User Authentication",
+	"User Log Out",
+	"Flypassen 2",
+	"Flypassen 3",
+	"Flypassen 4",
+	"Flypassen 5",
+	"Flypassen 6",
+	"Flypassen 7",
+	"Flypassen 8",
+	"Flypassen 9",
+	"Flypassen 10",
+	"Flypassen 11",
+	"Flypassen 12",
+	"Flypassen 13"
+];
 
 if($connectionHandle->ping()) {
 	$airwaybills = array();
@@ -50,6 +67,12 @@ if($connectionHandle->ping()) {
 			$consignees[] = new Consignee($row['ID'], $row['name'], $row['carrier_id']);
 		}
 	}
+}
+
+function logAudit($accountid, $eventid)
+{
+	global $connectionHandle;
+	$connectionHandle->query("INSERT INTO `". TABLE_AUDIT ."` (`accountid`, `event_id`) VALUES ($accountid, $eventid);");
 }
 
 function timeFormat($seconds)

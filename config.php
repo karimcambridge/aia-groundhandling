@@ -1,9 +1,12 @@
 <?php
 
+	// File Names
 	define("FILE_DASHBOARD", "dashboard.php");
 
+	// Account Level Descriptions
 	define('USER_LEVEL_NAME', array('Regular', 'Supervisor / Administrator'));
 
+	// SQL Table Names
 	define("TABLE_ACCOUNTS", "aia_accounts");
 	define("TABLE_AIRCRAFTS", "aia_aircrafts");
 	define("TABLE_AIRCRAFT_SERVICES", "aia_aircraft_services");
@@ -19,4 +22,8 @@
 	define("TABLE_MANIFESTS", "aia_manifests");
 	define("TABLE_SERVICE_ITEMS", "aia_service_items");
 
+	// Audit Event Names
+
+	define("AUDIT_EVENT_AUTH", 0);
+	define("AUDIT_EVENT_DEAUTH", 1);
 ?>
