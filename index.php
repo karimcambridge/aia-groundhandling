@@ -4,7 +4,7 @@ require_once 'core.php';
 
 if(isset($_SESSION['accountId'])) {
 	header('location:' . FILE_DASHBOARD);
-	die();
+	exit();
 } else {
 	$errors = array();
 

@@ -17,7 +17,7 @@
 			$editingId = $_GET['edit'];
 			if(!is_numeric($editingId)) {
 				header('location:cargoinventory.php?airwaybill=' . $airwaybill);
-				die();
+				exit();
 			}
 		}
 		$query      = 'SELECT `' . TABLE_CARGO_INVENTORY . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `' . TABLE_CARGO_INVENTORY . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_INVENTORY . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
@@ -38,7 +38,7 @@
 
 	if(empty($results->data) && !empty($airwaybill)) {
 		header('location:cargoinventory.php');
-		die();
+		exit();
 	}
 	if(isset($results) == true && !empty($editingId)) {
 		$editingItemType;
@@ -57,7 +57,7 @@
  		$item_id = $_POST['item-id'];
 		if(!is_numeric($item_id)) {
 			header('location:cargoinventory.php?airwaybill=' . $airwaybill);
-			die();
+			exit();
 		}
 		$item_refrigerated_unix = 0;
 		$item_refrigerated_time = 0;

@@ -14,7 +14,7 @@
 			$editingId = $_GET['edit'];
 			if(!is_numeric($editingId)) {
 				header('location:cargomovement.php?airwaybill=' . $airwaybill);
-				die();
+				exit();
 			}
 		}
 		$query      = 'SELECT `' . TABLE_CARGO_OUT . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `' . TABLE_CARGO_OUT . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_OUT . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
@@ -36,7 +36,7 @@
 	if(empty($results->data)) {
 		if(isset( $_GET['airwaybill'] )) {
 			header('location:cargomovement.php');
-			die();
+			exit();
 		}
 	}
 

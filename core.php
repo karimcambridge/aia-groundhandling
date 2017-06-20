@@ -10,6 +10,13 @@ require_once 'includes/cargotype.class.php';
 require_once 'includes/carrier.class.php';
 require_once 'includes/consignee.class.php';
 
+if(strpos($_SERVER['REQUEST_URI'], "groundhandling/index.php") == false) {
+	if(!isset($_SESSION['accountId'])) {
+		header('location: index.php');
+		exit();
+	}
+}
+
 if($connectionHandle->ping()) {
 	$airwaybills = array();
 	$carriers = array();

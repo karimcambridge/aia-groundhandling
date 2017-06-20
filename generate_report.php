@@ -103,6 +103,6 @@ if(!empty($query)) {
 } else {
 	header("location: reports.php?error=nonexistantreport");
 }
-exit;
+exit();
 
 ?>
