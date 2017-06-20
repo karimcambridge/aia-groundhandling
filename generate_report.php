@@ -2,6 +2,22 @@
 
 require_once 'core.php';
 
+$reportType = "";
+
+if(isset($_POST['reportGenerateExcelBtn'])) {
+	$reportType = "XLSX";
+}
+else if(isset($_POST['reportGenerateExcelCsvBtn'])) {
+	$reportType = "CSV";
+} else {
+	exit();
+}
+
+$downloadFileName;
+$dateStart;
+$dateEnd;
+$query;
+
 $colnames = [
 	'ID' => "Auto Generated ID",
 	'name' => "Name",
@@ -35,11 +51,6 @@ function cleanData(&$str)
     if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
     $str = mb_convert_encoding($str, "UTF-8", "auto");
 }
-
-$downloadFileName;
-$dateStart;
-$dateEnd;
-$query;
 
 foreach($_POST as $key => $value) {
 	switch($key)
@@ -82,25 +93,59 @@ if(!empty($query)) {
 	if($result->num_rows == 0) {
 		header("location: reports.php?error=nodata&datestart=" . $dateStart . "&dateend=" . $dateEnd);
 	} else {
-		logEvent($_SESSION['accountId'], EVENT_LOG_REPORT_CREATE_CSV, $downloadFileName);
-		$filename = $downloadFileName . "_" . date('Ymd H:m:s') . ".csv";
+		switch($reportType)
+		{
+			case "CSV": {
+				logEvent($_SESSION['accountId'], EVENT_LOG_REPORT_CREATE_CSV, $downloadFileName);
 
-		header("Content-Disposition: attachment; filename=\"$filename\"");
-		header("Content-Type: text/csv; charset=UTF-8");
-		header("Content-Type: application/force-download");
+				$filename = $downloadFileName . "_" . date('Ymd H:m:s') . ".csv";
 
-		$out = fopen("php://output", 'w');
-		while($row = $result->fetch_assoc()) {
-			if(!$flag) {
-				// display field/column names as first row
-				$firstline = array_map(__NAMESPACE__ . '\map_colnames', array_keys($row));
-				fputcsv($out, $firstline, ',', '"');
-				$flag = true;
+				header("Content-Disposition: attachment; filename=\"$filename\"");
+				header("Content-Type: text/csv; charset=UTF-8");
+				header('Cache-Control: max-age=0');
+
+				$out = fopen("php://output", 'w');
+				while($row = $result->fetch_assoc()) {
+					if(!$flag) {
+						// display field/column names as first row
+						$firstline = array_map(__NAMESPACE__ . '\map_colnames', array_keys($row));
+						fputcsv($out, $firstline, ',', '"');
+						$flag = true;
+					}
+					array_walk($row, __NAMESPACE__ . '\cleanData');
+					fputcsv($out, array_values($row), ',', '"');
+				}
+				fclose($out);
+				break;
 			}
-			array_walk($row, __NAMESPACE__ . '\cleanData');
-			fputcsv($out, array_values($row), ',', '"');
+			default: { // XLSX
+				logEvent($_SESSION['accountId'], EVENT_LOG_REPORT_CREATE_EXCEL, $downloadFileName);
+
+				$filename = $downloadFileName . "_" . date('Ymd H:m:s') . ".xlsx";
+
+				$objPHPExcel = new PHPExcel();
+
+				$objPHPExcel->getProperties()->setCreator($_SESSION['accountUsername']);
+				$objPHPExcel->getProperties()->setLastModifiedBy($_SESSION['accountUsername']);
+				$objPHPExcel->getProperties()->setTitle("Office 2007 XLSX");
+				$objPHPExcel->getProperties()->setSubject("Office 2007 XLSX");
+				$objPHPExcel->getProperties()->setDescription("AIA Ground Handling document for Office 2007 XLSX, generated using PHP classes.");
+
+				$objPHPExcel->setActiveSheetIndex(0);
+				$objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Hello');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B2', 'world!');
+				$objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Hello');
+				$objPHPExcel->getActiveSheet()->SetCellValue('D2', 'world!');
+
+				// Save Excel 2007 file
+				$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+				ob_end_clean();
+				header("Content-Disposition: attachment; filename=\"$filename\"");
+				header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
+				header('Cache-Control: max-age=0');
+				$objWriter->save('php://output'); //str_replace('.php', '.xlsx', __FILE__));
+			}
 		}
-		fclose($out);
 	}
 } else {
 	header("location: reports.php?error=nonexistantreport");

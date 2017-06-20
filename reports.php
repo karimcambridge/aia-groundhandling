@@ -76,8 +76,10 @@ foreach($_GET as $key => $value) {
 		 				</div>
 		 				<div class="row">
 							<div class="col-md-2">
-		 						<!--<button type="submit" class="btn btn-danger" id="generateReportPdfBtn"><span class="fa fa-file-pdf-o"></span> PDF Report</	button>-->
-		 						<button type="submit" class="btn btn-success" id="reportGenerateExcelBtn" form="reportGenerate" value="test"><span class="fa fa-file-excel-o"></span> Excel Report (CSV)</button>
+		 						<button type="submit" class="btn btn-success" name="reportGenerateExcelBtn" form="reportGenerate"><span class="fa fa-file-excel-o"></span> Excel Report (XLXS)</button>
+		 					</div>
+		 					<div class="col-md-2">
+		 						<button type="submit" class="btn btn-success" name="reportGenerateExcelCsvBtn" form="reportGenerate"><span class="fa fa-file-text-o"></span> Excel Report (CSV)</button>
 			 				</div>
 		 				</div>
 		 			</form>

@@ -17,12 +17,13 @@ require_once 'includes/airwaybill.class.php';
 require_once 'includes/cargotype.class.php';
 require_once 'includes/carrier.class.php';
 require_once 'includes/consignee.class.php';
+require_once 'assets/PHPExcel-1.8.1/Classes/PHPExcel.php';
 
 $eventlognames = [
 	"User Authentication",
 	"User Log Out",
 	"CSV Report Download",
-	"Flypassen 3",
+	"Excel Report Download",
 	"Flypassen 4",
 	"Flypassen 5",
 	"Flypassen 6",
