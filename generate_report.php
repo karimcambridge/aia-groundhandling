@@ -120,9 +120,12 @@ if(!empty($query)) {
 			}
 			default: { // XLSX
 				logEvent($_SESSION['accountId'], EVENT_LOG_REPORT_CREATE_EXCEL, $downloadFileName);
+				ob_end_clean();
 
 				$filename = $downloadFileName . "_" . date('Ymd H:m:s') . ".xlsx";
-
+				$col = 'A';
+				$rowId = 1;
+				$flag = false;
 				$objPHPExcel = new PHPExcel();
 
 				$objPHPExcel->getProperties()->setCreator($_SESSION['accountUsername']);
@@ -132,14 +135,23 @@ if(!empty($query)) {
 				$objPHPExcel->getProperties()->setDescription("AIA Ground Handling document for Office 2007 XLSX, generated using PHP classes.");
 
 				$objPHPExcel->setActiveSheetIndex(0);
-				$objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Hello');
-				$objPHPExcel->getActiveSheet()->SetCellValue('B2', 'world!');
-				$objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Hello');
-				$objPHPExcel->getActiveSheet()->SetCellValue('D2', 'world!');
-
-				// Save Excel 2007 file
+				while($row = $result->fetch_assoc()) {
+					if($flag == false) {
+						foreach($row as $key => $value) {
+							$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, $key);
+							$col++;
+						}
+						$flag = true;
+					}
+					$col = 'A';
+					$rowId++;
+					foreach($row as $key => $value) {
+						$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, $value);
+						$col++;
+					}
+				}
 				$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-				ob_end_clean();
+				
 				header("Content-Disposition: attachment; filename=\"$filename\"");
 				header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
 				header('Cache-Control: max-age=0');
