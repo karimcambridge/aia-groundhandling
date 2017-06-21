@@ -71,9 +71,10 @@
 		$item_weight_type = $_POST['item-weight-type'];
 
 		$frozenRow = getCargoRefrigeratedTimes($item_id);
-		$item_refrigerated_time = $frozenRow['refrigerated_time'];
-		$item_refrigerated_unix = $frozenRow['refrigerated_unix'];
-
+		if(!empty($frozenRow)) {
+			$item_refrigerated_time = $frozenRow['refrigerated_time'];
+			$item_refrigerated_unix = $frozenRow['refrigerated_unix'];
+		}
 		if(isset($_POST['item-refrigerated'])) {
 			$item_refrigerated = $_POST['item-refrigerated'];
 			if($item_refrigerated == 'yes' && $item_refrigerated_unix == 0) { // was not refrigerated before .. so change to refrigerated!
@@ -320,7 +321,7 @@
 									</div>
 									<div class="form-group">
 										<tag for="item-quantity" class="form-control-label">Quantity:</tag>
-										<input class="form-control" type="number" name="item-quantity" id="item-quantity" value="1" min="1" required><?php echo $editingItemQuantity; ?></input>
+										<input class="form-control" type="number" name="item-quantity" id="item-quantity" value="<?=$editingItemQuantity; ?>" min="1" required></input>
 									</div>
 									<div class="form-group">
 										<tag for="item-description" class="form-control-label">Description:</tag>

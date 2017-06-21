@@ -205,7 +205,7 @@
 									</div>
 									<div class="form-group">
 										<tag for="item-quantity" class="form-control-label">Quantity:</tag>
-										<input class="form-control" type="number" name="item-quantity" id="item-quantity" value="1" min="1" required><?php echo $editingItemQuantity; ?></input>
+										<input class="form-control" type="number" name="item-quantity" id="item-quantity" value="<?=$editingItemQuantity; ?>" min="1" readonly></input>
 									</div>
 									<div class="form-group">
 										<tag for="item-description" class="form-control-label">Description:</tag>
