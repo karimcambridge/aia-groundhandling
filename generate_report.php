@@ -33,6 +33,8 @@ $colnames = [
 	'scan_quantity' => "Scanned Items",
 	'in_quantity' => "Items In Inventory",
 	'out_quantity' => "Items Processed",
+	'item_description' => "Item Description",
+	'item_weight' => "Item Weight"
 ];
 
 function map_colnames($input)
@@ -138,7 +140,7 @@ if(!empty($query)) {
 				while($row = $result->fetch_assoc()) {
 					if($flag == false) {
 						foreach($row as $key => $value) {
-							$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, $key);
+							$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, map_colnames($key));
 							$col++;
 						}
 						$flag = true;
