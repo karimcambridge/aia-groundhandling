@@ -17,7 +17,7 @@
 				exit();
 			}
 		}
-		$query      = 'SELECT `' . TABLE_CARGO_OUT . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `' . TABLE_CARGO_OUT . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_OUT . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
+		$query      = 'SELECT `' . TABLE_CARGO_OUT . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `' . TABLE_CARGO_OUT . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_OUT . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
 		if(!empty($airwaybill)) {
 			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
@@ -42,6 +42,7 @@
 
 	if(isset($results) == true && !empty($editingId)) {
 		$editingItemType;
+		$editingItemQuantity;
 		$editingItemDescription;
 		$editingItemWeight;
 		$editingItemDateUnix;
@@ -98,6 +99,7 @@
 										echo '<th class="active">Date Received</th>';
 									} else {
 										echo '<th class="active">Type of Cargo</th>';
+										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Item Description</th>';
 										echo '<th class="active">Item Weight (KG)</th>';
 										echo '<th class="active">Time of System Entry</th>';
@@ -125,6 +127,7 @@
 
 												echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
 												echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
+												echo "<td>" . $results->data[$i]['item_quantity'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_description'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
 												echo "<td>" . $results->data[$i]['date_in'] . "</td>";
@@ -138,6 +141,7 @@
 												echo "</tr>";
 												if(!empty($editingId) && $editingId == $results->data[$i]['ID']) {
 													$editingItemType = $results->data[$i]['cargo_type'];
+													$editingItemQuantity = $results->data[$i]['item_quantity'];
 													$editingItemDescription = $results->data[$i]['item_description'];
 													$editingItemWeight = $results->data[$i]['item_weight'];
 													$editingItemDateUnix = strtotime($results->data[$i]['date_in']);
@@ -200,6 +204,10 @@
 										</select>
 									</div>
 									<div class="form-group">
+										<tag for="item-quantity" class="form-control-label">Quantity:</tag>
+										<input class="form-control" type="number" name="item-quantity" id="item-quantity" value="1" min="1" required><?php echo $editingItemQuantity; ?></input>
+									</div>
+									<div class="form-group">
 										<tag for="item-description" class="form-control-label">Description:</tag>
 										<textarea class="form-control" name="item-description" id="item-description" readonly><?php echo $editingItemDescription; ?></textarea>
 									</div>
@@ -210,8 +218,8 @@
 									<div class="form-group">
 										<tag for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</tag>
 										<select class="form-control" name="item-weight-type" id="item-weight-type" readonly disabled>
-											<option value="kg" selected>KG</option>
-											<option value="lb">LBs (Pounds)</option>
+											<option value="kg" selected>KGS</option>
+											<option value="lb">LBS (Pounds)</option>
 										</select>
 									</div>
 									<div class="form-group">

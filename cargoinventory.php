@@ -20,7 +20,7 @@
 				exit();
 			}
 		}
-		$query      = 'SELECT `' . TABLE_CARGO_INVENTORY . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `' . TABLE_CARGO_INVENTORY . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_INVENTORY . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
+		$query      = 'SELECT `' . TABLE_CARGO_INVENTORY . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `' . TABLE_CARGO_INVENTORY . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_INVENTORY . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
 		if(!empty($airwaybill)) {
 			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
@@ -42,6 +42,7 @@
 	}
 	if(isset($results) == true && !empty($editingId)) {
 		$editingItemType;
+		$editingItemQuantity;
 		$editingItemDescription;
 		$editingItemWeight;
 		$editingItemDateUnix;
@@ -64,6 +65,7 @@
 
 		$item_datetime = $_POST['item-datetime']; // AirWayBill Date
 		$item_type = $_POST['item-type'];
+		$item_quantity = $_POST['item-quantity'];
 		$item_description = $_POST['item-description'];
 		$item_weight = $_POST['item-weight'];
 		$item_weight_type = $_POST['item-weight-type'];
@@ -93,7 +95,7 @@
 			}
 			if(isset($_POST['cargoEdit'])) {
 				unset($_POST['cargoEdit']);
-				$query = "UPDATE `" . TABLE_CARGO_INVENTORY . "` SET `cargo_type_id` = " . $itemTypeId . ", `item_description` = '" . $item_description . "', `item_weight` = " . $item_weight . ", `refrigerated_time` = " . $item_refrigerated_time . ", `refrigerated_unix` = " . $item_refrigerated_unix . " WHERE `ID` = " . $item_id . ";";
+				$query = "UPDATE `" . TABLE_CARGO_INVENTORY . "` SET `cargo_type_id` = " . $itemTypeId . ", `item_quantity` = " . $item_quantity . ", `item_description` = '" . $item_description . "', `item_weight` = " . $item_weight . ", `refrigerated_time` = " . $item_refrigerated_time . ", `refrigerated_unix` = " . $item_refrigerated_unix . " WHERE `ID` = " . $item_id . ";";
 
 				if($result = $connectionHandle->query($query)) {
 					if($connectionHandle->errno) {
@@ -105,7 +107,7 @@
 			}
 			else if(isset($_POST['cargoCheckout'])) {
 				unset($_POST['cargoCheckout']);
-				$connectionHandle->query("INSERT INTO `" . TABLE_CARGO_OUT . "` (`ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time` FROM `" . TABLE_CARGO_INVENTORY . "` WHERE `ID` = " . $item_id . ";");
+				$connectionHandle->query("INSERT INTO `" . TABLE_CARGO_OUT . "` (`ID`, `airwaybill`, `cargo_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`) SELECT `ID`, `airwaybill`, `cargo_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time` FROM `" . TABLE_CARGO_INVENTORY . "` WHERE `ID` = " . $item_id . ";");
 				$connectionHandle->query("UPDATE `" . TABLE_CARGO_OUT . "` SET `date_out` = NOW() WHERE `ID` = " . $item_id . ";");
 				$connectionHandle->query("DELETE FROM `" . TABLE_CARGO_INVENTORY . "` WHERE `ID` = " . $item_id . ";");
 				$connectionHandle->query("UPDATE `" . TABLE_AIRWAYBILLS . "` SET `in_quantity` = `in_quantity` - 1, `out_quantity` = `out_quantity` + 1 WHERE `airwaybill` = '" . $item_airwaybill . "';");
@@ -203,6 +205,7 @@
 										echo '<th class="active">Date Received</th>';
 									} else {
 										echo '<th class="active">Type of Cargo</th>';
+										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Item Description</th>';
 										echo '<th class="active">Item Weight (KG)</th>';
 										echo '<th class="active">Time of System Entry</th>';
@@ -231,6 +234,7 @@
 												$editingItemDays = number_of_cargo_days(date('Y-m-d', $editingItemDateUnix), date('Y-m-d'));
 												echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
 												echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
+												echo "<td>" . $results->data[$i]['item_quantity'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_description'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_weight'] . "</td>";
 												echo "<td>" . $results->data[$i]['date_in'] . "</td>";
@@ -253,6 +257,7 @@
 												echo "</tr>";
 												if(!empty($editingId) && $editingId == $results->data[$i]['ID']) {
 													$editingItemType = $results->data[$i]['cargo_type'];
+													$editingItemQuantity = $results->data[$i]['item_quantity'];
 													$editingItemDescription = $results->data[$i]['item_description'];
 													$editingItemWeight = $results->data[$i]['item_weight'];
 													$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
@@ -314,6 +319,10 @@
 										</select>
 									</div>
 									<div class="form-group">
+										<tag for="item-quantity" class="form-control-label">Quantity:</tag>
+										<input class="form-control" type="number" name="item-quantity" id="item-quantity" value="1" min="1" required><?php echo $editingItemQuantity; ?></input>
+									</div>
+									<div class="form-group">
 										<tag for="item-description" class="form-control-label">Description:</tag>
 										<textarea class="form-control" name="item-description" id="item-description" required><?php echo $editingItemDescription; ?></textarea>
 									</div>
@@ -324,8 +333,8 @@
 									<div class="form-group">
 										<tag for="item-weight-type" class="form-control-label">KG or Pounds (items will be stored as KG):</tag>
 										<select class="form-control" name="item-weight-type" id="item-weight-type" required>
-											<option value="kg" selected>KG</option>
-											<option value="lb">LBs (Pounds)</option>
+											<option value="kg" selected>KGS</option>
+											<option value="lb">LBS (Pounds)</option>
 										</select>
 									</div>
 									<div class="form-check">

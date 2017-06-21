@@ -12,6 +12,7 @@ if(isset($_POST['cargoInsert'])) {
 	$airwaybill = $_POST['air-way-bill-selection'];
 	$item_datetime = $_POST['item-datetime']; // AirWayBill Date
 	$item_type = $_POST['item-type'];
+	$item_quantity = $_POST['item-quantity'];
 	$item_description = $_POST['item-description'];
 	$item_weight = $_POST['item-weight'];
 	$item_weight_type = $_POST['item-weight-type'];
@@ -32,7 +33,7 @@ if(isset($_POST['cargoInsert'])) {
 			if($item_weight_type == 'lb') {
 				$item_weight = poundsToKG($item_weight);
 			}
-			$query = "INSERT INTO `" . TABLE_CARGO_INVENTORY . "` (`airwaybill`, `cargo_type_id`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix`) VALUES ('$airwaybill', '$itemTypeId', '$item_description', '$item_weight', CURRENT_TIMESTAMP(), 0, '$item_refrigerated_unix');";
+			$query = "INSERT INTO `" . TABLE_CARGO_INVENTORY . "` (`airwaybill`, `cargo_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix`) VALUES ('$airwaybill', '$itemTypeId', '$item_quantity', '$item_description', '$item_weight', CURRENT_TIMESTAMP(), 0, '$item_refrigerated_unix');";
 			$query .= "UPDATE `". TABLE_AIRWAYBILLS ."` SET `in_quantity` = `in_quantity` + 1 WHERE `". TABLE_AIRWAYBILLS ."`.`airwaybill` = '" . $airwaybill . "';";
 
 			if($result = $connectionHandle->multi_query($query)) {
@@ -157,6 +158,10 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 												</select>
 											</div>
 											<div class="form-group">
+												<tag for="item-quantity" class="form-control-tag">Quantity:</tag>
+												<input class="form-control" type="number" name="item-quantity" id="item-quantity" value="1" min="1" required></input>
+											</div>
+											<div class="form-group">
 												<tag for="item-description" class="form-control-tag">Description:</tag>
 												<textarea class="form-control" name="item-description" id="item-description" required></textarea>
 											</div>
@@ -167,8 +172,8 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 											<div class="form-group">
 												<tag for="item-weight-type" class="form-control-tag">KG or Pounds (items will be stored as KG):</tag>
 												<select class="form-control" name="item-weight-type" id="item-weight-type" required>
-													<option value="kg" selected>KG</option>
-													<option value="lb">LBs (Pounds)</option>
+													<option value="kg" selected>KGS</option>
+													<option value="lb">LBS (Pounds)</option>
 												</select>
 											</div>
 											<div class="form-check">
