@@ -27,4 +27,5 @@
 	define("EVENT_LOG_AUTH", 0);
 	define("EVENT_LOG_DEAUTH", 1);
 	define("EVENT_LOG_REPORT_CREATE_CSV", 2);
+	define("EVENT_LOG_REPORT_CREATE_EXCEL", 3);
 ?>
