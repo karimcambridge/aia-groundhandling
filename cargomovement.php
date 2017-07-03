@@ -4,6 +4,7 @@
 	include("includes/paginator.php");
 
 	$airwaybill;
+	$partialAirwaybill;
 	$editingId;
 
 	if(isset( $_GET['airwaybill'] )) {
@@ -22,6 +23,10 @@
 			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
 		$query      .= 'ORDER BY `date_in`,`airwaybill` DESC';
+	}
+	else if(isset($_GET['search-airwaybill'])) {
+		$partialAirwaybill = $_GET['search-airwaybill'];
+		$query = 'SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, `out_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `airwaybill` LIKE \'%' . $partialAirwaybill . '%\' AND `out_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
 	} else {
 		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `date_in`, `out_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `out_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
 	}
@@ -57,9 +62,9 @@
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
 				<?php
-					if(!empty($airwaybill)) {
+					if(!empty($airwaybill) || !empty($partialAirwaybill)) {
 						echo "<li class=\"breadcrumb-item\"><a href=\"" . $_SERVER['SCRIPT_NAME'] . "\">Cargo Movement</a></li>";
-						echo "<li class=\"breadcrumb-item active\"><strong>" . $airwaybill . "</strong></li>";
+						echo "<li class=\"breadcrumb-item active\"><strong>" . (empty($airwaybill) == true ? $partialAirwaybill : $airwaybill) . "</strong></li>";
 					} else {
 						echo "<li class=\"breadcrumb-item active\"><strong>Cargo Movement</strong></li>";
 					}
@@ -81,7 +86,17 @@
 				</strong></div>
 				<div class="card-block">
 					<?php
-						if(!empty($airwaybill)) {
+						if(empty($airwaybill)) {
+							echo '<form id="airwaybill-search-form" name="airwaybill-search-form" action="">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search Air Way Bill #" name="search-airwaybill" id="search-airwaybill">
+									<div class="input-group-btn">
+										<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+							</form>';
+						}
+						else if(!empty($airwaybill)) {
 							echo '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 form-control">';
 							echo '<strong>Air Way Bill #:</strong> ' . $airwaybill . ' <strong>Consignee:</strong> ' . getConsigneeNameFromId(getAirWayBill($airwaybill)->getConsigneeId());
 							echo '</div>';
