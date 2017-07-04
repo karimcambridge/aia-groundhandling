@@ -18,7 +18,7 @@
 				exit();
 			}
 		}
-		$query      = 'SELECT `' . TABLE_CARGO_OUT . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `' . TABLE_CARGO_OUT . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_OUT . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
+		$query      = 'SELECT `' . TABLE_CARGO_OUT . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `consignee_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `' . TABLE_CARGO_OUT . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_OUT . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
 		if(!empty($airwaybill)) {
 			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
@@ -113,6 +113,7 @@
 										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Date Received</th>';
 									} else {
+										echo '<th class="active">Type of Consignee</th>';
 										echo '<th class="active">Type of Cargo</th>';
 										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Item Description</th>';
@@ -141,6 +142,7 @@
 												$editingItemDays = number_of_cargo_days(date('Y-m-d', $airwaybillEx->getDateInTimestamp()), date('Y-m-d', strtotime($results->data[$i]['date_out'])));
 
 												echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
+												echo "<td>" . getConsigneeTypeNameFromId($results->data[$i]['consignee_type_id']) . "</td>";
 												echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_quantity'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_description'] . "</td>";
@@ -161,7 +163,7 @@
 													$editingItemWeight = $results->data[$i]['item_weight'];
 													$editingItemDateUnix = strtotime($results->data[$i]['date_in']);
 													$editingItemDays = number_of_cargo_days($results->data[$i]['date_out'], $airwaybillEx->getDateIn());
-													$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
+													$editingItemFee = calculateCheckoutFee($editingItemDays, getConsigneeTypeNameFromId($results->data[$i]['consignee_type_id']), $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
 												}
 											}
 										}

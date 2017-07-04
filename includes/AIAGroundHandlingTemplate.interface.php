@@ -1,5 +1,5 @@
 <?php
-interface AIAGroundOpsTemplate
+interface AIAGroundHandlingTemplate
 {
 	public function getId();
 	public function getName();

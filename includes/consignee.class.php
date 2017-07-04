@@ -1,5 +1,5 @@
 <?php
-class Consignee implements AIAGroundOpsTemplate
+class Consignee implements AIAGroundHandlingTemplate
 {
 	private $consigneeId;
 	private $consigneeName;

@@ -17,6 +17,7 @@
 	define("TABLE_CARGO_OUT", "aia_cargo_out");
 	define("TABLE_CARRIERS", "aia_carriers");
 	define("TABLE_CONSIGNEES", "aia_consignees");
+	define("TABLE_CONSIGNEE_TYPES", "aia_consignee_types");
 	define("TABLE_EVENT_LOGS", "aia_event_logs");
 	define("TABLE_FLIGHTS", "aia_flights");
 	define("TABLE_MANIFESTS", "aia_manifests");

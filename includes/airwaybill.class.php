@@ -1,5 +1,5 @@
 <?php
-class AirWayBill implements AIAGroundOpsTemplate
+class AirWayBill implements AIAGroundHandlingTemplate
 {
 	private $airWayBillId;
 	private $airWayBillName;

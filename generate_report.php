@@ -34,7 +34,9 @@ $colnames = [
 	'in_quantity' => "Items In Inventory",
 	'out_quantity' => "Items Processed",
 	'item_description' => "Item Description",
-	'item_weight' => "Item Weight"
+	'item_weight' => "Item Weight",
+	'refrigerated_time' => "Time Refrigerated (Sec)",
+	'consignee_type_name' => "Consignee Type"
 ];
 
 function map_colnames($input)
@@ -72,10 +74,10 @@ foreach($_POST as $key => $value) {
 switch($downloadFileName)
 {
 	case "cargo-inventory":
-		$query = "SELECT `". TABLE_CARGO_INVENTORY ."`.`ID`, `airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in` FROM `". TABLE_CARGO_INVENTORY ."`, `". TABLE_CARGO_ITEM_TYPES ."` WHERE `". TABLE_CARGO_INVENTORY ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';"; // , `refrigerated_time`, `refrigerated_unix`
+		$query = "SELECT `". TABLE_CARGO_INVENTORY ."`.`ID`, `airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `". TABLE_CONSIGNEE_TYPES ."`.`consignee_type_name`, `item_description`, `item_weight`, `date_in`, `refrigerated_time` FROM `". TABLE_CARGO_INVENTORY ."`, `". TABLE_CARGO_ITEM_TYPES ."`, `". TABLE_CONSIGNEE_TYPES ."` WHERE `". TABLE_CARGO_INVENTORY ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `". TABLE_CARGO_INVENTORY ."`.`consignee_type_id` = `". TABLE_CONSIGNEE_TYPES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
 		break;
 	case "cargo-processed":
-		$query = "SELECT `". TABLE_CARGO_OUT ."`.`ID`, `airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `". TABLE_CARGO_OUT ."`, `". TABLE_CARGO_ITEM_TYPES ."` WHERE `". TABLE_CARGO_OUT ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
+		$query = "SELECT `". TABLE_CARGO_OUT ."`.`ID`, `airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `". TABLE_CONSIGNEE_TYPES ."`.`consignee_type_name`, `item_description`, `item_weight`, `date_in`, `date_out`, `refrigerated_time` FROM `". TABLE_CARGO_OUT ."`, `". TABLE_CARGO_ITEM_TYPES ."`, `". TABLE_CONSIGNEE_TYPES ."` WHERE `". TABLE_CARGO_OUT ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `". TABLE_CARGO_OUT ."`.`consignee_type_id` = `". TABLE_CONSIGNEE_TYPES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
 		break;
 	case "air-way-bills":
 		$query = "SELECT `". TABLE_AIRWAYBILLS ."`.`ID`, `airwaybill`, `". TABLE_CARRIERS ."`.`name` AS `carrier_name`, `". TABLE_CONSIGNEES ."`.`name` AS `consignee_name`, `date_in`, `scan_quantity`, `in_quantity`, `out_quantity` FROM `". TABLE_AIRWAYBILLS ."`, `". TABLE_CARRIERS ."`, `". TABLE_CONSIGNEES ."` WHERE `". TABLE_AIRWAYBILLS ."`.`carrier_id` = `". TABLE_CARRIERS ."`.`ID` AND `". TABLE_AIRWAYBILLS ."`.`consignee_id` = `". TABLE_CONSIGNEES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
@@ -143,6 +145,14 @@ if(!empty($query)) {
 							$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, map_colnames($key));
 							$col++;
 						}
+						switch($downloadFileName)
+						{
+							case "cargo-inventory":
+							case "cargo-processed":
+								$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, map_colnames("Checkout Levy"));
+								$col++;
+								break;
+						}
 						$flag = true;
 					}
 					$col = 'A';
@@ -150,6 +160,19 @@ if(!empty($query)) {
 					foreach($row as $key => $value) {
 						$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, $value);
 						$col++;
+					}
+					switch($downloadFileName)
+					{
+						case "cargo-inventory":
+						case "cargo-processed":
+							$airwaybillEx = getAirWayBill($row['airwaybill']);
+							if($airwaybillEx != NULL) {
+								$itemDateUnix = strtotime($airwaybillEx->getDateIn());
+								$itemDays = number_of_cargo_days(date('Y-m-d', $itemDateUnix), date('Y-m-d'));
+								$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, calculateCheckoutFee($itemDays, $row['consignee_type_name'], $row['item_weight'], $row['cargo_type'], $row['refrigerated_time']));
+								$col++;
+							}
+							break;
 					}
 				}
 				$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');

@@ -11,35 +11,31 @@ if(strpos($_SERVER['REQUEST_URI'], "groundhandling/index.php") == false) {
 
 require_once 'config.php';
 require_once 'dbconnect.php';
-require_once 'includes/AIAGroundOpsTemplate.interface.php';
+require_once 'includes/AIAGroundHandlingTemplate.interface.php';
 require_once 'includes/account.class.php';
 require_once 'includes/airwaybill.class.php';
 require_once 'includes/cargotype.class.php';
 require_once 'includes/carrier.class.php';
 require_once 'includes/consignee.class.php';
+require_once 'includes/consigneetype.class.php';
 require_once 'assets/PHPExcel-1.8.1/Classes/PHPExcel.php';
 
 $eventlognames = [
 	"User Authentication",
 	"User Log Out",
 	"CSV Report Download",
-	"Excel Report Download",
-	"Flypassen 4",
-	"Flypassen 5",
-	"Flypassen 6",
-	"Flypassen 7",
-	"Flypassen 8",
-	"Flypassen 9",
-	"Flypassen 10",
-	"Flypassen 11",
-	"Flypassen 12",
-	"Flypassen 13"
+	"Excel Report Download"//,
+	//"Flypassen 4",
+	//"Flypassen 5",
 ];
 
 if($connectionHandle->ping()) {
+	$accounts = array();
 	$airwaybills = array();
 	$carriers = array();
 	$cargotypes = array();
+	$consignees = array();
+	$consigneetypes = array();
 
 	$sql = "SELECT `accountid`, `username` FROM `". TABLE_ACCOUNTS ."` ORDER BY `". TABLE_ACCOUNTS ."`.`accountid` ASC";
 	
@@ -74,6 +70,13 @@ if($connectionHandle->ping()) {
 	if($result = $connectionHandle->query($sql)) {
 		while ( $row = $result->fetch_assoc() ) {
 			$consignees[] = new Consignee($row['ID'], $row['name'], $row['carrier_id']);
+		}
+	}
+	$sql = "SELECT * FROM `". TABLE_CONSIGNEE_TYPES ."` ORDER BY `". TABLE_CONSIGNEE_TYPES ."`.`ID` DESC";
+	
+	if($result = $connectionHandle->query($sql)) {
+		while ( $row = $result->fetch_assoc() ) {
+			$consigneetypes[] = new ConsigneeType($row['ID'], $row['consignee_type_name'], $row['exempted']);
 		}
 	}
 }
@@ -172,6 +175,18 @@ function getCargoRefrigeratedTimes($item_id)
 	return $row;
 }
 
+function getItemTypeNameFromId($item_type_id)
+{
+	global $cargotypes;
+
+	foreach($cargotypes as $cargotype) {
+		if($cargotype->getId() == $item_type_id) {
+			return $cargotype->getName();
+		}
+	}
+	return "";
+}
+
 function getItemTypeId($item_type)
 {
 	global $cargotypes;
@@ -234,18 +249,44 @@ function getConsigneeNameFromId($consigneeId)
 	return "None";
 }
 
-function calculateCheckoutFee($daysInCargo, $item_weight, $item_type, $refrigerated_time)
+function getConsigneeTypeNameFromId($consigneeTypeId)
 {
+	global $consigneetypes;
+
+	foreach($consigneetypes as $consigneetype) {
+		if($consigneetype->getId() == $consigneeTypeId) {
+			return $consigneetype->getName();
+		}
+	}
+	return "None";
+}
+
+function calculateCheckoutFee($days_in_cargo, $consignee_type, $item_weight, $item_type, $refrigerated_time)
+{
+	$baseFee = 0.0;
+	switch($consignee_type)
+	{
+		case "AIA":
+		case "Government":
+			return 0;
+		case "Business":
+			$baseFee = 0;
+			break;
+		case "Personal":
+			$baseFee = 5.0;
+			break;
+	}
+	$consignee_type = getConsigneeTypeNameFromId($consignee_type);
 	$itemTypeRate = getItemTypeRate($item_type);
 	if($refrigerated_time) {
-		$itemTypeRate += 0.0378;
+		$itemTypeRate += 0.087;
 	}
 	$checkoutFee = 0.0;
-	if($daysInCargo == 6) {
-		$checkoutFee = 5.0;
+	if($days_in_cargo == 6) {
+		$checkoutFee = $baseFee;
 	}
-	else if($daysInCargo >= 7) {
-		$checkoutFee = 5.0;
+	else if($days_in_cargo >= 7) {
+		$checkoutFee = $baseFee;
 		for($i = 0, $upperBound = round($item_weight); $i < $upperBound; $i++) {
 			$checkoutFee += $itemTypeRate;
 		}

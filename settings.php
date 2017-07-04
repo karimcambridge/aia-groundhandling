@@ -71,7 +71,7 @@ function ajaxListUsers() {
 				var newData = JSON.parse(data);
 				if(newData.length > 0) {
 					newUserDiv = $(document.createElement('div')).attr("id", 'user-div');
-	console.log(newUserDiv);
+					console.log(newUserDiv);
 
 					var htmlString = '<tag for="user-selection" class="form-control-label">Users</tag>' + '<select class="form-control" id="user-selection" name="user-selection" required>';
 

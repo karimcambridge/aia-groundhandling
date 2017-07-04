@@ -21,7 +21,7 @@
 				exit();
 			}
 		}
-		$query      = 'SELECT `' . TABLE_CARGO_INVENTORY . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `' . TABLE_CARGO_INVENTORY . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_INVENTORY . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
+		$query      = 'SELECT `' . TABLE_CARGO_INVENTORY . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `consignee_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `' . TABLE_CARGO_INVENTORY . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_INVENTORY . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
 		if(!empty($airwaybill)) {
 			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
 		}
@@ -220,6 +220,7 @@
 										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Date Received</th>';
 									} else {
+										echo '<th class="active">Type of Consignee</th>';
 										echo '<th class="active">Type of Cargo</th>';
 										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Item Description</th>';
@@ -249,6 +250,7 @@
 												$editingItemDateUnix = strtotime($airwaybillEx->getDateIn());
 												$editingItemDays = number_of_cargo_days(date('Y-m-d', $editingItemDateUnix), date('Y-m-d'));
 												echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
+												echo "<td>" . getConsigneeTypeNameFromId($results->data[$i]['consignee_type_id']) . "</td>";
 												echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_quantity'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_description'] . "</td>";
@@ -276,7 +278,7 @@
 													$editingItemQuantity = $results->data[$i]['item_quantity'];
 													$editingItemDescription = $results->data[$i]['item_description'];
 													$editingItemWeight = $results->data[$i]['item_weight'];
-													$editingItemFee = calculateCheckoutFee($editingItemDays, $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
+													$editingItemFee = calculateCheckoutFee($editingItemDays, getConsigneeTypeNameFromId($results->data[$i]['consignee_type_id']), $editingItemWeight, $results->data[$i]['cargo_type'], $results->data[$i]['refrigerated_time']);
 													$editingItemRefrigeratedUnix = $results->data[$i]['refrigerated_unix'];
 												}
 											}

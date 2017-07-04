@@ -1,5 +1,5 @@
 <?php
-class Account implements AIAGroundOpsTemplate
+class Account implements AIAGroundHandlingTemplate
 {
 	private $accountId;
 	private $accountName;
