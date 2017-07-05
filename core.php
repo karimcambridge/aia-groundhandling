@@ -142,7 +142,7 @@ function getAccountNameFromId($accountid)
 			return $account->getName();
 		}
 	}
-	return "";
+	return "INVALID";
 }
 
 function getAirWayBill($airwaybillname)
@@ -184,7 +184,7 @@ function getItemTypeNameFromId($item_type_id)
 			return $cargotype->getName();
 		}
 	}
-	return "";
+	return "INVALID";
 }
 
 function getItemTypeId($item_type)
@@ -203,14 +203,25 @@ function getItemTypeId($item_type)
 function getItemTypeRate($item_type)
 {
 	global $cargotypes;
-	$itemTypeRate = 0.0;
 
 	foreach($cargotypes as $cargotype) {
 		if(strcmp($cargotype->getName(), $item_type) == 0) {
-			$itemTypeRate = $cargotype->getPricePerKg();
+			return $cargotype->getPricePerKg();
 		}
 	}
-	return $itemTypeRate;
+	return 0.0;
+}
+
+function getItemTypeRateFromId($item_type)
+{
+	global $cargotypes;
+
+	foreach($cargotypes as $cargotype) {
+		if($cargotype->getId() == $item_type) {
+			return $cargotype->getPricePerKg();
+		}
+	}
+	return 0.0;
 }
 
 function getCarrierNameFromId($carrierId)
@@ -222,7 +233,7 @@ function getCarrierNameFromId($carrierId)
 			return $carrier->getName();
 		}
 	}
-	return "";
+	return "INVALID";
 }
 
 function getCarrierIdFromName($carrier_name)
@@ -246,7 +257,7 @@ function getConsigneeNameFromId($consigneeId)
 			return $consignee->getName();
 		}
 	}
-	return "None";
+	return "NONE";
 }
 
 function getConsigneeTypeNameFromId($consigneeTypeId)
@@ -258,12 +269,39 @@ function getConsigneeTypeNameFromId($consigneeTypeId)
 			return $consigneetype->getName();
 		}
 	}
-	return "None";
+	return "INVALID";
+}
+
+function calculateAirWayBillCheckoutFee($airwaybill, $inOrOut)
+{
+	global $connectionHandle;
+
+	$totalCheckoutFee = 0.0;
+	if($inOrOut == "in") {
+		$query = "SELECT `" . TABLE_CARGO_INVENTORY . "`.`ID`, `" . TABLE_CARGO_INVENTORY . "`.`airwaybill`, `" . TABLE_CARGO_INVENTORY . "`.`cargo_type_id`, `" . TABLE_CARGO_INVENTORY . "`.`item_quantity`, `" . TABLE_CARGO_INVENTORY . "`.`item_weight`, `" . TABLE_CARGO_INVENTORY . "`.`date_in`, `refrigerated_time`, `refrigerated_unix`, `". TABLE_AIRWAYBILLS ."`.`date_in` AS `airwaybill_date_in`, `". TABLE_AIRWAYBILLS ."`.`date_out` AS `airwaybill_date_out`, `". TABLE_AIRWAYBILLS ."`.`consignee_type_id`, `" . TABLE_CARGO_ITEM_TYPES . "`.`cargo_type` FROM `" . TABLE_CARGO_INVENTORY . "`, `". TABLE_AIRWAYBILLS ."`, `". TABLE_CARGO_ITEM_TYPES ."` WHERE `" . TABLE_CARGO_INVENTORY . "`.`airwaybill` = '" . $airwaybill . "' AND `" . TABLE_CARGO_INVENTORY . "`.`cargo_type_id` = `" . TABLE_CARGO_ITEM_TYPES . "`.`ID` AND `" . TABLE_CARGO_INVENTORY . "`.`airwaybill` = `". TABLE_AIRWAYBILLS ."`.`airwaybill`";
+	} else {
+		$query = "SELECT `" . TABLE_CARGO_OUT . "`.`ID`, `" . TABLE_CARGO_OUT . "`.`airwaybill`, `" . TABLE_CARGO_OUT . "`.`cargo_type_id`, `" . TABLE_CARGO_OUT . "`.`item_quantity`, `" . TABLE_CARGO_OUT . "`.`item_weight`, `" . TABLE_CARGO_OUT . "`.`date_in`, `" . TABLE_CARGO_OUT . "`.`date_out`, `refrigerated_time`, `". TABLE_AIRWAYBILLS ."`.`date_in` AS `airwaybill_date_in`, `". TABLE_AIRWAYBILLS ."`.`date_out` AS `airwaybill_date_out`, `". TABLE_AIRWAYBILLS ."`.`consignee_type_id`, `" . TABLE_CARGO_ITEM_TYPES . "`.`cargo_type` FROM `" . TABLE_CARGO_OUT . "`, `". TABLE_AIRWAYBILLS ."`, `". TABLE_CARGO_ITEM_TYPES ."` WHERE `" . TABLE_CARGO_OUT . "`.`airwaybill` = '" . $airwaybill . "' AND `" . TABLE_CARGO_OUT . "`.`cargo_type_id` = `" . TABLE_CARGO_ITEM_TYPES . "`.`ID` AND `" . TABLE_CARGO_OUT . "`.`airwaybill` = `". TABLE_AIRWAYBILLS ."`.`airwaybill`";
+	}
+	$result = $connectionHandle->query($query) or die($query);
+	if($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$date_out;
+			if($inOrOut == "in") {
+				$date_out = date('Y-m-d');
+			} else {
+				$date_out = (strtotime($row['airwaybill_date_out']) == 0 ? $row['date_out'] : $row['airwaybill_date_out']);
+			}
+			$totalCheckoutFee += calculateCheckoutFee(number_of_cargo_days($row['airwaybill_date_in'], $date_out), getConsigneeTypeNameFromId($row['consignee_type_id']), $row['item_weight'], $row['cargo_type'], $row['refrigerated_time']);
+		}
+	}
+	return $totalCheckoutFee;
 }
 
 function calculateCheckoutFee($days_in_cargo, $consignee_type, $item_weight, $item_type, $refrigerated_time)
 {
 	$baseFee = 0.0;
+	$checkoutFee = 0.0;
+	$lateDays = $days_in_cargo - 6;
 	switch($consignee_type)
 	{
 		case "AIA":
@@ -277,25 +315,29 @@ function calculateCheckoutFee($days_in_cargo, $consignee_type, $item_weight, $it
 			break;
 	}
 	$consignee_type = getConsigneeTypeNameFromId($consignee_type);
-	$itemTypeRate = getItemTypeRate($item_type);
-	if($refrigerated_time) {
-		$itemTypeRate += 0.087;
+	if(is_numeric($item_type)) {
+		$itemTypeRate = getItemTypeRateFromId($item_type);
+	} else {
+		$itemTypeRate = getItemTypeRate($item_type);
 	}
-	$checkoutFee = 0.0;
-	if($days_in_cargo == 6) {
+	if($refrigerated_time) {
+		$itemTypeRate += 0.0378;
+	}
+	if($lateDays == 0) {
 		$checkoutFee = $baseFee;
 	}
-	else if($days_in_cargo >= 7) {
+	else if($lateDays > 0) {
 		$checkoutFee = $baseFee;
 		for($i = 0, $upperBound = round($item_weight); $i < $upperBound; $i++) {
 			$checkoutFee += $itemTypeRate;
 		}
+		$checkoutFee *= $lateDays;
 	}
 	if($refrigerated_time) {
 		$checkoutFee += ($checkoutFee * 1.15);
 	}
 	//$checkoutFee += ($checkoutFee * 1.16); no vat!
-	return $checkoutFee;
+	return round($checkoutFee, PHP_ROUND_HALF_UP);
 }
 
 function number_of_cargo_days($from, $to)
@@ -305,7 +347,7 @@ function number_of_cargo_days($from, $to)
 
     $from = new DateTime($from);
     $to = new DateTime($to);
-    $to->modify('+1 day');
+    //$to->modify('+1 day');
     $interval = new DateInterval('P1D');
     $periods = new DatePeriod($from, $interval, $to);
 

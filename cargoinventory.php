@@ -21,17 +21,17 @@
 				exit();
 			}
 		}
-		$query      = 'SELECT `' . TABLE_CARGO_INVENTORY . '`.`ID`, `airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `consignee_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix` FROM `' . TABLE_CARGO_INVENTORY . '`, `' . TABLE_CARGO_ITEM_TYPES . '` WHERE `' . TABLE_CARGO_INVENTORY . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` ';
+		$query      = 'SELECT `' . TABLE_CARGO_INVENTORY . '`.`ID`, `' . TABLE_CARGO_INVENTORY . '`.`airwaybill`, `' . TABLE_CARGO_ITEM_TYPES . '`.`cargo_type` AS `cargo_type`, `item_quantity`, `item_description`, `item_weight`, `' . TABLE_CARGO_INVENTORY . '`.`date_in`, `refrigerated_time`, `refrigerated_unix`, `'. TABLE_AIRWAYBILLS .'`.`consignee_type_id` FROM `' . TABLE_CARGO_INVENTORY . '`, `' . TABLE_CARGO_ITEM_TYPES . '`, `'. TABLE_AIRWAYBILLS .'` WHERE `' . TABLE_CARGO_INVENTORY . '`.`cargo_type_id` = `' . TABLE_CARGO_ITEM_TYPES . '`.`ID` AND `' . TABLE_CARGO_INVENTORY . '`.`airwaybill` = `'. TABLE_AIRWAYBILLS .'`.`airwaybill` ';
 		if(!empty($airwaybill)) {
-			$query  .= "AND `airwaybill` = '" . $airwaybill . "'";
+			$query  .= "AND `" . TABLE_CARGO_INVENTORY . "`.`airwaybill` = '" . $airwaybill . "'";
 		}
-		$query      .= 'ORDER BY `date_in`,`airwaybill` DESC';
+		$query      .= ' ORDER BY `date_in`,`airwaybill` DESC';
 	}
 	else if(isset($_GET['search-airwaybill'])) {
 		$partialAirwaybill = $_GET['search-airwaybill'];
-		$query = 'SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, `in_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `airwaybill` LIKE \'%' . $partialAirwaybill . '%\' AND `in_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
+		$query = 'SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `consignee_type_id`, `date_in`, `in_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `airwaybill` LIKE \'%' . $partialAirwaybill . '%\' AND `in_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
 	} else {
-		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `date_in`, `in_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `in_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
+		$query      = 'SELECT `ID`, `airwaybill`, `carrier_id`, `consignee_id`, `consignee_type_id`, `date_in`, `in_quantity` FROM `' . TABLE_AIRWAYBILLS . '` WHERE `in_quantity` > 0 ORDER BY `date_in` DESC, `ID` DESC';
 	}
 
 	$limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 12;
@@ -217,10 +217,11 @@
 										echo '<th class="active">Air Way Bill #</th>';
 										echo '<th class="active">Carrier</th>';
 										echo '<th class="active">Consignee</th>';
+										echo '<th class="active">Type of Consignee</th>';
 										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Date Received</th>';
+										echo '<th class="active">Checkout Levy</th>';
 									} else {
-										echo '<th class="active">Type of Consignee</th>';
 										echo '<th class="active">Type of Cargo</th>';
 										echo '<th class="active">Item Quantity</th>';
 										echo '<th class="active">Item Description</th>';
@@ -242,15 +243,16 @@
 												echo "<td><a href=" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . keepLinks('limit', 'page', 'links') . ">" . $results->data[$i]['airwaybill'] . "</a></td>";
 												echo "<td>" . getCarrierNameFromId($results->data[$i]['carrier_id']) . "</td>";
 												echo "<td>" . getConsigneeNameFromId($results->data[$i]['consignee_id']) . "</td>";
+												echo "<td>" . getConsigneeTypeNameFromId($results->data[$i]['consignee_type_id']) . "</td>";
 												echo "<td>" . $results->data[$i]['in_quantity'] . "</td>";
 												echo "<td>" . $results->data[$i]['date_in'] . "</td>";
+												echo "<td>$" . calculateAirWayBillCheckoutFee($results->data[$i]['airwaybill'], "in") . "</td>";
 												echo "</tr>";
 											} else {
-												$airwaybillEx = getAirWayBill($results->data[$i]['airwaybill']);
-												$editingItemDateUnix = strtotime($airwaybillEx->getDateIn());
-												$editingItemDays = number_of_cargo_days(date('Y-m-d', $editingItemDateUnix), date('Y-m-d'));
+												$airwaybillPtr = getAirWayBill($results->data[$i]['airwaybill']);
+												$editingItemDateUnix = strtotime($airwaybillPtr->getDateIn());
+												$editingItemDays = number_of_cargo_days($airwaybillPtr->getDateIn(), date('Y-m-d')); // date('Y-m-d', $editingItemDateUnix)
 												echo "<tr class='clickable-row' data-href='" . $_SERVER['SCRIPT_NAME'] . "?airwaybill=" . $results->data[$i]['airwaybill'] . "&edit=" . $results->data[$i]['ID'] . keepLinks('limit', 'page', 'links') . "'>";
-												echo "<td>" . getConsigneeTypeNameFromId($results->data[$i]['consignee_type_id']) . "</td>";
 												echo "<td>" . $results->data[$i]['cargo_type'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_quantity'] . "</td>";
 												echo "<td>" . $results->data[$i]['item_description'] . "</td>";
