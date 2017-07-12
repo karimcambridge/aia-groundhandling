@@ -193,7 +193,7 @@
 					?>
 					<?php
 						if(empty($airwaybill)) {
-							echo '<form id="airwaybill-search-form" name="airwaybill-search-form" action="">
+							echo '<form id="airwaybill-search-form" name="airwaybill-search-form" action="" onClick="return checkSearchValue()">
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="Search Air Way Bill #" name="search-airwaybill" id="search-airwaybill">
 									<div class="input-group-btn">
@@ -389,6 +389,16 @@
 </div>
 
 <script type="text/javascript">
+
+function checkSearchValue() {
+    var x;
+    x = document.getElementById("search-airwaybill").value;
+    if (x == "") {
+        alert("Please Enter a Valid Character.");
+        return false;
+    };
+}
+
 jQuery(document).ready(function($) {
 	$(".clickable-row").click(function() {
 		window.location = $(this).data("href");
