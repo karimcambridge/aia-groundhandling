@@ -12,7 +12,6 @@ if(isset($_POST['cargoInsert'])) {
 	$airwaybill = $_POST['air-way-bill-selection'];
 	$item_datetime = $_POST['item-datetime']; // AirWayBill Date
 	$item_type = $_POST['item-type'];
-	$item_consigneetype = $_POST['item-consigneetype'];
 	$item_quantity = $_POST['item-quantity'];
 	$item_description = $_POST['item-description'];
 	$item_weight = $_POST['item-weight'];
@@ -31,7 +30,7 @@ if(isset($_POST['cargoInsert'])) {
 		if($item_weight_type == 'lb') {
 			$item_weight = poundsToKG($item_weight);
 		}
-		$query = "INSERT INTO `" . TABLE_CARGO_INVENTORY . "` (`airwaybill`, `cargo_type_id`, `consignee_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix`) VALUES ('$airwaybill', '$item_type', '$item_consigneetype', '$item_quantity', '$item_description', '$item_weight', CURRENT_TIMESTAMP(), 0, '$item_refrigerated_unix');";
+		$query = "INSERT INTO `" . TABLE_CARGO_INVENTORY . "` (`airwaybill`, `cargo_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix`) VALUES ('$airwaybill', '$item_type', '$item_quantity', '$item_description', '$item_weight', CURRENT_TIMESTAMP(), 0, '$item_refrigerated_unix');";
 		$query .= "UPDATE `". TABLE_AIRWAYBILLS ."` SET `in_quantity` = `in_quantity` + 1 WHERE `". TABLE_AIRWAYBILLS ."`.`airwaybill` = '" . $airwaybill . "';";
 
 		if($result = $connectionHandle->multi_query($query)) {
@@ -141,16 +140,6 @@ if(isset($_SESSION['air-way-bill-selection'])) {
 											<div class="form-group">
 												<tag for="item-consignee" class="form-control-tag">Consignee:</tag>
 												<input class="form-control" type="text" name="item-consignee" id="item-consignee" value="<?=$airwaybillConsignee;?>" readonly></input>
-											</div>
-											<div class="form-group">
-												<tag for="item-consigneetype" class="form-control-tag">Consignee Type:</tag>
-												<select class="form-control" name="item-consigneetype" id="item-consigneetype" required>
-												<?php
-													foreach($consigneetypes as $consigneetype) {
-														echo '<option value="' . $consigneetype->getId() . '">' . $consigneetype->getName() . '</option>';
-													}
-												?>
-												</select>
 											</div>
 											<div class="form-group">
 												<tag for="item-type" class="form-control-tag">Type:</tag>

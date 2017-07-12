@@ -147,6 +147,7 @@ if(!empty($query)) {
 						}
 						switch($downloadFileName)
 						{
+							case "air-way-bills":
 							case "cargo-inventory":
 							case "cargo-processed":
 								$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, map_colnames("Checkout Levy"));
@@ -163,6 +164,13 @@ if(!empty($query)) {
 					}
 					switch($downloadFileName)
 					{
+						case "air-way-bills":
+							$airwaybillEx = getAirWayBill($row['airwaybill']);
+							if($airwaybillEx != NULL) {
+								$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, calculateAirWayBillCheckoutFee($airwaybillEx->getName(), "out"));
+								$col++;
+							}
+							break;
 						case "cargo-inventory":
 						case "cargo-processed":
 							$airwaybillEx = getAirWayBill($row['airwaybill']);
