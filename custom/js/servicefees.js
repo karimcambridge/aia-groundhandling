@@ -8,8 +8,6 @@ function onCalculateServiceFees() {
 		aircraftWeight,
 		wheelchairQuantity,
 		wheelchairTime,
-		airbridgeQuantity,
-		airbridgeTime,
 		HLQuantity,
 		HLTime,
 		quantityGPU,
@@ -37,8 +35,6 @@ function onCalculateServiceFees() {
 	aircraftWeight			=	document.getElementById("aircraftWeight").value;
 	wheelchairQuantity		=	document.getElementById("quantityWheelchair").value;
 	wheelchairTime			=	document.getElementById("timeWheelchair").value;
-	airbridgeQuantity		=	document.getElementById("quantityAirbridge").value;
-	airbridgeTime			=	document.getElementById("timeAirbridge").value;
 	HLQuantity				=	document.getElementById("quantityHL").value;
 	HLTime					=	document.getElementById("timeHL").value;
 	quantityGPU				=	document.getElementById("quantityGPU").value;
@@ -67,9 +63,6 @@ function onCalculateServiceFees() {
 
 	if(wheelchairQuantity > 0 && wheelchairTime > 0) {
 		aircraftTotalFee += (wheelchairTime * 5) * overtimeRate;
-	}
-	if(airbridgeQuantity > 0 && airbridgeTime > 0) {
-		aircraftTotalFee += (airbridgeTime * 5) * overtimeRate;
 	}
 	if(HLQuantity > 0 && HLTime > 0) {
 		aircraftTotalFee += (HLTime * 350) * overtimeRate;

@@ -38,8 +38,8 @@
         <li class="nav-item"><a class="nav-link" href="cargoinventory.php">Cargo Inventory <span class="fa fa-search"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="airwaybillscan.php">AirWayBill Entry <span class="fa fa-briefcase"></span></a></li>
         <li class="nav-item"><a class="nav-link" href="cargoinsert.php">Insert Cargo <span class="fa fa-floppy-o"></span></a></li>
-        <!--<li class="nav-item"><a class="nav-link" href="cargofees.php">Cargo Fees <span class="fa fa-eur"></span></a></li>
-        <li class="nav-item"><a class="nav-link" href="servicefees.php">Services Fees <span class="fa fa-usd"></span></a></li>-->
+        <li class="nav-item"><a class="nav-link" href="cargofees.php">Cargo Fees <span class="fa fa-eur"></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="servicefees.php">Services Fees <span class="fa fa-usd"></span></a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <?php

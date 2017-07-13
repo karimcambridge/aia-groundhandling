@@ -389,14 +389,13 @@
 </div>
 
 <script type="text/javascript">
-
 function checkSearchValue() {
-    var x;
-    x = document.getElementById("search-airwaybill").value;
-    if (x == "") {
-        alert("Please Enter a Valid Character.");
-        return false;
-    };
+	var x;
+	x = document.getElementById("search-airwaybill").value;
+	if (x == "") {
+		alert("Please Enter a Valid Character.");
+		return false;
+	};
 }
 
 jQuery(document).ready(function($) {
