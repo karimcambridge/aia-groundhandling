@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12"
+		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header"><strong>Aircraft Carrier Service Fees</strong></div>
 				<!-- /card-heading -->
@@ -49,7 +49,8 @@
 							<option value="narrowbody">Narrow Body</option>
 						</select>
 					</div>
-					<div class="col-md-4 table-responsive">
+					<div class="col-md-8">
+						<div class="col-md-4">
 						<table>
 							<tr>
 								<th>Service</th>
@@ -137,10 +138,8 @@
 									<input type="number" id="timeACMntxEquipment" min="0" max="24" value="0" onchange="onCalculateServiceFees()" />
 								</div></td>
 							</tr>
-						</table>
-					</div>
-					<div class="col-md-4 table-responsive">
-						<table>
+						</div>
+						<div class="col-md-4">
 							<tr>
 								<th>Service</th>
 								<th>Pushes / Starts / Services</th>

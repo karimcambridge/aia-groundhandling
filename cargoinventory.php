@@ -193,7 +193,7 @@
 					?>
 					<?php
 						if(empty($airwaybill)) {
-							echo '<form id="airwaybill-search-form" name="airwaybill-search-form" action="" onClick="return checkSearchValue()">
+							echo '<form id="airwaybill-search-form" name="airwaybill-search-form" action="" onsubmit="return checkSearchValue()">
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="Search Air Way Bill #" name="search-airwaybill" id="search-airwaybill">
 									<div class="input-group-btn">

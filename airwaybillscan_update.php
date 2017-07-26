@@ -8,6 +8,7 @@ if($_POST['airwaybill']) {
 	if(isset($_POST['consigneeid'])) {
 		$consigneeId = $_POST['consigneeid'];
 	}
+	$consigneeTypeId = $_POST['consigneetypeid'];
 	if(!empty($airwaybill)) {
 		if(is_numeric($carrierId) && $carrierId >= 0) {
 			$airwaybill = $connectionHandle->real_escape_string($airwaybill);
@@ -27,7 +28,7 @@ if($_POST['airwaybill']) {
 						echo json_encode($errorStr);
 					}
 				} else {
-					$query = (!empty($consigneeId)) ? "INSERT IGNORE INTO `" . TABLE_AIRWAYBILLS . "` (`airwaybill`, `carrier_id`, `consignee_id`) VALUES ('$airwaybill', '$carrierId', '$consigneeId');" : "INSERT IGNORE INTO `" . TABLE_AIRWAYBILLS . "` (`airwaybill`, `carrier_id`) VALUES ('$airwaybill', '$carrierId');";
+					$query = (!empty($consigneeId)) ? "INSERT IGNORE INTO `" . TABLE_AIRWAYBILLS . "` (`airwaybill`, `carrier_id`, `consignee_id`, `consignee_type_id`) VALUES ('$airwaybill', '$carrierId', '$consigneeId', '$consigneeTypeId');" : "INSERT IGNORE INTO `" . TABLE_AIRWAYBILLS . "` (`airwaybill`, `carrier_id`, `consignee_type_id`) VALUES ('$airwaybill', '$carrierId', '$consigneeTypeId');";
 					$result = $connectionHandle->query($query);
 				}
 			}

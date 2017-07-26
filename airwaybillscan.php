@@ -29,6 +29,18 @@
 						</div>
 						<div class="form-group" id='consignee-group'></div>
 						<div class="form-group">
+							<tag for="consignee-type-selection" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control-label">Consignee Type</tag>
+							<div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
+								<select class="form-control" id="consignee-type-selection" name="consignee-type-selection" required>
+								<?php
+									foreach($consigneetypes as $consigneetypes) {
+										echo '<option value="' . $consigneetypes->getId() . '">' . $consigneetypes->getName() . '</option>';
+									}
+								?>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
 							<tag for="air-way-bill-scan" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control-label">Air Way Bill #</tag>
 							<div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
 								<input type="text" class="form-control" id="air-way-bill-scan" name="air-way-bill-scan" placeholder="xxx-xxx-xxx" required autofocus />
@@ -102,6 +114,7 @@ $(document).ready(function() {
 		if($("#consignee-selection").val()) {
 			dataString += '&consigneeid=' + $("#consignee-selection").val();
 		}
+		dataString += '&consigneetypeid=' + $("#consignee-type-selection").val();
 		$.ajax({
 			type: "POST",
 			url: "airwaybillscan_update.php",
