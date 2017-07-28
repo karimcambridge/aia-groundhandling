@@ -55,7 +55,47 @@
 		$editingItemFee;
 		$editingItemRefrigeratedUnix;
 	}
-	if(isset($_POST['cargoEdit']) || isset($_POST['cargoCheckout'])) {
+	if(isset($_POST['cargoDelete'])) {
+		unset($_POST['cargoDelete']);
+ 		$item_id = $_POST['item-id'];
+		if(!is_numeric($item_id)) {
+			header('location:cargoinventory.php?airwaybill=' . $airwaybill);
+			exit();
+		}
+		$errorCount = 0;
+		$item_airwaybill = $_POST['item-airwaybill'];
+		$item_type = $_POST['item-type'];
+		$item_description = $_POST['item-description'];
+		$item_weight = $_POST['item-weight'];
+		$item_weight_type = $_POST['item-weight-type'];
+
+		$query = "INSERT INTO `" . TABLE_DELETED_CARGO_INVENTORY . "` (`ID`, `airwaybill`, `cargo_type_id`, `item_quantity`, `item_description`, `item_weight`, `date_in`, `refrigerated_time`, `refrigerated_unix`) SELECT * FROM `" . TABLE_CARGO_INVENTORY . "` WHERE `" . TABLE_CARGO_INVENTORY . "`.`ID` = " . $item_id . ";";
+		if($result = $connectionHandle->query($query)) { // Never delete data!
+			if($connectionHandle->errno) {
+				$errors[] = 'Database Failed (' . $connectionHandle->error . ')';
+				$errorCount++;
+			} else {
+				$query = "DELETE FROM `" . TABLE_CARGO_INVENTORY . "` WHERE `ID` = " . $item_id . ";";
+				if($result = $connectionHandle->query($query)) {
+					if($connectionHandle->errno) {
+						$errors[] = 'INCONSISTENCY 0 (REPORT FOR MANUAL FIX) Database Failed (' . $connectionHandle->error . ')';
+						$errorCount++;
+					}
+				}
+				$query = "UPDATE `" . TABLE_AIRWAYBILLS . "` SET `in_quantity` = `in_quantity` - 1, `scan_quantity` = `scan_quantity` - 1 WHERE `ID` = " . $item_id . ";";
+				if($result = $connectionHandle->query($query)) {
+					if($connectionHandle->errno) {
+						$errors[] = 'INCONSISTENCY 1 (REPORT FOR MANUAL FIX) Database Failed (' . $connectionHandle->error . ')';
+						$errorCount++;
+					}
+				}
+			}
+		}
+		if(empty($errorCount)) {
+			$messages_success[] = 'Item (' . $item_description . ') (' . $item_type . ') (' . $item_weight . ' ' . $item_weight_type . ') has been deleted successfully.';
+		}
+	}
+	else if(isset($_POST['cargoEdit']) || isset($_POST['cargoCheckout'])) {
 		$item_airwaybill = $_POST['item-airwaybill'];
 		if(empty($item_airwaybill)) {
 			$errors[] = "There may have been an error. The airwaybill from the menu may not have been parsed properly. Please refresh the entire page.";
@@ -373,9 +413,10 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button type="submit" name="cargoEdit" class="btn btn-success">Edit</button>
-									<button type="submit" name="cargoCheckout" class="btn btn-primary">Checkout</button>
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+									<button type="submit" name="cargoDelete" class="btn btn-danger mr-auto">DELETE</button>
+									<button type="submit" name="cargoEdit" class="btn btn-success">EDIT</button>
+									<button type="submit" name="cargoCheckout" class="btn btn-primary">CHECKOUT</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
 								</div>
 								</div>
 							 	</div>
