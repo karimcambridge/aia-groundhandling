@@ -32,7 +32,7 @@ $colnames = [
 	'consignee_name' => "Consignee Name",
 	'scan_quantity' => "Scanned Items",
 	'in_quantity' => "Items In Inventory",
-	'out_quantity' => "Items Processed",
+	'out_quantity' => "Items Removed From Inventory",
 	'item_description' => "Item Description",
 	'item_weight' => "Item Weight",
 	'refrigerated_time' => "Time Refrigerated (Sec)",
@@ -77,11 +77,10 @@ switch($downloadFileName)
 		$query = "SELECT `". TABLE_AIRWAYBILLS ."`.`ID`, `airwaybill`, `". TABLE_CARRIERS ."`.`name` AS `carrier_name`, `". TABLE_CONSIGNEES ."`.`name` AS `consignee_name`, `date_in`, `scan_quantity`, `in_quantity`, `out_quantity` FROM `". TABLE_AIRWAYBILLS ."`, `". TABLE_CARRIERS ."`, `". TABLE_CONSIGNEES ."` WHERE `". TABLE_AIRWAYBILLS ."`.`carrier_id` = `". TABLE_CARRIERS ."`.`ID` AND `". TABLE_AIRWAYBILLS ."`.`consignee_id` = `". TABLE_CONSIGNEES ."`.`ID` AND `date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
 		break;
 	case "cargo-inventory":
-		$query = "SELECT `". TABLE_CARGO_INVENTORY ."`.`ID`, `". TABLE_CARGO_INVENTORY ."`.`airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `". TABLE_CONSIGNEE_TYPES ."`.`consignee_type_name`, `item_description`, `item_weight`, `". TABLE_CARGO_INVENTORY ."`.`date_in`, `refrigerated_time` FROM `". TABLE_CARGO_INVENTORY ."`, `". TABLE_CARGO_ITEM_TYPES ."`, `". TABLE_CONSIGNEE_TYPES ."` WHERE `". TABLE_CARGO_INVENTORY ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `". TABLE_CARGO_INVENTORY ."`.`consignee_type_id` = `". TABLE_CONSIGNEE_TYPES ."`.`ID` AND `". TABLE_CARGO_INVENTORY ."`.`date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
+		$query = "SELECT `". TABLE_CARGO_INVENTORY ."`.`ID`, `". TABLE_CARGO_INVENTORY ."`.`airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `". TABLE_CONSIGNEE_TYPES ."`.`consignee_type_name`, `item_description`, `item_weight`, `". TABLE_CARGO_INVENTORY ."`.`date_in`, `refrigerated_time` FROM `". TABLE_CARGO_INVENTORY ."`, `". TABLE_CARGO_ITEM_TYPES ."`, `". TABLE_CONSIGNEE_TYPES ."`, `". TABLE_AIRWAYBILLS ."` WHERE `". TABLE_CARGO_INVENTORY ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `". TABLE_AIRWAYBILLS ."`.`consignee_id` = `". TABLE_CONSIGNEE_TYPES ."`.`ID` AND `". TABLE_CARGO_INVENTORY ."`.`date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
 		break;
-	case "cargo-processed":
-		$query = "SELECT `". TABLE_CARGO_OUT ."`.`ID`, `". TABLE_CARGO_OUT ."`.`airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `". TABLE_CONSIGNEE_TYPES ."`.`consignee_type_name`, `item_description`, `item_weight`, `". TABLE_CARGO_OUT ."`.`date_in`, `". TABLE_CARGO_OUT ."`.`date_out`, `refrigerated_time` FROM `". TABLE_CARGO_OUT ."`, `". TABLE_CARGO_ITEM_TYPES ."`, `". TABLE_CONSIGNEE_TYPES ."` WHERE `". TABLE_CARGO_OUT ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `". TABLE_CARGO_OUT ."`.`consignee_type_id` = `". TABLE_CONSIGNEE_TYPES ."`.`ID` AND `". TABLE_CARGO_OUT ."`.`date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
-		echo $query;
+	case "cargo-removed":
+		$query = "SELECT `". TABLE_CARGO_OUT ."`.`ID`, `". TABLE_CARGO_OUT ."`.`airwaybill`, `". TABLE_CARGO_ITEM_TYPES ."`.`cargo_type` AS `cargo_type`, `". TABLE_CONSIGNEE_TYPES ."`.`consignee_type_name`, `item_description`, `item_weight`, `". TABLE_CARGO_OUT ."`.`date_in`, `". TABLE_CARGO_OUT ."`.`date_out`, `refrigerated_time` FROM `". TABLE_CARGO_OUT ."`, `". TABLE_CARGO_ITEM_TYPES ."`, `". TABLE_CONSIGNEE_TYPES ."`, `". TABLE_AIRWAYBILLS ."` WHERE `". TABLE_CARGO_OUT ."`.`cargo_type_id` = `". TABLE_CARGO_ITEM_TYPES ."`.`ID` AND `". TABLE_AIRWAYBILLS ."`.`consignee_id` = `". TABLE_CONSIGNEE_TYPES ."`.`ID` AND `". TABLE_CARGO_OUT ."`.`date_in` BETWEEN '" . $dateStart . "' AND '" . $dateEnd . "';";
 		break;
 	case "carriers";
 		$query = "SELECT * FROM `". TABLE_CARRIERS ."`";
@@ -93,7 +92,7 @@ switch($downloadFileName)
 
 if(!empty($query)) {
 	$flag = false;
-	$result = $connectionHandle->query($query) or die('Query failed!');
+	$result = $connectionHandle->query($query) or die('REPORT TO I.T: Query failed! (' . $connectionHandle->error . ')');
 
 	if($result->num_rows == 0) {
 		header("location: reports.php?error=nodata&datestart=" . $dateStart . "&dateend=" . $dateEnd);
@@ -150,7 +149,7 @@ if(!empty($query)) {
 						{
 							case "air-way-bills":
 							case "cargo-inventory":
-							case "cargo-processed":
+							case "cargo-removed":
 								$objPHPExcel->getActiveSheet()->SetCellValue($col.$rowId, map_colnames("Checkout Levy"));
 								$col++;
 								break;
@@ -173,7 +172,7 @@ if(!empty($query)) {
 							}
 							break;
 						case "cargo-inventory":
-						case "cargo-processed":
+						case "cargo-removed":
 							$airwaybillEx = getAirWayBill($row['airwaybill']);
 							if($airwaybillEx != NULL) {
 								$itemDateUnix = strtotime($airwaybillEx->getDateIn());
