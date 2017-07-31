@@ -2,7 +2,7 @@
 
 session_start();
 
-if(strpos($_SERVER['REQUEST_URI'], "groundhandling/index.php") == false) {
+if(strpos($_SERVER['REQUEST_URI'], "/index.php") == false) {
 	if(!isset($_SESSION['accountId'])) {
 		header('location: index.php');
 		exit();
