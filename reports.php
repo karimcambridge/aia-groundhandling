@@ -68,7 +68,7 @@ foreach($_GET as $key => $value) {
 								<select class="form-control" id="reportType" name="reportType" required>
 									<option value="air-way-bills">Air Way Bills</option>
 									<option value="cargo-inventory">Cargo Inventory</option>
-									<option value="cargo-processed">Cargo Removed</option>
+									<option value="cargo-removed">Cargo Removed</option>
 									<option value="carriers">Carriers</option>
 									<option value="consignees">Consignees</option>
 								</select>
